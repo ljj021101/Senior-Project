@@ -3,13 +3,40 @@ using UnityEngine;
 
 public class CaveGenerator : MonoBehaviour
 {
-    public int width = 50;
-    public int height = 50;
+    public int width = 100;
+    public int height = 100;
     public GameObject wallPrefab; // 需要在Unity编辑器中指定这个Prefab
     public GameObject treasurePrefab; // 宝箱Prefab
     public GameObject enemyPrefab; // 敌人Prefab
     public int numberOfWalkers = 20;
     private int[,] map;
+    Vector2Int playerPosition; // 玩家在地图上的位置
+    float moveSpeed = 5f; // 玩家移动速度
+    private bool isMoving = false;
+
+    public Transform playerTransform; // 玩家的 Transform 组件
+
+    void Update()
+    {
+        MovePlayer();
+        if (isMoving)
+        {
+            SmoothMovePlayer();
+        }
+    }
+
+    void SmoothMovePlayer()
+    {
+        Vector3 targetPosition = new Vector3(playerPosition.x, playerPosition.y, 0);
+        if (playerTransform.position != targetPosition)
+        {
+            playerTransform.position = Vector3.MoveTowards(playerTransform.position, targetPosition, moveSpeed * Time.deltaTime);
+        }
+        else
+        {
+            isMoving = false; // 当玩家到达目标位置时，设置isMoving为false
+        }
+    }
 
     void Start()
     {
@@ -24,11 +51,26 @@ public class CaveGenerator : MonoBehaviour
             SimulateWalkers();
             GenerateTreasuresAndEnemies();
             RandomlyPlaceEnemies();
+            SetPlayerStartPosition();
         } while (!IsValidMap());
 
         DrawMap(); // 只有验证通过后才绘制地图
     }
 
+    void SetPlayerStartPosition()
+    {
+        Vector2Int startPosition = GetRandomPathPosition();
+        if (startPosition.x != -1)  // 确保获取的位置是有效的
+        {
+            map[startPosition.x, startPosition.y] = 4;  // 4代表玩家
+            playerPosition = startPosition;  // 更新全局玩家位置变量
+            playerTransform.position = new Vector3(startPosition.x, startPosition.y, 0);
+        }
+        else
+        {
+            Debug.LogError("Failed to find a valid start position for the player!");
+        }
+    }
 
     void InitializeMap()
     {
@@ -45,19 +87,47 @@ public class CaveGenerator : MonoBehaviour
     void SimulateWalkers()
     {
         List<Walker> walkers = new List<Walker>();
-        for (int i = 0; i < numberOfWalkers; i++)
-        {
-            walkers.Add(new Walker(Random.Range(0, width), Random.Range(0, height)));
-        }
+        // 初始化第一个行走者
+        Walker firstWalker = new Walker(Random.Range(0, width), Random.Range(0, height));
+        walkers.Add(firstWalker);
+        map[firstWalker.position.x, firstWalker.position.y] = 0; // 确保起始点是通路
 
-        int totalMoves = 300;
+        int totalMoves = 60;
         for (int move = 0; move < totalMoves; move++)
         {
-            foreach (var walker in walkers)
+            foreach (var walker in new List<Walker>(walkers)) // 使用新列表避免修改原列表
             {
                 walker.Move(width, height, map); // 在Move方法中更新地图
+                if (move % (totalMoves / numberOfWalkers) == 0 && move != 0) // 每完成一部分路径后重新初始化一个行走者
+                {
+                    Vector2Int randomStart = GetRandomPathPosition();
+                    Walker newWalker = new Walker(randomStart.x, randomStart.y);
+                    walkers.Add(newWalker);
+                    map[newWalker.position.x, newWalker.position.y] = 0; // 确保新起点是通路
+                }
             }
         }
+    }
+
+    Vector2Int GetRandomPathPosition()
+    {
+        List<Vector2Int> possibleStarts = new List<Vector2Int>();
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                if (map[x, y] == 0) // 通路
+                {
+                    possibleStarts.Add(new Vector2Int(x, y));
+                }
+            }
+        }
+        if (possibleStarts.Count > 0)
+        {
+            int index = Random.Range(0, possibleStarts.Count);
+            return possibleStarts[index];
+        }
+        return new Vector2Int(0, 0); // 如果没有通路，返回默认位置
     }
 
     bool IsValidMap()
@@ -167,6 +237,7 @@ public class CaveGenerator : MonoBehaviour
 
     void DrawMap()
     {
+        ClearMap();
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
@@ -183,6 +254,42 @@ public class CaveGenerator : MonoBehaviour
                 else if (map[x, y] == 3)
                 {
                     Instantiate(enemyPrefab, position, Quaternion.identity);
+                }
+            }
+        }
+    }
+
+    void ClearMap()
+    {
+        GameObject[] oldObjects = GameObject.FindGameObjectsWithTag("map");
+        foreach (GameObject obj in oldObjects)
+        {
+            Destroy(obj);
+        }
+    }
+
+    void MovePlayer()
+    {
+        if (!isMoving && (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0))
+        {
+            Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            if (Mathf.Abs(input.x) > Mathf.Abs(input.y))
+                input.y = 0;
+            else
+                input.x = 0;
+
+            Vector2Int moveDirection = new Vector2Int((int)input.x, (int)input.y);
+            Vector2Int newPosition = playerPosition + moveDirection;
+
+            if (newPosition.x >= 0 && newPosition.x < width && newPosition.y >= 0 && newPosition.y < height)
+            {
+                if (map[newPosition.x, newPosition.y] == 0 || map[newPosition.x, newPosition.y] == 3)
+                {
+                    map[playerPosition.x, playerPosition.y] = 0;
+                    map[newPosition.x, newPosition.y] = 4;
+                    playerPosition = newPosition;
+                    isMoving = true;
+                    DrawMap();
                 }
             }
         }

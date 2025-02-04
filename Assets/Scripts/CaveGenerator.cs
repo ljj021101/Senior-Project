@@ -25,6 +25,43 @@ public class CaveGenerator : MonoBehaviour
         }
     }
 
+    void MovePlayer()
+    {
+        if (!isMoving)
+        {
+            Vector2Int moveDirection = Vector2Int.zero;
+
+            // 检测垂直方向键
+            if (Input.GetKey(KeyCode.W))
+                moveDirection += Vector2Int.up;
+            else if (Input.GetKey(KeyCode.S))
+                moveDirection += Vector2Int.down;
+
+            // 如果没有垂直移动，则检测水平方向键
+            if (moveDirection == Vector2Int.zero)
+            {
+                if (Input.GetKey(KeyCode.A))
+                    moveDirection += Vector2Int.left;
+                else if (Input.GetKey(KeyCode.D))
+                    moveDirection += Vector2Int.right;
+            }
+
+            Vector2Int newPosition = playerPosition + moveDirection;
+
+            if (newPosition.x >= 0 && newPosition.x < width && newPosition.y >= 0 && newPosition.y < height)
+            {
+                if (map[newPosition.x, newPosition.y] == 0 || map[newPosition.x, newPosition.y] == 3)
+                {
+                    map[playerPosition.x, playerPosition.y] = 0;
+                    map[newPosition.x, newPosition.y] = 4;
+                    playerPosition = newPosition;
+                    isMoving = true; // 玩家开始移动
+                    DrawMap();
+                }
+            }
+        }
+    }
+
     void SmoothMovePlayer()
     {
         Vector3 targetPosition = new Vector3(playerPosition.x, playerPosition.y, 0);
@@ -34,7 +71,7 @@ public class CaveGenerator : MonoBehaviour
         }
         else
         {
-            isMoving = false; // 当玩家到达目标位置时，设置isMoving为false
+            isMoving = false; // 玩家到达目标位置，停止移动
         }
     }
 
@@ -238,9 +275,15 @@ public class CaveGenerator : MonoBehaviour
     void DrawMap()
     {
         ClearMap();
-        for (int x = 0; x < width; x++)
+        int radius = 10;  // 设置绘制半径
+        int startX = Mathf.Max(0, playerPosition.x - radius);
+        int endX = Mathf.Min(width, playerPosition.x + radius + 1);
+        int startY = Mathf.Max(0, playerPosition.y - radius);
+        int endY = Mathf.Min(height, playerPosition.y + radius + 1);
+
+        for (int x = startX; x < endX; x++)
         {
-            for (int y = 0; y < height; y++)
+            for (int y = startY; y < endY; y++)
             {
                 Vector3 position = new Vector3(x, y, 0);
                 if (map[x, y] == 1)
@@ -265,33 +308,6 @@ public class CaveGenerator : MonoBehaviour
         foreach (GameObject obj in oldObjects)
         {
             Destroy(obj);
-        }
-    }
-
-    void MovePlayer()
-    {
-        if (!isMoving && (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0))
-        {
-            Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-            if (Mathf.Abs(input.x) > Mathf.Abs(input.y))
-                input.y = 0;
-            else
-                input.x = 0;
-
-            Vector2Int moveDirection = new Vector2Int((int)input.x, (int)input.y);
-            Vector2Int newPosition = playerPosition + moveDirection;
-
-            if (newPosition.x >= 0 && newPosition.x < width && newPosition.y >= 0 && newPosition.y < height)
-            {
-                if (map[newPosition.x, newPosition.y] == 0 || map[newPosition.x, newPosition.y] == 3)
-                {
-                    map[playerPosition.x, playerPosition.y] = 0;
-                    map[newPosition.x, newPosition.y] = 4;
-                    playerPosition = newPosition;
-                    isMoving = true;
-                    DrawMap();
-                }
-            }
         }
     }
 

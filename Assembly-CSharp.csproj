@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\SceneSwitch.cs" />
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
+    <Compile Include="Assets\Scripts\PauseMenu.cs" />
     <Compile Include="Assets\Scripts\CaveGenerator.cs" />
   </ItemGroup>
   <ItemGroup>

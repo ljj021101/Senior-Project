@@ -154,7 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 100
   height: 100
-  wallPrefab: {fileID: 6026842077347143034, guid: 660ba24a5ad5306449bb85ee9efe22f6, type: 3}
+  wallTiles: []
   treasurePrefab: {fileID: 1156068592884021860, guid: 36fe250afd1de1e40aa8dd4476a2f9b6, type: 3}
   enemyPrefab: {fileID: 7471085571497137028, guid: d0027079d05d91d4b82e0c2b91cd382e, type: 3}
   groundPrefab: {fileID: 6026842077347143034, guid: ead06adfaa1972245b697a890e1c84d4, type: 3}

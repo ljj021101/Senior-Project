@@ -5,7 +5,8 @@ public class CaveGenerator : MonoBehaviour
 {
     public int width = 100;
     public int height = 100;
-    public GameObject wallPrefab; // 需要在Unity编辑器中指定这个Prefab
+    public GameObject[] wallTiles; // 多个墙体tile的Prefab数组
+    private int globalSeed;       // 全局种子
     public GameObject treasurePrefab; // 宝箱Prefab
     public GameObject enemyPrefab; // 敌人Prefab
     public GameObject groundPrefab; // 地面Prefab
@@ -78,6 +79,7 @@ public class CaveGenerator : MonoBehaviour
 
     void Start()
     {
+        globalSeed = Random.Range(0, int.MaxValue);
         GenerateMap();
     }
 
@@ -273,6 +275,17 @@ public class CaveGenerator : MonoBehaviour
         }
     }
 
+    int GetTileIndex(int x, int y)
+    {
+        // 使用简单的哈希算法：根据种子和坐标计算
+        int hash = globalSeed;
+        hash = hash * 31 + x;
+        hash = hash * 31 + y;
+        // 确保为正数
+        hash = Mathf.Abs(hash);
+        return hash % wallTiles.Length;
+    }
+
     void DrawMap()
     {
         ClearMap();
@@ -286,26 +299,20 @@ public class CaveGenerator : MonoBehaviour
         {
             for (int y = startY; y < endY; y++)
             {
-                Vector3 position = new Vector3(x*0.32f, y*0.32f, 0);
+                Vector3 position = new Vector3(x, y, 0);
                 if (map[x, y] == 1)
                 {
-                    // 墙体
-                    Instantiate(wallPrefab, position, Quaternion.identity);
+                    // 根据坐标计算tile索引
+                    int index = GetTileIndex(x, y);
+                    Instantiate(wallTiles[index], position, Quaternion.identity);
                 }
-                else
+                else if (map[x, y] == 2)
                 {
-                    // 非墙体位置，先生成地面
-                    Instantiate(groundPrefab, position, Quaternion.identity);
-
-                    // 如果有宝箱、敌人等则在地面上生成
-                    if (map[x, y] == 2)
-                    {
-                        Instantiate(treasurePrefab, position, Quaternion.identity);
-                    }
-                    else if (map[x, y] == 3)
-                    {
-                        Instantiate(enemyPrefab, position, Quaternion.identity);
-                    }
+                    Instantiate(treasurePrefab, position, Quaternion.identity);
+                }
+                else if (map[x, y] == 3)
+                {
+                    Instantiate(enemyPrefab, position, Quaternion.identity);
                 }
             }
         }

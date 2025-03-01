@@ -8,6 +8,7 @@ public class CaveGenerator : MonoBehaviour
     public GameObject wallPrefab; // 需要在Unity编辑器中指定这个Prefab
     public GameObject treasurePrefab; // 宝箱Prefab
     public GameObject enemyPrefab; // 敌人Prefab
+    public GameObject groundPrefab; // 地面Prefab
     public int numberOfWalkers = 20;
     private int[,] map;
     Vector2Int playerPosition; // 玩家在地图上的位置
@@ -64,7 +65,7 @@ public class CaveGenerator : MonoBehaviour
 
     void SmoothMovePlayer()
     {
-        Vector3 targetPosition = new Vector3(playerPosition.x, playerPosition.y, 0);
+        Vector3 targetPosition = new Vector3(playerPosition.x*0.32f, playerPosition.y*0.32f, 0);
         if (playerTransform.position != targetPosition)
         {
             playerTransform.position = Vector3.MoveTowards(playerTransform.position, targetPosition, moveSpeed * Time.deltaTime);
@@ -101,7 +102,7 @@ public class CaveGenerator : MonoBehaviour
         {
             map[startPosition.x, startPosition.y] = 4;  // 4代表玩家
             playerPosition = startPosition;  // 更新全局玩家位置变量
-            playerTransform.position = new Vector3(startPosition.x, startPosition.y, 0);
+            playerTransform.position = new Vector3(startPosition.x*0.32f, startPosition.y*0.32f, 0);
         }
         else
         {
@@ -285,18 +286,26 @@ public class CaveGenerator : MonoBehaviour
         {
             for (int y = startY; y < endY; y++)
             {
-                Vector3 position = new Vector3(x, y, 0);
+                Vector3 position = new Vector3(x*0.32f, y*0.32f, 0);
                 if (map[x, y] == 1)
                 {
+                    // 墙体
                     Instantiate(wallPrefab, position, Quaternion.identity);
                 }
-                else if (map[x, y] == 2)
+                else
                 {
-                    Instantiate(treasurePrefab, position, Quaternion.identity);
-                }
-                else if (map[x, y] == 3)
-                {
-                    Instantiate(enemyPrefab, position, Quaternion.identity);
+                    // 非墙体位置，先生成地面
+                    Instantiate(groundPrefab, position, Quaternion.identity);
+
+                    // 如果有宝箱、敌人等则在地面上生成
+                    if (map[x, y] == 2)
+                    {
+                        Instantiate(treasurePrefab, position, Quaternion.identity);
+                    }
+                    else if (map[x, y] == 3)
+                    {
+                        Instantiate(enemyPrefab, position, Quaternion.identity);
+                    }
                 }
             }
         }

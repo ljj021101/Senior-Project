@@ -13,8 +13,9 @@ public class CaveGenerator : MonoBehaviour
     public int numberOfWalkers = 20;
     private int[,] map;
     Vector2Int playerPosition; // 玩家在地图上的位置
-    float moveSpeed = 5f; // 玩家移动速度
+    float moveSpeed = 2f; // 玩家移动速度
     private bool isMoving = false;
+    public float gridSpacing = 0.32f;
 
     public Transform playerTransform; // 玩家的 Transform 组件
 
@@ -66,7 +67,8 @@ public class CaveGenerator : MonoBehaviour
 
     void SmoothMovePlayer()
     {
-        Vector3 targetPosition = new Vector3(playerPosition.x*0.32f, playerPosition.y*0.32f, 0);
+        // 使用 gridSpacing 缩放玩家目标位置
+        Vector3 targetPosition = new Vector3(playerPosition.x * gridSpacing, playerPosition.y * gridSpacing, 0);
         if (playerTransform.position != targetPosition)
         {
             playerTransform.position = Vector3.MoveTowards(playerTransform.position, targetPosition, moveSpeed * Time.deltaTime);
@@ -74,6 +76,21 @@ public class CaveGenerator : MonoBehaviour
         else
         {
             isMoving = false; // 玩家到达目标位置，停止移动
+        }
+    }
+
+    void SetPlayerStartPosition()
+    {
+        Vector2Int startPosition = GetRandomPathPosition();
+        if (startPosition.x != -1)  // 确保获取的位置是有效的
+        {
+            map[startPosition.x, startPosition.y] = 4;  // 4代表玩家
+            playerPosition = startPosition;  // 更新全局玩家位置变量
+            playerTransform.position = new Vector3(startPosition.x * gridSpacing, startPosition.y * gridSpacing, 0);
+        }
+        else
+        {
+            Debug.LogError("Failed to find a valid start position for the player!");
         }
     }
 
@@ -95,21 +112,6 @@ public class CaveGenerator : MonoBehaviour
         } while (!IsValidMap());
 
         DrawMap(); // 只有验证通过后才绘制地图
-    }
-
-    void SetPlayerStartPosition()
-    {
-        Vector2Int startPosition = GetRandomPathPosition();
-        if (startPosition.x != -1)  // 确保获取的位置是有效的
-        {
-            map[startPosition.x, startPosition.y] = 4;  // 4代表玩家
-            playerPosition = startPosition;  // 更新全局玩家位置变量
-            playerTransform.position = new Vector3(startPosition.x*0.32f, startPosition.y*0.32f, 0);
-        }
-        else
-        {
-            Debug.LogError("Failed to find a valid start position for the player!");
-        }
     }
 
     void InitializeMap()
@@ -277,13 +279,13 @@ public class CaveGenerator : MonoBehaviour
 
     int GetTileIndex(int x, int y)
     {
-        // 使用简单的哈希算法：根据种子和坐标计算
-        int hash = globalSeed;
-        hash = hash * 31 + x;
-        hash = hash * 31 + y;
-        // 确保为正数
-        hash = Mathf.Abs(hash);
-        return hash % wallTiles.Length;
+        // 利用全局种子和坐标生成一个唯一的种子值
+        int tileSeed = globalSeed ^ (x * 73856093) ^ (y * 19349663);
+        if (tileSeed < 0)
+            tileSeed = -tileSeed; // 保证为正数
+
+        System.Random rng = new System.Random(tileSeed);
+        return rng.Next(0, wallTiles.Length);
     }
 
     void DrawMap()
@@ -299,7 +301,8 @@ public class CaveGenerator : MonoBehaviour
         {
             for (int y = startY; y < endY; y++)
             {
-                Vector3 position = new Vector3(x, y, 0);
+                // 将格子坐标乘以 gridSpacing
+                Vector3 position = new Vector3(x * gridSpacing, y * gridSpacing, 0);
                 if (map[x, y] == 1)
                 {
                     // 根据坐标计算tile索引

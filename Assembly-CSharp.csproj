@@ -63,11 +63,12 @@
     <Compile Include="Assets\Scripts\DraggableItem.cs" />
     <Compile Include="Assets\Scripts\InventoryManager.cs" />
     <Compile Include="Assets\Scripts\SceneSwitch.cs" />
+    <Compile Include="Assets\Scripts\EquipmentInfoPanel.cs" />
     <Compile Include="Assets\Scripts\EquipmentSlot.cs" />
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\InventoryToggle.cs" />
     <Compile Include="Assets\Scripts\PauseMenu.cs" />
-    <Compile Include="Assets\Scripts\Item.cs" />
+    <Compile Include="Assets\Scripts\EquipmentItem.cs" />
     <Compile Include="Assets\Scripts\CaveGenerator.cs" />
   </ItemGroup>
   <ItemGroup>

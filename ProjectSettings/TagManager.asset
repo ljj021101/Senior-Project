@@ -51,3 +51,9 @@ TagManager:
   - name: Player
     uniqueID: 3948153327
     locked: 0
+  - name: slot
+    uniqueID: 2711989937
+    locked: 0
+  - name: equipment
+    uniqueID: 1896708365
+    locked: 0

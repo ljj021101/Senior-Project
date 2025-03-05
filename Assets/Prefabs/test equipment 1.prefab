@@ -62,6 +62,8 @@ MonoBehaviour:
   itemType: 0
   itemName: 
   icon: {fileID: 0}
+  mainStats: []
+  subStats: []
 --- !u!114 &7602291334683980039
 MonoBehaviour:
   m_ObjectHideFlags: 0

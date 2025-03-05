@@ -37,7 +37,6 @@ public class InventoryManager : MonoBehaviour
 
     public void AddNewItem(EquipmentType type, string name, Sprite icon)
     {
-        // 实例化装备预制体
         GameObject newItem = Instantiate(equipmentPrefab);
         EquipmentItem equipmentItem = newItem.GetComponent<EquipmentItem>();
         if (equipmentItem != null)
@@ -45,7 +44,8 @@ public class InventoryManager : MonoBehaviour
             equipmentItem.itemType = type;
             equipmentItem.itemName = name;
             equipmentItem.icon = icon;
-            // 将装备加入背包
+            // 调用生成词条方法
+            equipmentItem.GenerateStats();
             AddItem(equipmentItem);
         }
         else

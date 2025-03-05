@@ -301,11 +301,19 @@ public class CaveGenerator : MonoBehaviour
         {
             for (int y = startY; y < endY; y++)
             {
-                // 将格子坐标乘以 gridSpacing
+                // 计算实际位置（考虑网格间距）
                 Vector3 position = new Vector3(x * gridSpacing, y * gridSpacing, 0);
+
+                // 如果不是墙体（1），先生成地面
+                if (map[x, y] != 1)
+                {
+                    Instantiate(groundPrefab, position, Quaternion.identity);
+                }
+                
+                // 根据具体的地图值生成对应物体
                 if (map[x, y] == 1)
                 {
-                    // 根据坐标计算tile索引
+                    // 根据坐标计算 tile 索引（保证确定性随机）
                     int index = GetTileIndex(x, y);
                     Instantiate(wallTiles[index], position, Quaternion.identity);
                 }
@@ -317,6 +325,7 @@ public class CaveGenerator : MonoBehaviour
                 {
                     Instantiate(enemyPrefab, position, Quaternion.identity);
                 }
+                // 4代表玩家，通常玩家对象由独立脚本控制，不在这里绘制
             }
         }
     }

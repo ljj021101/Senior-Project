@@ -25,13 +25,31 @@ public class EquipmentInfoPanel : MonoBehaviour
             return;
         }
 
-        // 装备名称
+        // 装备名称和颜色根据稀有度调整
         if (equipmentNameText != null)
+        {
             equipmentNameText.text = item.itemName;
+            switch (item.rarity)
+            {
+                case EquipmentRarity.Normal:
+                    equipmentNameText.color = Color.white;
+                    break;
+                case EquipmentRarity.Rare:
+                    equipmentNameText.color = Color.blue;
+                    break;
+                case EquipmentRarity.Legendary:
+                    // 使用近似金色，比如 (1, 0.84, 0)
+                    equipmentNameText.color = new Color(1f, 0.84f, 0f);
+                    break;
+                default:
+                    equipmentNameText.color = Color.white;
+                    break;
+            }
+        }
 
         // 装备类型
         if (equipmentTypeText != null)
-            equipmentTypeText.text = item.itemType.ToString();
+            equipmentTypeText.text = $"Type:{item.itemType}";
 
         // 主词条
         if (mainStatsText != null)

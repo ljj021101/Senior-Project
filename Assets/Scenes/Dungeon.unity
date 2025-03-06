@@ -303,8 +303,10 @@ MonoBehaviour:
   treasurePrefab: {fileID: 1156068592884021860, guid: 36fe250afd1de1e40aa8dd4476a2f9b6, type: 3}
   enemyPrefab: {fileID: 7471085571497137028, guid: d0027079d05d91d4b82e0c2b91cd382e, type: 3}
   groundPrefab: {fileID: 6026842077347143034, guid: ead06adfaa1972245b697a890e1c84d4, type: 3}
+  openedTreasurePrefab: {fileID: 0}
   numberOfWalkers: 5
   gridSpacing: 0.32
+  inventoryManager: {fileID: 1259958971}
   playerTransform: {fileID: 2013987632}
 --- !u!4 &74590332
 Transform:
@@ -355,7 +357,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -31, y: 0}
+  m_AnchoredPosition: {x: -44.449463, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &110123464
@@ -387,8 +389,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278255372
-  m_fontColor: {r: 0.047361135, g: 1, b: 0, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1659,8 +1661,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 323.2979, y: 174.04994}
-  m_SizeDelta: {x: -708.1192, y: -408.08}
+  m_AnchoredPosition: {x: 311.39, y: 174.04994}
+  m_SizeDelta: {x: -684.31, y: -408.08}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &645409307
 MonoBehaviour:
@@ -1890,7 +1892,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 6.385, y: -119.2794}
+  m_AnchoredPosition: {x: -7.0644627, y: -119.2794}
   m_SizeDelta: {x: 274.77, y: 54.559}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &732184728
@@ -2353,8 +2355,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 6.385, y: 126.5}
-  m_SizeDelta: {x: 274.77, y: 39}
+  m_AnchoredPosition: {x: 22, y: 126.5}
+  m_SizeDelta: {x: 332.8988, y: 39}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &915309896
 MonoBehaviour:
@@ -2487,7 +2489,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -31, y: 52}
+  m_AnchoredPosition: {x: -44.449463, y: 52}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1004106271
@@ -2519,8 +2521,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278255606
-  m_fontColor: {r: 0.9629222, g: 1, b: 0, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2621,7 +2623,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 6.385, y: 88.2686}
+  m_AnchoredPosition: {x: -7.0644627, y: 88.2686}
   m_SizeDelta: {x: 274.77, y: 37.4629}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1067958998
@@ -3266,6 +3268,7 @@ MonoBehaviour:
   inventorySize: 75
   testSprite: {fileID: 21300000, guid: 2decef60c3406164095c4f7670315b66, type: 3}
   equipmentPrefab: {fileID: 2015748680759371062, guid: dbd960e8dab00d944b3001adb5f5c851, type: 3}
+  playerLuck: 0
 --- !u!1 &1293881931
 GameObject:
   m_ObjectHideFlags: 0
@@ -3623,6 +3626,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: Start Scene
+  clickSound: {fileID: 0}
 --- !u!1 &1381078384
 GameObject:
   m_ObjectHideFlags: 0
@@ -4148,7 +4152,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -22.107422, y: 174.04993}
+  m_AnchoredPosition: {x: -35, y: 174.04993}
   m_SizeDelta: {x: 354.65887, y: 317.92}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1629142121

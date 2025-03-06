@@ -8,12 +8,12 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public bool dropSuccessful = false;    // 成功放置时由槽设置为 true
     private CanvasGroup canvasGroup;       // 用于控制 Raycast
     private Canvas overrideCanvas;         // 临时Canvas，用于提升排序
-    public PlayerStats playerstats;
+    public PlayerStats playerStats;
 
     // 引用装备信息面板，运行时通过代码自动查找或在Inspector中手动指定
     public EquipmentInfoPanel infoPanel;
 
-    void Awake()
+    void Start()
     {
         canvasGroup = GetComponent<CanvasGroup>();
         if (canvasGroup == null)
@@ -24,9 +24,9 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         {
             infoPanel = FindObjectOfType<EquipmentInfoPanel>();
         }
-        if (playerstats == null)
+        if (playerStats == null)
         {
-            playerstats = FindObjectOfType<PlayerStats>();
+            playerStats = FindObjectOfType<PlayerStats>();
         }
     }
 
@@ -63,7 +63,7 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             transform.position = originalPosition;
             transform.SetParent(originalParent, false);
         }
-        playerstats.RecalculateStats();
+        playerStats.RecalculateStats();
     }
 
     // 实现点击事件，点击装备时显示装备信息

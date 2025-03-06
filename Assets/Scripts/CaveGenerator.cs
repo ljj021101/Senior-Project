@@ -10,12 +10,14 @@ public class CaveGenerator : MonoBehaviour
     public GameObject treasurePrefab; // 宝箱Prefab
     public GameObject enemyPrefab; // 敌人Prefab
     public GameObject groundPrefab; // 地面Prefab
+    public GameObject openedTreasurePrefab; // 开启宝箱Prefab
     public int numberOfWalkers = 20;
-    private int[,] map;
+    private int[,] map; //0通路1墙体2宝箱3敌人4玩家5开启的宝箱
     Vector2Int playerPosition; // 玩家在地图上的位置
     float moveSpeed = 2f; // 玩家移动速度
     private bool isMoving = false;
     public float gridSpacing = 0.32f;
+    public InventoryManager inventoryManager;
 
     public Transform playerTransform; // 玩家的 Transform 组件
 
@@ -53,14 +55,28 @@ public class CaveGenerator : MonoBehaviour
 
             if (newPosition.x >= 0 && newPosition.x < width && newPosition.y >= 0 && newPosition.y < height)
             {
-                if (map[newPosition.x, newPosition.y] == 0 || map[newPosition.x, newPosition.y] == 3)
+                int target = map[newPosition.x, newPosition.y];
+
+                if (target == 0 || target == 3)
                 {
+                    // 目标为通路或敌人（可能可通行），直接移动玩家
                     map[playerPosition.x, playerPosition.y] = 0;
                     map[newPosition.x, newPosition.y] = 4;
                     playerPosition = newPosition;
-                    isMoving = true; // 玩家开始移动
+                    isMoving = true;
                     DrawMap();
                 }
+                else if (target == 2)
+                {
+                    // 目标为宝箱，且玩家正朝宝箱方向移动：打开宝箱
+                    // 这里用数字 5 标记已开启的宝箱
+                    map[newPosition.x, newPosition.y] = 5;
+                    Debug.Log("宝箱打开，位置：" + newPosition);
+                    inventoryManager.AddRandomItem();
+                    DrawMap();
+                    // 玩家不移动
+                }
+                // 可根据需要对其他情况进行处理
             }
         }
     }

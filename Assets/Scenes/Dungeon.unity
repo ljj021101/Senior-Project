@@ -303,7 +303,7 @@ MonoBehaviour:
   treasurePrefab: {fileID: 1156068592884021860, guid: 36fe250afd1de1e40aa8dd4476a2f9b6, type: 3}
   enemyPrefab: {fileID: 7471085571497137028, guid: d0027079d05d91d4b82e0c2b91cd382e, type: 3}
   groundPrefab: {fileID: 6026842077347143034, guid: ead06adfaa1972245b697a890e1c84d4, type: 3}
-  openedTreasurePrefab: {fileID: 0}
+  openedTreasurePrefab: {fileID: 1156068592884021860, guid: e578487d4b886234790f19f2f37214e5, type: 3}
   numberOfWalkers: 5
   gridSpacing: 0.32
   inventoryManager: {fileID: 1259958971}

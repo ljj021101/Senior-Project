@@ -341,6 +341,10 @@ public class CaveGenerator : MonoBehaviour
                 {
                     Instantiate(enemyPrefab, position, Quaternion.identity);
                 }
+                else if (map[x, y] == 5)
+                {
+                    Instantiate(openedTreasurePrefab, position, Quaternion.identity);
+                }
                 // 4代表玩家，通常玩家对象由独立脚本控制，不在这里绘制
             }
         }

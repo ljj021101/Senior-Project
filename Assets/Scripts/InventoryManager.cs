@@ -28,11 +28,6 @@ public class InventoryManager : MonoBehaviour
         AddRandomItem();
     }
 
-    void Update()
-    {
-        AddRandomItem();
-    }
-
     // 动态生成所有背包格子
     void CreateItemSlots()
     {

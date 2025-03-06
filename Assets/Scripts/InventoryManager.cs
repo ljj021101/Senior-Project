@@ -28,6 +28,11 @@ public class InventoryManager : MonoBehaviour
         AddRandomItem();
     }
 
+    void Update()
+    {
+        AddRandomItem();
+    }
+
     // 动态生成所有背包格子
     void CreateItemSlots()
     {
@@ -67,15 +72,14 @@ public class InventoryManager : MonoBehaviour
     /// </summary>
     public void AddItem(EquipmentItem newItem)
     {
-        for (int i = 0; i < inventorySize; i++)
+        // 遍历所有生成的物品槽，找第一个没有子物体的槽
+        foreach (GameObject slot in itemSlots)
         {
-            if (inventoryItems[i] == null)
+            if (slot.transform.childCount == 0)
             {
-                inventoryItems[i] = newItem;
-                // 将装备设为对应槽的子物体，并居中显示
-                newItem.transform.SetParent(itemSlots[i].transform, false);
+                newItem.transform.SetParent(slot.transform, false);
                 newItem.transform.localPosition = Vector3.zero;
-                Debug.Log("Added item " + newItem.itemName + " to slot " + i);
+                Debug.Log("Added item " + newItem.itemName + " to " + slot.name);
                 return;
             }
         }

@@ -18,6 +18,7 @@ public class CaveGenerator : MonoBehaviour
     private bool isMoving = false;
     public float gridSpacing = 0.32f;
     public InventoryManager inventoryManager;
+    public AudioPlayer audioPlayer;
 
     public Transform playerTransform; // 玩家的 Transform 组件
 
@@ -73,6 +74,7 @@ public class CaveGenerator : MonoBehaviour
                     map[newPosition.x, newPosition.y] = 5;
                     Debug.Log("宝箱打开，位置：" + newPosition);
                     inventoryManager.AddRandomItem();
+                    audioPlayer.PlayChestOpenSound();
                     DrawMap();
                     // 玩家不移动
                 }

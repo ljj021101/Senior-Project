@@ -118,7 +118,7 @@ public class EquipmentItem : MonoBehaviour
                 break;
         }
 
-        // 如果装备稀有度为 Normal，且装备不是武器，则主词条（除武器攻速）需/2并取整
+        // 如果装备稀有度为 Normal 且装备不是武器，则主词条（除武器攻速）需除以2并取整
         if (rarity == EquipmentRarity.Normal && itemType != EquipmentType.Weapon)
         {
             for (int i = 0; i < mainStats.Count; i++)
@@ -130,7 +130,16 @@ public class EquipmentItem : MonoBehaviour
             }
         }
 
-        // 生成次要词条，根据稀有度不同
+        // 移除次要词条候选池中已出现在主词条中的属性，确保主词条与副词条不重复
+        for (int i = substatsPool.Count - 1; i >= 0; i--)
+        {
+            if (mainStats.Exists(entry => entry.stat == substatsPool[i]))
+            {
+                substatsPool.RemoveAt(i);
+            }
+        }
+
+        // 根据装备稀有度生成次要词条
         if (rarity == EquipmentRarity.Normal)
         {
             // Normal：最多2个附加词条，每个附加词条50%成功率
@@ -187,11 +196,21 @@ public class EquipmentItem : MonoBehaviour
                     subStats.Add(new StatEntry(chosen, value));
                 }
             }
+            // 如果总词条数（主+附加）不足3，则强制补足
+            int totalStats = mainStats.Count + subStats.Count;
+            while (totalStats < 3 && substatsPool.Count > 0)
+            {
+                ItemStat chosen = TakeRandomStat(substatsPool);
+                float value = GenerateSubStatValue(chosen);
+                subStats.Add(new StatEntry(chosen, value));
+                totalStats = mainStats.Count + subStats.Count;
+            }
         }
 
         // 生成词条后，更新装备外观
         UpdateAppearance();
     }
+
 
     /// <summary>
     /// 根据次要词条类型生成随机数值

@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class InventoryToggle : MonoBehaviour
 {
     public GameObject inventoryPanel;
@@ -11,7 +10,13 @@ public class InventoryToggle : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.B))
         {
-            inventoryPanel.SetActive(!inventoryPanel.activeSelf);
+            ToggleInventory();
         }
+    }
+
+    // 公共方法，可直接通过按钮调用
+    public void ToggleInventory()
+    {
+        inventoryPanel.SetActive(!inventoryPanel.activeSelf);
     }
 }

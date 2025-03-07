@@ -2,17 +2,17 @@ using UnityEngine;
 
 public class PauseMenu : MonoBehaviour
 {
-    public GameObject pauseMenuUI; // ÍÏÈëÄãµÄ Pause Menu UI ¶ÔÏó
-    private bool isPaused = false; // ¼ÇÂ¼µ±Ç°ÊÇ·ñ´¦ÓÚÔİÍ£×´Ì¬
+    public GameObject pauseMenuUI; // æš‚åœèœå•UIå¯¹è±¡
+    private bool isPaused = false; // è®°å½•å½“å‰æ˜¯å¦å¤„äºæš‚åœçŠ¶æ€
 
     void Start()
     {
-        pauseMenuUI.SetActive(false); // ÓÎÏ·¿ªÊ¼Ê±Òş²Ø Pause Menu
+        pauseMenuUI.SetActive(false); // æ¸¸æˆå¼€å§‹æ—¶éšè—æš‚åœèœå•
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) // °´ÏÂ ESC ¼ü
+        if (Input.GetKeyDown(KeyCode.Escape)) // æŒ‰ä¸‹ ESC é”®
         {
             if (isPaused)
             {
@@ -27,15 +27,21 @@ public class PauseMenu : MonoBehaviour
 
     public void Pause()
     {
-        pauseMenuUI.SetActive(true); // ÏÔÊ¾²Ëµ¥
-        Time.timeScale = 0f; // ÔİÍ£ÓÎÏ·
+        pauseMenuUI.SetActive(true); // æ˜¾ç¤ºæš‚åœèœå•
+        Time.timeScale = 0f;         // æš‚åœæ¸¸æˆ
         isPaused = true;
     }
 
     public void Resume()
     {
-        pauseMenuUI.SetActive(false); // Òş²Ø²Ëµ¥
-        Time.timeScale = 1f; // »Ö¸´ÓÎÏ·
+        pauseMenuUI.SetActive(false); // éšè—æš‚åœèœå•
+        Time.timeScale = 1f;          // æ¢å¤æ¸¸æˆ
         isPaused = false;
+    }
+
+    public void QuitGame()
+    {
+        Debug.Log("é€€å‡ºæ¸¸æˆ...");
+        Application.Quit();
     }
 }

@@ -9,6 +9,16 @@ public enum EquipmentRarity
     Legendary
 }
 
+public enum EquipmentType
+{
+    Helmet,
+    Chest,
+    Leg,
+    Shoes,
+    Accessory,
+    Weapon
+}
+
 public enum ItemStat
 {
     // 主词条可能
@@ -46,14 +56,16 @@ public class StatEntry
 public class EquipmentItem : MonoBehaviour
 {
     [Header("装备基础数据")]
-    public EquipmentType itemType;       // 装备类型
-    public EquipmentRarity rarity;       // 装备稀有度
-    public string itemName;              // 装备名称
-    public Sprite icon;                  // 装备图标（备用）
+    // 装备的所有特征均由下面的随机种子决定
+    public int equipmentSeed = 0;    // 如果为0，则生成一个随机种子
+    public EquipmentType itemType;   // 装备类型，将在生成时决定
+    public EquipmentRarity rarity;   // 装备稀有度，将在生成时决定
+    public string itemName;          // 装备名称，将在生成时自动生成
+    public Sprite icon;              // 装备图标备用（可选）
 
     [Header("显示组件")]
-    public Image iconImage;              // 用于显示装备图标的 Image
-    public Image backgroundImage;        // 用于显示背景颜色的 Image
+    public Image iconImage;          // 显示装备图标的 Image 组件
+    public Image backgroundImage;    // 显示背景颜色的 Image 组件
 
     [Header("类型对应贴图")]
     public Sprite helmetSprite;
@@ -72,14 +84,62 @@ public class EquipmentItem : MonoBehaviour
     public IReadOnlyList<StatEntry> SubStats => subStats;
 
     /// <summary>
-    /// 生成装备的词条，包含主词条和次要词条
+    /// 生成装备所有特征：装备类型、稀有度、装备名称、主要词条和附加词条，以及各自的数值。
+    /// 所有随机数均受 equipmentSeed 控制。
     /// </summary>
     public void GenerateStats()
     {
+        // 如果种子未设置，生成一个随机种子（确保不为0）
+        if (equipmentSeed == 0)
+        {
+            equipmentSeed = Random.Range(1, int.MaxValue);
+        }
+        // 用该种子初始化随机数状态
+        Random.InitState(equipmentSeed);
+
+        // 根据种子决定装备类型
+        float randType = Random.Range(0f, 1f);
+        if (randType < 0.7f)
+        {
+            // 70% 概率为盔甲，随机选取 Helmet/Chest/Leg/Shoes
+            EquipmentType[] armors = new EquipmentType[] { EquipmentType.Helmet, EquipmentType.Chest, EquipmentType.Leg, EquipmentType.Shoes };
+            itemType = armors[Random.Range(0, armors.Length)];
+        }
+        else if (randType < 0.7f + 0.2f)
+        {
+            itemType = EquipmentType.Weapon;
+        }
+        else
+        {
+            itemType = EquipmentType.Accessory;
+        }
+
+        // 决定装备稀有度：基础 Legendary 5%，Rare 15%，其余为 Normal
+        // 此处可以加入玩家运气修正，但这里默认运气为0，故因子为1
+        float legendaryChance = 0.05f;
+        float rareChance = 0.15f;
+        float randRarity = Random.Range(0f, 1f);
+        if (randRarity < legendaryChance)
+        {
+            rarity = EquipmentRarity.Legendary;
+        }
+        else if (randRarity < legendaryChance + rareChance)
+        {
+            rarity = EquipmentRarity.Rare;
+        }
+        else
+        {
+            rarity = EquipmentRarity.Normal;
+        }
+
+        // 生成装备名称，简单拼接装备类型和稀有度
+        itemName = $"{itemType} {rarity}";
+
+        // 清空之前的词条数据
         mainStats.Clear();
         subStats.Clear();
 
-        // 定义可供次要词条随机的池
+        // 定义次要词条候选池
         List<ItemStat> substatsPool = new List<ItemStat>()
         {
             ItemStat.MoveSpeed,
@@ -94,31 +154,33 @@ public class EquipmentItem : MonoBehaviour
             ItemStat.LightRadius
         };
 
-        // 生成主词条，根据装备类型
+        // 根据装备类型生成主词条
         switch (itemType)
         {
             case EquipmentType.Helmet:
             case EquipmentType.Chest:
             case EquipmentType.Leg:
             case EquipmentType.Shoes:
-                // 盔甲：主词条为 防御 (随机1~5) 和 生命 (随机10~100)
+                // 盔甲主词条：防御 (1~5) 和 生命 (10~100)
                 mainStats.Add(new StatEntry(ItemStat.Defense, Random.Range(1, 6)));
                 mainStats.Add(new StatEntry(ItemStat.HP, Random.Range(10, 101)));
                 break;
             case EquipmentType.Weapon:
-                // 武器：主词条为 攻击 (随机10~30) 和 攻速 (随机2~5)
+                // 武器主词条：攻击 (10~30) 和 攻速 (2~5)
                 mainStats.Add(new StatEntry(ItemStat.Attack, Random.Range(10, 31)));
                 mainStats.Add(new StatEntry(ItemStat.AttackSpeed, Random.Range(2, 6)));
                 break;
             case EquipmentType.Accessory:
-                // 饰品：主词条从次要词条池中随机选 1 条，数值翻倍
-                ItemStat accessoryStat = TakeRandomStat(substatsPool);
-                float accessoryValue = GenerateSubStatValue(accessoryStat);
-                mainStats.Add(new StatEntry(accessoryStat, accessoryValue * 2));
+                // 饰品主词条：从次要词条候选池中随机选取1个，并将数值翻倍
+                {
+                    ItemStat accessoryStat = TakeRandomStat(substatsPool);
+                    float accessoryValue = GenerateSubStatValue(accessoryStat);
+                    mainStats.Add(new StatEntry(accessoryStat, accessoryValue * 2));
+                }
                 break;
         }
 
-        // 如果装备稀有度为 Normal 且装备不是武器，则主词条（除武器攻速）需除以2并取整
+        // 如果装备稀有度为 Normal 且装备不是武器，则主词条（除攻速外）除以2并向下取整
         if (rarity == EquipmentRarity.Normal && itemType != EquipmentType.Weapon)
         {
             for (int i = 0; i < mainStats.Count; i++)
@@ -130,7 +192,7 @@ public class EquipmentItem : MonoBehaviour
             }
         }
 
-        // 移除次要词条候选池中已出现在主词条中的属性，确保主词条与副词条不重复
+        // 从次要候选池中移除已在主词条中的属性，确保主副不重复
         for (int i = substatsPool.Count - 1; i >= 0; i--)
         {
             if (mainStats.Exists(entry => entry.stat == substatsPool[i]))
@@ -139,10 +201,10 @@ public class EquipmentItem : MonoBehaviour
             }
         }
 
-        // 根据装备稀有度生成次要词条
+        // 根据稀有度生成次要词条
         if (rarity == EquipmentRarity.Normal)
         {
-            // Normal：最多2个附加词条，每个附加词条50%成功率
+            // Normal：最多2个附加词条，每个附加词条50%概率生成
             for (int i = 0; i < 2; i++)
             {
                 if (substatsPool.Count == 0) break;
@@ -156,7 +218,7 @@ public class EquipmentItem : MonoBehaviour
         }
         else if (rarity == EquipmentRarity.Rare)
         {
-            // Rare：最多3个附加词条，必定有1个，后两个各50%成功率
+            // Rare：最多3个附加词条，必定有1个，其后两个各50%概率生成
             if (substatsPool.Count > 0)
             {
                 ItemStat chosen = TakeRandomStat(substatsPool);
@@ -196,7 +258,6 @@ public class EquipmentItem : MonoBehaviour
                     subStats.Add(new StatEntry(chosen, value));
                 }
             }
-            // 如果总词条数（主+附加）不足3，则强制补足
             int totalStats = mainStats.Count + subStats.Count;
             while (totalStats < 3 && substatsPool.Count > 0)
             {
@@ -207,13 +268,12 @@ public class EquipmentItem : MonoBehaviour
             }
         }
 
-        // 生成词条后，更新装备外观
+        // 生成词条后更新装备外观
         UpdateAppearance();
     }
 
-
     /// <summary>
-    /// 根据次要词条类型生成随机数值
+    /// 根据指定次要词条类型生成随机数值
     /// </summary>
     private float GenerateSubStatValue(ItemStat stat)
     {
@@ -247,7 +307,7 @@ public class EquipmentItem : MonoBehaviour
     }
 
     /// <summary>
-    /// 从列表中随机选一个词条并移除（避免重复），允许不重复时移除
+    /// 从列表中随机选取一个词条并移除，避免重复（如果允许重复则可不移除）
     /// </summary>
     private ItemStat TakeRandomStat(List<ItemStat> list)
     {
@@ -258,11 +318,11 @@ public class EquipmentItem : MonoBehaviour
     }
 
     /// <summary>
-    /// 更新装备的显示外观：根据装备类型设置图标，根据稀有度设置背景颜色
+    /// 更新装备的外观：根据装备类型设置图标，根据稀有度设置背景颜色
     /// </summary>
     public void UpdateAppearance()
     {
-        // 更新装备图标，根据 itemType 选择对应的 Sprite
+        // 设置装备图标
         switch (itemType)
         {
             case EquipmentType.Helmet:
@@ -291,7 +351,7 @@ public class EquipmentItem : MonoBehaviour
                 break;
         }
 
-        // 根据装备稀有度设置背景颜色
+        // 根据稀有度设置背景颜色
         switch (rarity)
         {
             case EquipmentRarity.Normal:

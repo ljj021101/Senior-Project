@@ -2101,7 +2101,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -4712743989556129819, guid: af93ca237945f5e43adf211c3683612c, type: 3}
       propertyPath: slotType
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: -4712743989556129819, guid: af93ca237945f5e43adf211c3683612c, type: 3}
       propertyPath: requireMatchingType
@@ -3283,9 +3283,7 @@ MonoBehaviour:
   itemSlotPrefab: {fileID: 7366664831377953460, guid: af93ca237945f5e43adf211c3683612c, type: 3}
   itemGridParent: {fileID: 580648813}
   inventorySize: 75
-  testSprite: {fileID: 21300000, guid: 2decef60c3406164095c4f7670315b66, type: 3}
   equipmentPrefab: {fileID: 2015748680759371062, guid: dbd960e8dab00d944b3001adb5f5c851, type: 3}
-  playerLuck: 0
 --- !u!1 &1293881931
 GameObject:
   m_ObjectHideFlags: 0
@@ -4576,7 +4574,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -4712743989556129819, guid: af93ca237945f5e43adf211c3683612c, type: 3}
       propertyPath: slotType
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -4712743989556129819, guid: af93ca237945f5e43adf211c3683612c, type: 3}
       propertyPath: requireMatchingType
@@ -4823,7 +4821,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -4712743989556129819, guid: af93ca237945f5e43adf211c3683612c, type: 3}
       propertyPath: slotType
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: -4712743989556129819, guid: af93ca237945f5e43adf211c3683612c, type: 3}
       propertyPath: requireMatchingType
@@ -5049,7 +5047,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -4712743989556129819, guid: af93ca237945f5e43adf211c3683612c, type: 3}
       propertyPath: slotType
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: -4712743989556129819, guid: af93ca237945f5e43adf211c3683612c, type: 3}
       propertyPath: requireMatchingType
@@ -5167,7 +5165,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -4712743989556129819, guid: af93ca237945f5e43adf211c3683612c, type: 3}
       propertyPath: slotType
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: -4712743989556129819, guid: af93ca237945f5e43adf211c3683612c, type: 3}
       propertyPath: requireMatchingType
@@ -5416,7 +5414,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -4712743989556129819, guid: af93ca237945f5e43adf211c3683612c, type: 3}
       propertyPath: slotType
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: -4712743989556129819, guid: af93ca237945f5e43adf211c3683612c, type: 3}
       propertyPath: requireMatchingType

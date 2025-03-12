@@ -5,32 +5,20 @@ public class InventoryManager : MonoBehaviour
 {
     [Header("背包配置")]
     public GameObject itemSlotPrefab;  // 物品槽预制体
-    public Transform itemGridParent;   // 背包格子容器（需要挂载 Grid Layout Group 组件）
+    public Transform itemGridParent;   // 背包格子容器（挂有 Grid Layout Group 组件）
     public int inventorySize = 50;     // 背包总格子数
-    public Sprite testSprite;          // 用于测试的贴图
 
     [Header("装备预制体")]
-    public GameObject equipmentPrefab;  // 装备预制体，需挂 EquipmentItem（包含 EquipmentRarity 字段）和 DraggableItem 脚本
+    public GameObject equipmentPrefab;  // 装备预制体（需挂有 EquipmentItem 脚本）
 
-    [Header("玩家运气（影响稀有度概率）")]
-    public int playerLuck = 0;  // 运气值，建议范围为正负整数
-
-    // 记录背包中每个格子的装备（null 表示槽为空）
-    private EquipmentItem[] inventoryItems;
     // 保存所有生成的物品槽引用
     private List<GameObject> itemSlots = new List<GameObject>();
 
     void Start()
     {
-        inventoryItems = new EquipmentItem[inventorySize];
         CreateItemSlots();
-        // 添加一个随机装备作为奖励
+        // 测试：添加一个随机装备
         AddRandomItem();
-    }
-
-    void Update()
-    {
-        //AddRandomItem();
     }
 
     // 动态生成所有背包格子
@@ -45,19 +33,23 @@ public class InventoryManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 添加装备到背包：传入装备类型、稀有度、名称、图标
+    /// 随机添加装备
+    /// 装备所有特性均由传入的随机种子决定
     /// </summary>
-    public void AddNewItem(EquipmentType type, EquipmentRarity rarity, string name, Sprite icon)
+    public void AddRandomItem()
     {
+        // 实例化装备预制体
         GameObject newItem = Instantiate(equipmentPrefab);
         EquipmentItem equipmentItem = newItem.GetComponent<EquipmentItem>();
         if (equipmentItem != null)
         {
-            equipmentItem.itemType = type;
-            equipmentItem.rarity = rarity;
-            equipmentItem.itemName = name;
-            equipmentItem.icon = icon;
+            // 生成一个随机种子
+            int seed = Random.Range(1, int.MaxValue);
+            equipmentItem.equipmentSeed = seed;
+            // 调用装备生成方法，内部会用该种子控制所有随机数生成
             equipmentItem.GenerateStats();
+
+            // 将装备添加到第一个空槽中
             AddItem(equipmentItem);
         }
         else
@@ -68,11 +60,10 @@ public class InventoryManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 将装备加入背包（添加到第一个空槽）
+    /// 将装备添加到背包中第一个没有子物体的槽里
     /// </summary>
     public void AddItem(EquipmentItem newItem)
     {
-        // 遍历所有生成的物品槽，找第一个没有子物体的槽
         foreach (GameObject slot in itemSlots)
         {
             if (slot.transform.childCount == 0)
@@ -85,56 +76,5 @@ public class InventoryManager : MonoBehaviour
         }
         Debug.Log("背包已满！");
         Destroy(newItem.gameObject);
-    }
-
-    /// <summary>
-    /// 随机添加装备：
-    /// 装备类型：盔甲70%（随机选取 Helmet/Chest/Leg/Shoes）、武器20%、饰品10%；
-    /// 装备稀有度：Legendary基础5%，Rare基础15%，剩余为Normal；
-    /// 稀有度的最终概率 = 基础概率 * (20 + playerLuck)/20；
-    /// </summary>
-    public void AddRandomItem()
-    {
-        // 随机确定装备类型
-        float randType = Random.Range(0f, 1f);
-        EquipmentType chosenType;
-        if (randType < 0.7f)
-        {
-            // 盔甲：随机选择 Helmet、Chest、Leg、Shoes
-            EquipmentType[] armors = new EquipmentType[] { EquipmentType.Helmet, EquipmentType.Chest, EquipmentType.Leg, EquipmentType.Shoes };
-            chosenType = armors[Random.Range(0, armors.Length)];
-        }
-        else if (randType < 0.7f + 0.2f)
-        {
-            chosenType = EquipmentType.Weapon;
-        }
-        else
-        {
-            chosenType = EquipmentType.Accessory;
-        }
-
-        // 确定装备稀有度，先计算运气修正因子
-        float luckFactor = (20 + playerLuck) / 20f;
-        float legendaryChance = 0.05f * luckFactor;  // Legendary基础5%
-        float rareChance = 0.15f * luckFactor;         // Rare基础15%
-        float randRarity = Random.Range(0f, 1f);
-        EquipmentRarity chosenRarity;
-        if (randRarity < legendaryChance)
-        {
-            chosenRarity = EquipmentRarity.Legendary;
-        }
-        else if (randRarity < legendaryChance + rareChance)
-        {
-            chosenRarity = EquipmentRarity.Rare;
-        }
-        else
-        {
-            chosenRarity = EquipmentRarity.Normal;
-        }
-
-        // 生成装备名称（可根据需求自定义）
-        string name = $"{chosenType} {chosenRarity}";
-        // 添加装备到背包
-        AddNewItem(chosenType, chosenRarity, name, testSprite);
     }
 }

@@ -1,16 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public enum EquipmentType
-{
-    Helmet,
-    Chest,
-    Leg,
-    Shoes,
-    Weapon,
-    Accessory
-}
-
 public class EquipmentSlot : MonoBehaviour, IDropHandler
 {
     public bool requireMatchingType = true; // 是否要求装备类型匹配

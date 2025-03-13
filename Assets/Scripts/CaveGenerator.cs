@@ -73,7 +73,7 @@ public class CaveGenerator : MonoBehaviour
                     // 这里用数字 5 标记已开启的宝箱
                     map[newPosition.x, newPosition.y] = 5;
                     Debug.Log("宝箱打开，位置：" + newPosition);
-                    inventoryManager.AddRandomItem();
+                    inventoryManager.AddNewItemWithSeed(-1);
                     audioPlayer.PlayChestOpenSound();
                     DrawMap();
                     // 玩家不移动

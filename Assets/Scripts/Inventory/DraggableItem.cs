@@ -52,6 +52,11 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        EquipmentItem item = GetComponent<EquipmentItem>();
+        if (item != null && infoPanel != null)
+        {
+            infoPanel.DisplayEquipmentInfo(item);
+        }
         audioPlayer.PlayPickupSound();
         originalPosition = transform.position;
         originalParent = transform.parent;

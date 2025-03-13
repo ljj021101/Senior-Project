@@ -211,6 +211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 642ec18a11c2ef346843364a099045dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  equipmentSeed: -1
   itemType: 0
   rarity: 0
   itemName: 
@@ -239,6 +240,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dropSuccessful: 0
   playerStats: {fileID: 0}
+  audioPlayer: {fileID: 0}
   infoPanel: {fileID: 0}
 --- !u!114 &5929533974897426670
 MonoBehaviour:

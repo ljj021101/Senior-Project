@@ -89,9 +89,11 @@ public class EquipmentItem : MonoBehaviour
     /// </summary>
     public void GenerateStats()
     {
-        // 如果种子为0，则生成一个随机种子
+        Random.State originalState = Random.state;
+        // 如果种子为-1，则生成一个随机种子
         if (equipmentSeed == -1)
             equipmentSeed = Random.Range(1, int.MaxValue);
+        Debug.Log("生成装备使用种子：" + equipmentSeed);
         // 初始化随机状态
         Random.InitState(equipmentSeed);
 
@@ -263,6 +265,7 @@ public class EquipmentItem : MonoBehaviour
 
         // 生成词条后更新装备外观
         UpdateAppearance();
+        Random.state = originalState;
     }
 
     /// <summary>

@@ -58,6 +58,7 @@ public class CaveGenerator : MonoBehaviour
     {
         currentLevel++;
         Debug.Log("前往下一层！当前层数: " + currentLevel);
+        globalSeed = Random.Range(0, int.MaxValue);
         GenerateMap();
     }
 

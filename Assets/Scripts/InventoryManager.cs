@@ -44,6 +44,14 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    void Update()
+    {   
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            AddNewItemWithSeed(-1);
+        }
+    }
+
     void OnApplicationQuit()
     {
         SaveAll();

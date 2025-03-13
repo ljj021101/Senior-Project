@@ -304,11 +304,13 @@ MonoBehaviour:
   enemyPrefab: {fileID: 7471085571497137028, guid: d0027079d05d91d4b82e0c2b91cd382e, type: 3}
   groundPrefab: {fileID: 6026842077347143034, guid: ead06adfaa1972245b697a890e1c84d4, type: 3}
   openedTreasurePrefab: {fileID: 1156068592884021860, guid: e578487d4b886234790f19f2f37214e5, type: 3}
+  nextLevelPrefab: {fileID: 1156068592884021860, guid: 541b7c76e2d685e49bf28d4e6ea98de7, type: 3}
   numberOfWalkers: 5
   gridSpacing: 0.32
   inventoryManager: {fileID: 1259958971}
   audioPlayer: {fileID: 263685907}
   playerTransform: {fileID: 2013987632}
+  currentLevel: 1
 --- !u!4 &74590332
 Transform:
   m_ObjectHideFlags: 0
@@ -381,7 +383,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4c2d6259c19c36443b1be7810845e9b9, type: 2}
   m_sharedMaterial: {fileID: 5883418661534051357, guid: 4c2d6259c19c36443b1be7810845e9b9, type: 2}
@@ -1932,7 +1934,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4c2d6259c19c36443b1be7810845e9b9, type: 2}
   m_sharedMaterial: {fileID: 5883418661534051357, guid: 4c2d6259c19c36443b1be7810845e9b9, type: 2}
@@ -2395,7 +2397,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4c2d6259c19c36443b1be7810845e9b9, type: 2}
   m_sharedMaterial: {fileID: 5883418661534051357, guid: 4c2d6259c19c36443b1be7810845e9b9, type: 2}
@@ -2529,7 +2531,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4c2d6259c19c36443b1be7810845e9b9, type: 2}
   m_sharedMaterial: {fileID: 5883418661534051357, guid: 4c2d6259c19c36443b1be7810845e9b9, type: 2}
@@ -2663,7 +2665,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4c2d6259c19c36443b1be7810845e9b9, type: 2}
   m_sharedMaterial: {fileID: 5883418661534051357, guid: 4c2d6259c19c36443b1be7810845e9b9, type: 2}
@@ -3280,6 +3282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce40193b41e3cde41881f6de84fd63b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  equipmentParent: {fileID: 278927250}
   itemSlotPrefab: {fileID: 7366664831377953460, guid: af93ca237945f5e43adf211c3683612c, type: 3}
   itemGridParent: {fileID: 580648813}
   inventorySize: 75

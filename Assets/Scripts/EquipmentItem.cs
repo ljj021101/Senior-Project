@@ -90,7 +90,7 @@ public class EquipmentItem : MonoBehaviour
     public void GenerateStats()
     {
         // 如果种子为0，则生成一个随机种子
-        if (equipmentSeed == 0)
+        if (equipmentSeed == -1)
             equipmentSeed = Random.Range(1, int.MaxValue);
         // 初始化随机状态
         Random.InitState(equipmentSeed);

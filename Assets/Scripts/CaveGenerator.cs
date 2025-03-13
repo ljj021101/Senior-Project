@@ -5,22 +5,38 @@ public class CaveGenerator : MonoBehaviour
 {
     public int width = 100;
     public int height = 100;
-    public GameObject[] wallTiles; // 多个墙体tile的Prefab数组
-    private int globalSeed;       // 全局种子
-    public GameObject treasurePrefab; // 宝箱Prefab
-    public GameObject enemyPrefab; // 敌人Prefab
-    public GameObject groundPrefab; // 地面Prefab
+    public GameObject[] wallTiles;          // 多个墙体tile的Prefab数组
+    private int globalSeed;                 // 全局种子
+    public GameObject treasurePrefab;       // 宝箱Prefab
+    public GameObject enemyPrefab;          // 敌人Prefab
+    public GameObject groundPrefab;         // 地面Prefab
     public GameObject openedTreasurePrefab; // 开启宝箱Prefab
+    public GameObject nextLevelPrefab;      // 前往下一层的通道Prefab
+
     public int numberOfWalkers = 20;
-    private int[,] map; //0通路1墙体2宝箱3敌人4玩家5开启的宝箱
-    Vector2Int playerPosition; // 玩家在地图上的位置
-    float moveSpeed = 2f; // 玩家移动速度
+    // 矩阵说明：0=通路, 1=墙体, 2=宝箱, 3=敌人, 4=玩家, 5=已开启宝箱, 6=通往下一层通道
+    private int[,] map;
+
+    // 玩家位置与移动控制
+    Vector2Int playerPosition;
+    float moveSpeed = 2f;
     private bool isMoving = false;
     public float gridSpacing = 0.32f;
+
+    // 引用
     public InventoryManager inventoryManager;
     public AudioPlayer audioPlayer;
+    public Transform playerTransform; // 玩家Transform
 
-    public Transform playerTransform; // 玩家的 Transform 组件
+    // 当前层数计数
+    public int currentLevel = 1;
+
+    void Start()
+    {
+        // 初始随机种子
+        globalSeed = Random.Range(0, int.MaxValue);
+        GenerateMap();
+    }
 
     void Update()
     {
@@ -29,6 +45,20 @@ public class CaveGenerator : MonoBehaviour
         {
             SmoothMovePlayer();
         }
+
+        // 如果玩家当前位置是 6（通道），并按下 E，则前往下一层
+        if (map[playerPosition.x, playerPosition.y] == 6 && Input.GetKeyDown(KeyCode.E))
+        {
+            NextLevel();
+        }
+    }
+
+    // 前往下一层：层数+1，重新生成地图
+    void NextLevel()
+    {
+        currentLevel++;
+        Debug.Log("前往下一层！当前层数: " + currentLevel);
+        GenerateMap();
     }
 
     void MovePlayer()
@@ -53,39 +83,34 @@ public class CaveGenerator : MonoBehaviour
             }
 
             Vector2Int newPosition = playerPosition + moveDirection;
-
             if (newPosition.x >= 0 && newPosition.x < width && newPosition.y >= 0 && newPosition.y < height)
             {
                 int target = map[newPosition.x, newPosition.y];
-
-                if (target == 0 || target == 3)
+                // 如果目标是通路（0）、敌人（3）或通道（6），允许玩家移动
+                if (target == 0 || target == 3 || target == 6 || target == 4)
                 {
-                    // 目标为通路或敌人（可能可通行），直接移动玩家
-                    map[playerPosition.x, playerPosition.y] = 0;
-                    map[newPosition.x, newPosition.y] = 4;
+                    // 不再修改 map 中的玩家标记，直接更新 playerPosition
                     playerPosition = newPosition;
                     isMoving = true;
                     DrawMap();
                 }
+                // 如果目标是宝箱（2），则触发开宝箱逻辑（玩家不移动）
                 else if (target == 2)
                 {
-                    // 目标为宝箱，且玩家正朝宝箱方向移动：打开宝箱
-                    // 这里用数字 5 标记已开启的宝箱
-                    map[newPosition.x, newPosition.y] = 5;
+                    map[newPosition.x, newPosition.y] = 5; // 宝箱打开标记
                     Debug.Log("宝箱打开，位置：" + newPosition);
                     inventoryManager.AddNewItemWithSeed(-1);
+                    inventoryManager.SaveAll();
                     audioPlayer.PlayChestOpenSound();
                     DrawMap();
-                    // 玩家不移动
                 }
-                // 可根据需要对其他情况进行处理
+                // 其他情况可以根据需求处理
             }
         }
     }
 
     void SmoothMovePlayer()
     {
-        // 使用 gridSpacing 缩放玩家目标位置
         Vector3 targetPosition = new Vector3(playerPosition.x * gridSpacing, playerPosition.y * gridSpacing, 0);
         if (playerTransform.position != targetPosition)
         {
@@ -93,43 +118,27 @@ public class CaveGenerator : MonoBehaviour
         }
         else
         {
-            isMoving = false; // 玩家到达目标位置，停止移动
+            isMoving = false;
         }
-    }
-
-    void SetPlayerStartPosition()
-    {
-        Vector2Int startPosition = GetRandomPathPosition();
-        if (startPosition.x != -1)  // 确保获取的位置是有效的
-        {
-            map[startPosition.x, startPosition.y] = 4;  // 4代表玩家
-            playerPosition = startPosition;  // 更新全局玩家位置变量
-            playerTransform.position = new Vector3(startPosition.x * gridSpacing, startPosition.y * gridSpacing, 0);
-        }
-        else
-        {
-            Debug.LogError("Failed to find a valid start position for the player!");
-        }
-    }
-
-    void Start()
-    {
-        globalSeed = Random.Range(0, int.MaxValue);
-        GenerateMap();
     }
 
     void GenerateMap()
     {
-        do
-        {
-            InitializeMap();
-            SimulateWalkers();
-            GenerateTreasuresAndEnemies();
-            RandomlyPlaceEnemies();
-            SetPlayerStartPosition();
-        } while (!IsValidMap());
+        // 重置地图
+        InitializeMap();
+        // 行走者算法
+        SimulateWalkers();
+        // 添加宝箱、敌人
+        GenerateTreasuresAndEnemies();
+        RandomlyPlaceEnemies();
 
-        DrawMap(); // 只有验证通过后才绘制地图
+        // 设置玩家起点
+        SetPlayerStartPosition();
+
+        // 放置前往下一层的通道
+        PlaceNextLevelPassage();
+
+        DrawMap();
     }
 
     void InitializeMap()
@@ -139,7 +148,7 @@ public class CaveGenerator : MonoBehaviour
         {
             for (int y = 0; y < height; y++)
             {
-                map[x, y] = 1; // 初始化地图全为墙（1代表墙）
+                map[x, y] = 1; // 全部初始化为墙
             }
         }
     }
@@ -150,20 +159,20 @@ public class CaveGenerator : MonoBehaviour
         // 初始化第一个行走者
         Walker firstWalker = new Walker(Random.Range(0, width), Random.Range(0, height));
         walkers.Add(firstWalker);
-        map[firstWalker.position.x, firstWalker.position.y] = 0; // 确保起始点是通路
+        map[firstWalker.position.x, firstWalker.position.y] = 0;
 
         int totalMoves = 60;
         for (int move = 0; move < totalMoves; move++)
         {
-            foreach (var walker in new List<Walker>(walkers)) // 使用新列表避免修改原列表
+            foreach (var walker in new List<Walker>(walkers))
             {
-                walker.Move(width, height, map); // 在Move方法中更新地图
-                if (move % (totalMoves / numberOfWalkers) == 0 && move != 0) // 每完成一部分路径后重新初始化一个行走者
+                walker.Move(width, height, map);
+                if (move % (totalMoves / numberOfWalkers) == 0 && move != 0)
                 {
                     Vector2Int randomStart = GetRandomPathPosition();
                     Walker newWalker = new Walker(randomStart.x, randomStart.y);
                     walkers.Add(newWalker);
-                    map[newWalker.position.x, newWalker.position.y] = 0; // 确保新起点是通路
+                    map[newWalker.position.x, newWalker.position.y] = 0;
                 }
             }
         }
@@ -187,35 +196,22 @@ public class CaveGenerator : MonoBehaviour
             int index = Random.Range(0, possibleStarts.Count);
             return possibleStarts[index];
         }
-        return new Vector2Int(0, 0); // 如果没有通路，返回默认位置
+        return new Vector2Int(-1, -1); // 若无通路返回无效坐标
     }
 
-    bool IsValidMap()
+    void SetPlayerStartPosition()
     {
-        int[,] quadrantCount = new int[2, 2];
-        int totalPaths = 0;
-
-        // 计算每个象限的通路数和总通路数
-        for (int x = 0; x < width; x++)
+        Vector2Int startPosition = GetRandomPathPosition();
+        if (startPosition.x != -1)
         {
-            for (int y = 0; y < height; y++)
-            {
-                if (map[x, y] == 0)
-                {
-                    int qx = x < width / 2 ? 0 : 1;
-                    int qy = y < height / 2 ? 0 : 1;
-                    quadrantCount[qx, qy]++;
-                    totalPaths++;
-                }
-            }
+            map[startPosition.x, startPosition.y] = 4;
+            playerPosition = startPosition;
+            playerTransform.position = new Vector3(startPosition.x * gridSpacing, startPosition.y * gridSpacing, 0);
         }
-
-        // 检查每个象限和总通路数是否符合条件
-        return totalPaths >= 400 &&
-            quadrantCount[0,0] >= 100 &&
-            quadrantCount[0,1] >= 100 &&
-            quadrantCount[1,0] >= 100 &&
-            quadrantCount[1,1] >= 100;
+        else
+        {
+            Debug.LogError("无法找到有效的玩家起点！");
+        }
     }
 
     void GenerateTreasuresAndEnemies()
@@ -226,8 +222,8 @@ public class CaveGenerator : MonoBehaviour
             {
                 if (map[x, y] == 0 && IsDeadEnd(x, y) && Random.Range(0, 100) > 70)
                 {
-                    map[x, y] = 2; // 将宝箱位置设置为2
-                    PlaceEnemyNearTreasureInMap(x, y); // 在地图中标记敌人位置为3
+                    map[x, y] = 2; // 宝箱
+                    PlaceEnemyNearTreasureInMap(x, y);
                 }
             }
         }
@@ -235,13 +231,11 @@ public class CaveGenerator : MonoBehaviour
 
     void PlaceEnemyNearTreasureInMap(int tx, int ty)
     {
-        // 检查四个方向寻找可放置敌人的位置
         if (map[tx - 1, ty] == 0) map[tx - 1, ty] = 3;
         else if (map[tx + 1, ty] == 0) map[tx + 1, ty] = 3;
         else if (map[tx, ty - 1] == 0) map[tx, ty - 1] = 3;
         else if (map[tx, ty + 1] == 0) map[tx, ty + 1] = 3;
     }
-
 
     bool IsDeadEnd(int x, int y)
     {
@@ -250,8 +244,7 @@ public class CaveGenerator : MonoBehaviour
         if (map[x + 1, y] == 1) wallCount++;
         if (map[x, y - 1] == 1) wallCount++;
         if (map[x, y + 1] == 1) wallCount++;
-
-        return wallCount == 3; // 如果三面是墙则为死胡同
+        return wallCount == 3;
     }
 
     void RandomlyPlaceEnemies()
@@ -260,14 +253,13 @@ public class CaveGenerator : MonoBehaviour
         {
             for (int y = 1; y < height - 1; y++)
             {
-                if (map[x, y] == 0) // 检查是不是通路
+                if (map[x, y] == 0)
                 {
                     int pathCount = CountPathsAround(x, y);
                     float chance = GetSpawnChanceForPathCount(pathCount);
-
                     if (Random.Range(0f, 100f) < chance)
                     {
-                        map[x, y] = 3; // 在地图上标记为敌人
+                        map[x, y] = 3;
                     }
                 }
             }
@@ -295,21 +287,33 @@ public class CaveGenerator : MonoBehaviour
         }
     }
 
-    int GetTileIndex(int x, int y)
+    // 在地图生成完成后，选取一个非敌人的通路(=0)格子，设置为6，表示前往下一层的通道
+    void PlaceNextLevelPassage()
     {
-        // 利用全局种子和坐标生成一个唯一的种子值
-        int tileSeed = globalSeed ^ (x * 73856093) ^ (y * 19349663);
-        if (tileSeed < 0)
-            tileSeed = -tileSeed; // 保证为正数
-
-        System.Random rng = new System.Random(tileSeed);
-        return rng.Next(0, wallTiles.Length);
+        List<Vector2Int> possiblePositions = new List<Vector2Int>();
+        for (int x = 1; x < width - 1; x++)
+        {
+            for (int y = 1; y < height - 1; y++)
+            {
+                if (map[x, y] == 0) // 仅选取通路(=0)
+                {
+                    possiblePositions.Add(new Vector2Int(x, y));
+                }
+            }
+        }
+        if (possiblePositions.Count > 0)
+        {
+            int idx = Random.Range(0, possiblePositions.Count);
+            Vector2Int passagePos = possiblePositions[idx];
+            map[passagePos.x, passagePos.y] = 6;
+            Debug.Log("生成下一层通道于: " + passagePos);
+        }
     }
 
     void DrawMap()
     {
         ClearMap();
-        int radius = 10;  // 设置绘制半径
+        int radius = 10;
         int startX = Mathf.Max(0, playerPosition.x - radius);
         int endX = Mathf.Min(width, playerPosition.x + radius + 1);
         int startY = Mathf.Max(0, playerPosition.y - radius);
@@ -319,35 +323,39 @@ public class CaveGenerator : MonoBehaviour
         {
             for (int y = startY; y < endY; y++)
             {
-                // 计算实际位置（考虑网格间距）
-                Vector3 position = new Vector3(x * gridSpacing, y * gridSpacing, 0);
+                Vector3 pos = new Vector3(x * gridSpacing, y * gridSpacing, 0);
 
-                // 如果不是墙体（1），先生成地面
+                // 如果不是墙，则先生成地面
                 if (map[x, y] != 1)
                 {
-                    Instantiate(groundPrefab, position, Quaternion.identity);
+                    Instantiate(groundPrefab, pos, Quaternion.identity);
                 }
-                
-                // 根据具体的地图值生成对应物体
+
+                // 根据地图值生成对应物体
                 if (map[x, y] == 1)
                 {
-                    // 根据坐标计算 tile 索引（保证确定性随机）
                     int index = GetTileIndex(x, y);
-                    Instantiate(wallTiles[index], position, Quaternion.identity);
+                    Instantiate(wallTiles[index], pos, Quaternion.identity);
                 }
                 else if (map[x, y] == 2)
                 {
-                    Instantiate(treasurePrefab, position, Quaternion.identity);
+                    Instantiate(treasurePrefab, pos, Quaternion.identity);
                 }
                 else if (map[x, y] == 3)
                 {
-                    Instantiate(enemyPrefab, position, Quaternion.identity);
+                    Instantiate(enemyPrefab, pos, Quaternion.identity);
                 }
                 else if (map[x, y] == 5)
                 {
-                    Instantiate(openedTreasurePrefab, position, Quaternion.identity);
+                    Instantiate(openedTreasurePrefab, pos, Quaternion.identity);
                 }
-                // 4代表玩家，通常玩家对象由独立脚本控制，不在这里绘制
+                // 6 表示通道，需要一个 nextLevelPrefab
+                else if (map[x, y] == 6)
+                {
+                    // 在 Inspector 中为 nextLevelPrefab 指定一个传送门或楼梯外观
+                    Instantiate(nextLevelPrefab, pos, Quaternion.identity);
+                }
+                // 4(玩家) 不在这里绘制，由其他脚本控制玩家对象位置
             }
         }
     }
@@ -361,6 +369,16 @@ public class CaveGenerator : MonoBehaviour
         }
     }
 
+    int GetTileIndex(int x, int y)
+    {
+        // 利用 globalSeed 和坐标计算一个确定性随机值
+        int tileSeed = globalSeed ^ (x * 73856093) ^ (y * 19349663);
+        if (tileSeed < 0)
+            tileSeed = -tileSeed;
+        System.Random rng = new System.Random(tileSeed);
+        return rng.Next(0, wallTiles.Length);
+    }
+
     class Walker
     {
         public Vector2Int position;
@@ -372,8 +390,8 @@ public class CaveGenerator : MonoBehaviour
 
         public void Move(int width, int height, int[,] map)
         {
-            int direction = Random.Range(0, 4); // 随机选择一个方向
-            int steps = GetWeightedRandomStep(); // 使用加权随机获取步数
+            int direction = Random.Range(0, 4);
+            int steps = GetWeightedRandomStep();
 
             for (int i = 0; i < steps; i++)
             {
@@ -382,36 +400,25 @@ public class CaveGenerator : MonoBehaviour
 
                 switch (direction)
                 {
-                    case 0: // 向上
-                        newY++;
-                        break;
-                    case 1: // 向下
-                        newY--;
-                        break;
-                    case 2: // 向左
-                        newX--;
-                        break;
-                    case 3: // 向右
-                        newX++;
-                        break;
+                    case 0: newY++; break;  // 上
+                    case 1: newY--; break;  // 下
+                    case 2: newX--; break;  // 左
+                    case 3: newX++; break;  // 右
                 }
 
-                // 检查是否超出边界
                 if (newX >= 1 && newX < width - 1 && newY >= 1 && newY < height - 1)
                 {
                     position.x = newX;
                     position.y = newY;
-                    map[position.x, position.y] = 0; // 更新地图
+                    map[position.x, position.y] = 0; // 开路
                 }
                 else
                 {
-                    // 如果超出边界，取消此次移动
                     break;
                 }
             }
         }
 
-        // 加权随机步数生成函数
         private int GetWeightedRandomStep()
         {
             List<int> weightedSteps = new List<int>();
@@ -419,20 +426,14 @@ public class CaveGenerator : MonoBehaviour
             {
                 if (i <= 3)
                 {
-                    // 将1至5步各添加5次到列表中
                     for (int j = 0; j < 20; j++)
-                    {
                         weightedSteps.Add(i);
-                    }
                 }
                 else
                 {
-                    // 将6至20步各添加1次到列表中
                     weightedSteps.Add(i);
                 }
             }
-
-            // 从加权列表中随机选择一个元素
             int index = Random.Range(0, weightedSteps.Count);
             return weightedSteps[index];
         }

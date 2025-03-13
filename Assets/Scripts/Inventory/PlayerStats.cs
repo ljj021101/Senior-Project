@@ -5,7 +5,7 @@ public class PlayerStats : MonoBehaviour
     [Header("基础属性")]
     public float baseHP = 200f;              // 初始生命
     public float baseDefense = 0f;           // 初始防御（不直接使用，只作为基准）
-    public float baseAttack = 0f;            // 初始攻击（不直接使用，只作为基准）
+    public float baseAttack = 5f;            // 初始攻击（不直接使用，只作为基准）
     public float baseMoveSpeed = 2f;         // 初始移动速度
     public float baseMagicResist = 0f;       // 初始魔抗
     public float baseCritRate = 0f;          // 初始暴击率
@@ -83,7 +83,7 @@ public class PlayerStats : MonoBehaviour
                         // 武器主攻击只从 Weapon 类型装备的 主词条 Attack 中获取
                         if (eqItem.itemType == EquipmentType.Weapon)
                         {
-                            weaponMainAttack = GetMainStatValue(eqItem, ItemStat.Attack);
+                            weaponMainAttack = GetMainStatValue(eqItem, ItemStat.Attack) + baseAttack;
                             // 武器的主攻速（AttackSpeed）作为基础攻击间隔
                             float temp = GetMainStatValue(eqItem, ItemStat.AttackSpeed);
                             if (temp > 0f)

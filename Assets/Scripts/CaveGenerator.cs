@@ -13,6 +13,8 @@ public class CaveGenerator : MonoBehaviour
     public GameObject openedTreasurePrefab; // 开启宝箱Prefab
     public GameObject nextLevelPrefab;      // 前往下一层的通道Prefab
 
+    public Animator animator; // 请在 Inspector 中将玩家对象上的 Animator 拖入此引用
+
     public int numberOfWalkers = 20;
     // 矩阵说明：0=通路, 1=墙体, 2=宝箱, 3=敌人, 4=玩家, 5=已开启宝箱, 6=通往下一层通道
     private int[,] map;
@@ -43,7 +45,13 @@ public class CaveGenerator : MonoBehaviour
         MovePlayer();
         if (isMoving)
         {
+            
+            animator.SetTrigger("IsMoving");
             SmoothMovePlayer();
+        }
+        else
+        {
+            animator.SetTrigger("NotMoving");
         }
 
         // 如果玩家当前位置是 6（通道），并按下 E，则前往下一层
@@ -66,49 +74,58 @@ public class CaveGenerator : MonoBehaviour
     {
         if (!isMoving)
         {
-            Vector2Int moveDirection = Vector2Int.zero;
-
-            // 检测垂直方向键
+            Vector2 moveDirection = Vector2.zero;
             if (Input.GetKey(KeyCode.W))
-                moveDirection += Vector2Int.up;
+                moveDirection = Vector2.up;
             else if (Input.GetKey(KeyCode.S))
-                moveDirection += Vector2Int.down;
+                moveDirection = Vector2.down;
+            else if (Input.GetKey(KeyCode.A))
+                moveDirection = Vector2.left;
+            else if (Input.GetKey(KeyCode.D))
+                moveDirection = Vector2.right;
 
-            // 如果没有垂直移动，则检测水平方向键
-            if (moveDirection == Vector2Int.zero)
+            // 更新动画参数，让 Animator 根据方向播放移动动画
+            if (animator != null)
             {
-                if (Input.GetKey(KeyCode.A))
-                    moveDirection += Vector2Int.left;
-                else if (Input.GetKey(KeyCode.D))
-                    moveDirection += Vector2Int.right;
+                animator.SetFloat("Horizontal", moveDirection.x);
+                animator.SetFloat("Vertical", moveDirection.y);
             }
 
-            Vector2Int newPosition = playerPosition + moveDirection;
-            if (newPosition.x >= 0 && newPosition.x < width && newPosition.y >= 0 && newPosition.y < height)
+            // 根据横向输入翻转角色
+            if (moveDirection.x < 0)
+                playerTransform.localScale = new Vector3(-0.6f, 0.6f, 0);
+            else if (moveDirection.x > 0)
+                playerTransform.localScale = new Vector3(0.6f, 0.6f, 0);
+
+            if (moveDirection != Vector2.zero)
             {
-                int target = map[newPosition.x, newPosition.y];
-                // 如果目标是通路（0）、敌人（3）或通道（6），允许玩家移动
-                if (target == 0 || target == 3 || target == 6 || target == 4)
+                Vector2Int gridMove = Vector2Int.RoundToInt(moveDirection);
+                Vector2Int newPosition = playerPosition + gridMove;
+                if (newPosition.x >= 0 && newPosition.x < width && newPosition.y >= 0 && newPosition.y < height)
                 {
-                    // 不再修改 map 中的玩家标记，直接更新 playerPosition
-                    playerPosition = newPosition;
-                    isMoving = true;
-                    DrawMap();
+                    int target = map[newPosition.x, newPosition.y];
+                    // 如果目标格子为通路、敌人或通道，则允许移动
+                    if (target == 0 || target == 3 || target == 6 || target == 4)
+                    {
+                        playerPosition = newPosition;
+                        isMoving = true;
+                        DrawMap();
+                    }
+                    // 如果目标为宝箱，则执行开宝箱逻辑
+                    else if (target == 2)
+                    {
+                        map[newPosition.x, newPosition.y] = 5; // 标记宝箱已开启
+                        Debug.Log("宝箱打开，位置：" + newPosition);
+                        inventoryManager.AddNewItemWithSeed(-1);
+                        inventoryManager.SaveAll();
+                        audioPlayer.PlayChestOpenSound();
+                        DrawMap();
+                    }
                 }
-                // 如果目标是宝箱（2），则触发开宝箱逻辑（玩家不移动）
-                else if (target == 2)
-                {
-                    map[newPosition.x, newPosition.y] = 5; // 宝箱打开标记
-                    Debug.Log("宝箱打开，位置：" + newPosition);
-                    inventoryManager.AddNewItemWithSeed(-1);
-                    inventoryManager.SaveAll();
-                    audioPlayer.PlayChestOpenSound();
-                    DrawMap();
-                }
-                // 其他情况可以根据需求处理
             }
         }
     }
+
 
     void SmoothMovePlayer()
     {

@@ -1,10 +1,32 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class EquipmentSlot : MonoBehaviour, IDropHandler
 {
     public bool requireMatchingType = true; // 是否要求装备类型匹配
     public EquipmentType slotType;          // 该槽支持的装备类型
+
+    private Image slotImage;
+    private Color originalColor;
+
+    void Awake()
+    {
+        slotImage = GetComponent<Image>();
+        if (slotImage != null)
+        {
+            originalColor = slotImage.color;
+        }
+    }
+
+    // 高亮方法：flag 为 true 时设为绿色，否则恢复原始颜色
+    public void Highlight(bool flag)
+    {
+        if (slotImage != null)
+        {
+            slotImage.color = flag ? Color.green : originalColor;
+        }
+    }
 
     public void OnDrop(PointerEventData eventData)
     {
@@ -34,3 +56,4 @@ public class EquipmentSlot : MonoBehaviour, IDropHandler
         }
     }
 }
+

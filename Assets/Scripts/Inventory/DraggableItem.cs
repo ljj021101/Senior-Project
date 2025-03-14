@@ -10,6 +10,8 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     private CanvasGroup canvasGroup;       // 用于控制 Raycast
     private Canvas overrideCanvas;         // 临时 Canvas，用于提升排序
 
+    private EquipmentSlot highlightedSlot; // 用于保存匹配的装备槽
+
     public PlayerStats playerStats;
     public AudioPlayer audioPlayer;
     public EquipmentInfoPanel infoPanel;
@@ -67,6 +69,17 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         overrideCanvas = gameObject.AddComponent<Canvas>();
         overrideCanvas.overrideSorting = true;
         overrideCanvas.sortingOrder = 1000;
+
+        // 查找与当前装备匹配的装备槽，并将其高亮为绿色
+        EquipmentSlot[] slots = FindObjectsOfType<EquipmentSlot>();
+        foreach (EquipmentSlot slot in slots)
+        {
+            if (slot.requireMatchingType && slot.slotType == item.itemType)
+            {
+                highlightedSlot = slot;
+                highlightedSlot.Highlight(true);
+            }
+        }
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -83,6 +96,13 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         if (overrideCanvas != null)
         {
             Destroy(overrideCanvas);
+        }
+
+        // 拖拽结束时取消装备槽高亮
+        EquipmentSlot[] slots = FindObjectsOfType<EquipmentSlot>();
+        foreach (EquipmentSlot slot in slots)
+        {
+            slot.Highlight(false);
         }
 
         if (!dropSuccessful)
@@ -108,3 +128,4 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         }
     }
 }
+

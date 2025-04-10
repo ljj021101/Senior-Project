@@ -13,6 +13,9 @@ public class PlayerStats : MonoBehaviour
     public float baseLuck = 0f;              // 初始运气
     public float baseLightRadius = 100f;     // 初始光照范围（百分比）
 
+    [Header("当前状态")]
+    public float currentHP;  // 当前血量
+
     [Header("武器攻速(间隔)")]
     public float baseAttackInterval = 1f;    // 如果没有装备武器时，默认攻击间隔
 
@@ -127,6 +130,11 @@ public class PlayerStats : MonoBehaviour
         // 攻击间隔 = 武器主攻速 / (1 + 非武器攻速加成)
         finalAttackInterval = weaponAttackSpeed / (1f + nonWeaponAttackSpeedBonus);
 
+        if (currentHP > finalHP)
+        {
+            currentHP = finalHP;
+        }
+
         Debug.Log($"[PlayerStats] Recalculated: HP={finalHP}, DEF={finalDefense}, ATK={finalAttack}, MoveSpeed={finalMoveSpeed}, MagicRes={finalMagicResist}, CritRate={finalCritRate}, CritDamage={finalCritDamage}, Luck={finalLuck}, LightRadius={finalLightRadius}, AttackInterval={finalAttackInterval}");
     }
 
@@ -179,6 +187,7 @@ public class PlayerStats : MonoBehaviour
 
     void Start()
     {
-        RecalculateStats();
+        RecalculateStats();           // 先计算 finalHP 等属性
+        currentHP = finalHP;          // 然后再设置 currentHP
     }
 }

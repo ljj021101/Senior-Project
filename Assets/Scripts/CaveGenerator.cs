@@ -105,11 +105,19 @@ public class CaveGenerator : MonoBehaviour
                 {
                     int target = map[newPosition.x, newPosition.y];
                     // 如果目标格子为通路、敌人或通道，则允许移动
-                    if (target == 0 || target == 3 || target == 6 || target == 4)
+                    if (target == 0 || target == 6 || target == 4)
                     {
                         playerPosition = newPosition;
                         isMoving = true;
                         DrawMap();
+                    }
+                    if (target == 3)
+                    {
+                        playerPosition = newPosition;
+                        isMoving = true;
+                        DrawMap();
+                        EnemyStats enemy = EnemyFactory.CreateEnemyAtPosition(newPosition, globalSeed);
+                        FindObjectOfType<BattleManager>().StartBattle(enemy);
                     }
                     // 如果目标为宝箱，则执行开宝箱逻辑
                     else if (target == 2)

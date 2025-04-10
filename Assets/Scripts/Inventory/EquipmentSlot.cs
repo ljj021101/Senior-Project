@@ -2,13 +2,15 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Image))]
 public class EquipmentSlot : MonoBehaviour, IDropHandler
 {
-    public bool requireMatchingType = true; // 是否要求装备类型匹配
-    public EquipmentType slotType;          // 该槽支持的装备类型
+    public bool requireMatchingType = true;
+    public EquipmentType slotType;
 
-    private Image slotImage;
-    private Color originalColor;
+    private Outline outlineEffect;  // 用来控制描边
+    private Image slotImage;        // 槽位背景（如果需要）
+    private Color originalColor;    // 如果你还想用原来的颜色
 
     void Awake()
     {
@@ -17,39 +19,45 @@ public class EquipmentSlot : MonoBehaviour, IDropHandler
         {
             originalColor = slotImage.color;
         }
+
+        // 获取或添加 Outline 组件
+        outlineEffect = GetComponent<Outline>();
+        if (outlineEffect == null)
+        {
+            outlineEffect = gameObject.AddComponent<Outline>();
+        }
+
+        // 设置 Outline 的默认属性
+        outlineEffect.effectColor = Color.green;
+        // 数值越大，边框越“厚”，可以自行调整
+        outlineEffect.effectDistance = new Vector2(5f, -5f);
+        // 默认不启用
+        outlineEffect.enabled = false;
     }
 
-    // 高亮方法：flag 为 true 时设为绿色，否则恢复原始颜色
     public void Highlight(bool flag)
     {
-        if (slotImage != null)
-        {
-            slotImage.color = flag ? Color.green : originalColor;
-        }
+        // 只需打开或关闭 Outline 即可
+        outlineEffect.enabled = flag;
     }
 
     public void OnDrop(PointerEventData eventData)
     {
+        // 你的原有逻辑不变
         DraggableItem draggable = eventData.pointerDrag.GetComponent<DraggableItem>();
         if (draggable != null)
         {
             EquipmentItem item = draggable.GetComponent<EquipmentItem>();
-
-            // 如果槽中已有装备，则拒绝放置
             if (transform.childCount > 0)
             {
                 Debug.Log("槽中已有装备！");
                 return;
             }
-
-            // 如果要求类型匹配且装备类型不匹配，拒绝放置
             if (requireMatchingType && (item == null || item.itemType != slotType))
             {
                 Debug.Log("装备类型不匹配！");
                 return;
             }
-
-            // 如果条件都满足，则放置装备到槽中
             draggable.transform.SetParent(transform, false);
             draggable.transform.position = transform.position;
             draggable.dropSuccessful = true;

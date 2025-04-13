@@ -13,6 +13,7 @@ public class BattleManager : MonoBehaviour
     public TMP_Text enemyNameText;
 
     public float slideSpeed = 50f;
+    private Vector2Int enemyTilePosition;
 
     private GameObject playerModelInstance;
     private GameObject enemyModelInstance;
@@ -28,9 +29,10 @@ public class BattleManager : MonoBehaviour
 
     private bool battleInProgress = false;
 
-    public void StartBattle(EnemyStats enemy)
+    public void StartBattle(EnemyStats enemy, Vector2Int enemyPos)
     {
         currentEnemy = enemy;
+        enemyTilePosition = enemyPos;
         playerStats = FindObjectOfType<PlayerStats>();
         if (playerStats == null)
         {
@@ -187,6 +189,8 @@ public class BattleManager : MonoBehaviour
         {
             cave.canMove = true;
             cave.canOpenInventory = true;
+
+            cave.ClearEnemyTile(enemyTilePosition);
         }
     }
 

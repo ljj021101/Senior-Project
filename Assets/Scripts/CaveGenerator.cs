@@ -120,8 +120,9 @@ public class CaveGenerator : MonoBehaviour
                         playerPosition = newPosition;
                         isMoving = true;
                         DrawMap();
+
                         EnemyStats enemy = EnemyFactory.CreateEnemyAtPosition(newPosition, globalSeed);
-                        FindObjectOfType<BattleManager>().StartBattle(enemy);
+                        FindObjectOfType<BattleManager>().StartBattle(enemy, newPosition);
                     }
                     // 如果目标为宝箱，则执行开宝箱逻辑
                     else if (target == 2)
@@ -397,6 +398,12 @@ public class CaveGenerator : MonoBehaviour
         {
             Destroy(obj);
         }
+    }
+
+    public void ClearEnemyTile(Vector2Int pos)
+    {
+        map[pos.x, pos.y] = 0;
+        DrawMap();
     }
 
     int GetTileIndex(int x, int y)

@@ -25,6 +25,7 @@ public class PlayerStatsUI : MonoBehaviour
         {
             playerStats = FindObjectOfType<PlayerStats>();
         }
+        playerStats.RecalculateStats();
     }
 
     public void Update()

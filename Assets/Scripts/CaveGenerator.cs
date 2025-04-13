@@ -13,6 +13,9 @@ public class CaveGenerator : MonoBehaviour
     public GameObject openedTreasurePrefab; // 开启宝箱Prefab
     public GameObject nextLevelPrefab;      // 前往下一层的通道Prefab
 
+    public bool canMove = true;        // 是否允许移动
+    public bool canOpenInventory = true;
+
     public Animator animator; // 请在 Inspector 中将玩家对象上的 Animator 拖入此引用
 
     public int numberOfWalkers = 20;
@@ -72,6 +75,7 @@ public class CaveGenerator : MonoBehaviour
 
     void MovePlayer()
     {
+        if (!canMove || isMoving) return;
         if (!isMoving)
         {
             Vector2 moveDirection = Vector2.zero;

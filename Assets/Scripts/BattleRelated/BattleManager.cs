@@ -34,8 +34,16 @@ public class BattleManager : MonoBehaviour
         playerStats = FindObjectOfType<PlayerStats>();
         if (playerStats == null)
         {
-            Debug.LogError("PlayerStats not found in scene!");
+            Debug.LogError("PlayerStats not found!");
             return;
+        }
+
+        // 禁止移动与背包操作
+        CaveGenerator cave = FindObjectOfType<CaveGenerator>();
+        if (cave != null)
+        {
+            cave.canMove = false;
+            cave.canOpenInventory = false;
         }
 
         battleUI.SetActive(true);
@@ -172,6 +180,14 @@ public class BattleManager : MonoBehaviour
         fadePanel.alpha = 0;
         fadePanel.gameObject.SetActive(false);
         battleUI.SetActive(false);
+
+        // 重新允许操作
+        CaveGenerator cave = FindObjectOfType<CaveGenerator>();
+        if (cave != null)
+        {
+            cave.canMove = true;
+            cave.canOpenInventory = true;
+        }
     }
 
     public bool IsBattleInProgress()

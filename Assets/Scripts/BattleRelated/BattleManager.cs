@@ -160,13 +160,18 @@ public class BattleManager : MonoBehaviour
 
     void HandleWin()
     {
-        Debug.Log("🎉 玩家胜利！");
+        Debug.Log("玩家胜利！");
+        CaveGenerator cave = FindObjectOfType<CaveGenerator>();
+        if (cave != null)
+        {
+            cave.ClearEnemyTile(enemyTilePosition);
+        }
         EndBattle();
     }
 
     void HandleLose()
     {
-        Debug.Log("💀 玩家失败！");
+        Debug.Log("玩家失败！");
         EndBattle();
     }
 
@@ -189,8 +194,6 @@ public class BattleManager : MonoBehaviour
         {
             cave.canMove = true;
             cave.canOpenInventory = true;
-
-            cave.ClearEnemyTile(enemyTilePosition);
         }
     }
 

@@ -11,6 +11,7 @@ public class BattleManager : MonoBehaviour
     public Slider playerHPBar;
     public Slider enemyHPBar;
     public TMP_Text enemyNameText;
+    private Animator playerAnimator;
 
     public float slideSpeed = 50f;
     private Vector2Int enemyTilePosition;
@@ -77,6 +78,13 @@ public class BattleManager : MonoBehaviour
                 playerTimer = 0f;
                 enemyHP -= playerStats.finalAttack;
                 enemyHPBar.value = enemyHP;
+
+                // 播放玩家攻击动画
+                playerAnimator.SetTrigger("Slash");
+
+                // 闪白
+                var enemyHit = enemyModelInstance.GetComponentInChildren<HitEffect>();
+                if (enemyHit != null) enemyHit.Flash();
             }
 
             if (enemyTimer >= currentEnemy.attackInterval)
@@ -84,6 +92,10 @@ public class BattleManager : MonoBehaviour
                 enemyTimer = 0f;
                 playerStats.currentHP -= currentEnemy.attack;
                 playerHPBar.value = playerStats.currentHP;
+
+                // 玩家受击 → 闪白
+                var playerHit = playerModelInstance.GetComponentInChildren<HitEffect>();
+                if (playerHit != null) playerHit.Flash();
             }
 
             yield return null;
@@ -126,6 +138,8 @@ public class BattleManager : MonoBehaviour
         // 找到已放置在场景中的角色对象
         playerModelInstance = GameObject.FindWithTag("PlayerBattle");
         enemyModelInstance = GameObject.FindWithTag("EnemyBattle");
+
+        playerAnimator = playerModelInstance.GetComponentInChildren<Animator>();
 
         if (playerModelInstance == null || enemyModelInstance == null)
         {

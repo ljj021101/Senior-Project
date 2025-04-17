@@ -5,6 +5,16 @@ using TMPro;
 
 public class BattleManager : MonoBehaviour
 {
+    [Header("音效")]
+    public AudioSource audioSource;             // 用于播放音效（挂在 BattleManager 或 UI 上）
+    public AudioClip playerAttackClip;          // 玩家攻击音效
+    public AudioClip slimeAttackClip;           // Slime 攻击音效
+    public AudioClip goblinAttackClip;          // Goblin 攻击音效
+    public AudioClip batAttackClip;             // Bat 攻击音效
+    public AudioClip slimeDeathClip;
+    public AudioClip goblinDeathClip;
+    public AudioClip batDeathClip;
+
     [Header("UI Components")]
     public CanvasGroup fadePanel;
     public GameObject battleUI;
@@ -81,6 +91,7 @@ public class BattleManager : MonoBehaviour
 
                 // 播放玩家攻击动画
                 playerAnimator.SetTrigger("Slash");
+                audioSource?.PlayOneShot(playerAttackClip);
 
                 // 闪白
                 var enemyHit = enemyModelInstance.GetComponentInChildren<HitEffect>();
@@ -93,6 +104,18 @@ public class BattleManager : MonoBehaviour
                 playerStats.currentHP -= currentEnemy.attack;
                 playerHPBar.value = playerStats.currentHP;
 
+                switch (currentEnemy.type)
+                {
+                    case EnemyType.Slime:
+                        audioSource?.PlayOneShot(slimeAttackClip);
+                        break;
+                    case EnemyType.Goblin:
+                        audioSource?.PlayOneShot(goblinAttackClip);
+                        break;
+                    case EnemyType.Bat:
+                        audioSource?.PlayOneShot(batAttackClip);
+                        break;
+                }
                 // 玩家受击 → 闪白
                 var playerHit = playerModelInstance.GetComponentInChildren<HitEffect>();
                 if (playerHit != null) playerHit.Flash();
@@ -179,6 +202,18 @@ public class BattleManager : MonoBehaviour
         if (cave != null)
         {
             cave.ClearEnemyTile(enemyTilePosition);
+        }
+        switch (currentEnemy.type)
+        {
+            case EnemyType.Slime:
+                audioSource?.PlayOneShot(slimeDeathClip);
+                break;
+            case EnemyType.Goblin:
+                audioSource?.PlayOneShot(goblinDeathClip);
+                break;
+            case EnemyType.Bat:
+                audioSource?.PlayOneShot(batDeathClip);
+                break;
         }
         EndBattle();
     }

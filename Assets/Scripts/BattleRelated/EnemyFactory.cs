@@ -22,4 +22,11 @@ public static class EnemyFactory
                 return null;
         }
     }
+
+    public static EnemyType GetEnemyTypeAtPosition(Vector2Int pos, int seed)
+    {
+        int hash = seed ^ (pos.x * 73856093) ^ (pos.y * 19349663);
+        System.Random rng = new System.Random(hash);
+        return (EnemyType)(rng.Next(0, System.Enum.GetNames(typeof(EnemyType)).Length));
+    }
 }

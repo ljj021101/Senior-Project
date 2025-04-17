@@ -275,11 +275,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6927340166329030098, guid: e8bbcae09f5e47a438ff532ecd584407, type: 3}
       propertyPath: m_LocalScale.x
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6927340166329030098, guid: e8bbcae09f5e47a438ff532ecd584407, type: 3}
       propertyPath: m_LocalScale.y
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6927340166329030098, guid: e8bbcae09f5e47a438ff532ecd584407, type: 3}
       propertyPath: m_LocalPosition.x
@@ -320,6 +320,14 @@ PrefabInstance:
     - target: {fileID: 6927340166329030098, guid: e8bbcae09f5e47a438ff532ecd584407, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7855109757345726316, guid: e8bbcae09f5e47a438ff532ecd584407, type: 3}
+      propertyPath: m_SortingLayer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7855109757345726316, guid: e8bbcae09f5e47a438ff532ecd584407, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1030976031
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -455,6 +463,9 @@ MonoBehaviour:
   groundPrefab: {fileID: 6026842077347143034, guid: ead06adfaa1972245b697a890e1c84d4, type: 3}
   openedTreasurePrefab: {fileID: 1156068592884021860, guid: e578487d4b886234790f19f2f37214e5, type: 3}
   nextLevelPrefab: {fileID: 1156068592884021860, guid: 541b7c76e2d685e49bf28d4e6ea98de7, type: 3}
+  slimePrefab: {fileID: 7471085571497137028, guid: d0027079d05d91d4b82e0c2b91cd382e, type: 3}
+  goblinPrefab: {fileID: 2135096080484326777, guid: 4adedff8cd0d169408f5a51ee36cf854, type: 3}
+  batPrefab: {fileID: 1156068592884021860, guid: 541b7c76e2d685e49bf28d4e6ea98de7, type: 3}
   canMove: 1
   canOpenInventory: 1
   animator: {fileID: 2013987634}
@@ -2618,7 +2629,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 00000000133723baef0954eb1176ac8cb1aea5a10d790d71
+  m_ApplyToSortingLayers: 00000000133723baef0954eb1176ac8cb1aea5a10d790d711f72733d632f3d80
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -3469,11 +3480,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6927340166329030098, guid: 0fc2edeb84c7f6742ad5d9e1f4d1c393, type: 3}
       propertyPath: m_LocalScale.x
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6927340166329030098, guid: 0fc2edeb84c7f6742ad5d9e1f4d1c393, type: 3}
       propertyPath: m_LocalScale.y
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6927340166329030098, guid: 0fc2edeb84c7f6742ad5d9e1f4d1c393, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3515,6 +3526,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7855109757345726316, guid: 0fc2edeb84c7f6742ad5d9e1f4d1c393, type: 3}
+      propertyPath: m_SortingLayer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7855109757345726316, guid: 0fc2edeb84c7f6742ad5d9e1f4d1c393, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1030976031
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3522,6 +3541,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1142731091720144028, guid: 0fc2edeb84c7f6742ad5d9e1f4d1c393, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1096370352}
+    - targetCorrespondingSourceObject: {fileID: 1142731091720144028, guid: 0fc2edeb84c7f6742ad5d9e1f4d1c393, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1096370354}
+    - targetCorrespondingSourceObject: {fileID: 1142731091720144028, guid: 0fc2edeb84c7f6742ad5d9e1f4d1c393, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1096370355}
   m_SourcePrefab: {fileID: 100100000, guid: 0fc2edeb84c7f6742ad5d9e1f4d1c393, type: 3}
 --- !u!1 &1067958996
 GameObject:
@@ -3792,6 +3817,47 @@ SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 7855109757345726316, guid: 0fc2edeb84c7f6742ad5d9e1f4d1c393, type: 3}
   m_PrefabInstance: {fileID: 1018112261}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1096370354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 207644963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 925a860353bd434459b8f97636ec04d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 1096370353}
+  animator: {fileID: 1096370355}
+  slimeSprite: {fileID: 806091228, guid: 2ecfa81673921e34c92e7a47667ebed1, type: 3}
+  slimeAnimator: {fileID: 0}
+  goblinSprite: {fileID: -565065311, guid: 799f9a76a9202d4429914a8b34bb21c6, type: 3}
+  goblinAnimator: {fileID: 9100000, guid: 90bbd3c209a2fe747bdefd977889c402, type: 2}
+  batSprite: {fileID: 1118571336, guid: 2ecfa81673921e34c92e7a47667ebed1, type: 3}
+  batAnimator: {fileID: 0}
+--- !u!95 &1096370355
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 207644963}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1112252742
 GameObject:
   m_ObjectHideFlags: 0
@@ -4873,7 +4939,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6927340166329030098, guid: 3e5f9d8b0c87d9a4fba1c8da7e1068b5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6927340166329030098, guid: 3e5f9d8b0c87d9a4fba1c8da7e1068b5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -7059,16 +7125,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 010448800f3fc044b876b3648e536405, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyBattleController: {fileID: 1096370354}
+  playerModelInstance: {fileID: 607525315}
+  enemyModelInstance: {fileID: 207644963}
   audioSource: {fileID: 2116499677}
   playerAttackClip: {fileID: 8300000, guid: 92196146172de6d41bb586db1805f65d, type: 3}
   slimeAttackClip: {fileID: 8300000, guid: 50f455af72cce89459e1441f3e81759c, type: 3}
-  goblinAttackClip: {fileID: 8300000, guid: 1b07afe154020cf4689e4e98d6d10c10, type: 3}
+  goblinAttackClip: {fileID: 8300000, guid: 87e124749b834794d95fcd52b3d182f8, type: 3}
   batAttackClip: {fileID: 8300000, guid: 4960965fc18fc0143826e5897cc0c9f4, type: 3}
+  slimeDeathClip: {fileID: 8300000, guid: 7990241a03acc7c42ab67e5c6bedac76, type: 3}
+  goblinDeathClip: {fileID: 8300000, guid: 8774ebbde33df5c48987457ca6cbc1f8, type: 3}
+  batDeathClip: {fileID: 8300000, guid: 359aaa7f0dd450c459f364dcacd1272b, type: 3}
   fadePanel: {fileID: 644629550}
   battleUI: {fileID: 126984986}
   playerHPBar: {fileID: 1536341796}
   enemyHPBar: {fileID: 1954964357}
   enemyNameText: {fileID: 827057572}
+  playerAnimator: {fileID: 607525318}
   slideSpeed: 500
 --- !u!4 &2116499676
 Transform:

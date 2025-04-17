@@ -5,6 +5,11 @@ using TMPro;
 
 public class BattleManager : MonoBehaviour
 {
+    [Header("对象引用")]
+    public EnemyBattleController enemyBattleController;
+    public GameObject playerModelInstance;
+    public GameObject enemyModelInstance;
+
     [Header("音效")]
     public AudioSource audioSource;             // 用于播放音效（挂在 BattleManager 或 UI 上）
     public AudioClip playerAttackClip;          // 玩家攻击音效
@@ -21,13 +26,10 @@ public class BattleManager : MonoBehaviour
     public Slider playerHPBar;
     public Slider enemyHPBar;
     public TMP_Text enemyNameText;
-    private Animator playerAnimator;
+    public Animator playerAnimator;
 
     public float slideSpeed = 50f;
     private Vector2Int enemyTilePosition;
-
-    private GameObject playerModelInstance;
-    private GameObject enemyModelInstance;
 
     private Vector3 playerInitialPos;
     private Vector3 enemyInitialPos;
@@ -73,6 +75,11 @@ public class BattleManager : MonoBehaviour
         enemyHPBar.value = currentEnemy.maxHP;
         enemyNameText.text = currentEnemy.type.ToString();
 
+        Vector3 camCenter = Camera.main.transform.position;
+        playerInitialPos = camCenter + new Vector3(-3f, 0f, 0f);
+        enemyInitialPos = camCenter + new Vector3(3f, 0f, 0f);
+        playerModelInstance.transform.position = playerInitialPos;
+        enemyModelInstance.transform.position = enemyInitialPos;
         yield return StartCoroutine(FadeToBlack());
         yield return StartCoroutine(ShowCharacters());
 
@@ -150,19 +157,15 @@ public class BattleManager : MonoBehaviour
         Vector3 camCenter = Camera.main.transform.position;
         camCenter.z = 0f; // 保证在 2D 平面
 
+        enemyBattleController.Setup(currentEnemy.type);
+
         // 设置初始位置（远离战斗区域）
-        playerInitialPos = camCenter + new Vector3(-6f, 0f, 0f);
-        enemyInitialPos = camCenter + new Vector3(6f, 0f, 0f);
+        playerInitialPos = camCenter + new Vector3(-3f, 0f, 0f);
+        enemyInitialPos = camCenter + new Vector3(3f, 0f, 0f);
 
         // 设置目标位置（战斗区偏中心）
-        Vector3 playerTarget = camCenter + new Vector3(-1.5f, 0f, 0f);
-        Vector3 enemyTarget = camCenter + new Vector3(1.5f, 0f, 0f);
-
-        // 找到已放置在场景中的角色对象
-        playerModelInstance = GameObject.FindWithTag("PlayerBattle");
-        enemyModelInstance = GameObject.FindWithTag("EnemyBattle");
-
-        playerAnimator = playerModelInstance.GetComponentInChildren<Animator>();
+        Vector3 playerTarget = camCenter + new Vector3(-0.5f, 0f, 0f);
+        Vector3 enemyTarget = camCenter + new Vector3(0.5f, 0f, 0f);
 
         if (playerModelInstance == null || enemyModelInstance == null)
         {
@@ -175,7 +178,7 @@ public class BattleManager : MonoBehaviour
         enemyModelInstance.transform.position = enemyInitialPos;
 
         // 角色朝目标位置滑动
-        float duration = 1f;
+        float duration = 0.2f;
         float elapsed = 0f;
 
         while (elapsed < duration)
@@ -192,7 +195,7 @@ public class BattleManager : MonoBehaviour
         playerModelInstance.transform.position = playerTarget;
         enemyModelInstance.transform.position = enemyTarget;
 
-        yield return new WaitForSeconds(0.2f); // 等一下再进入战斗
+        // yield return new WaitForSeconds(0.2f); // 等一下再进入战斗
     }
 
     void HandleWin()

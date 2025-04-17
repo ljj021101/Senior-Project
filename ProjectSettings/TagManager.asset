@@ -50,6 +50,9 @@ TagManager:
   - name: obj
     uniqueID: 2360112657
     locked: 0
+  - name: mob
+    uniqueID: 2151493475
+    locked: 0
   - name: Player
     uniqueID: 3948153327
     locked: 0
@@ -58,4 +61,7 @@ TagManager:
     locked: 0
   - name: equipment
     uniqueID: 1896708365
+    locked: 0
+  - name: battle
+    uniqueID: 1030976031
     locked: 0

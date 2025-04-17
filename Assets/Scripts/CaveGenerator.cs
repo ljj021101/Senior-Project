@@ -13,6 +13,11 @@ public class CaveGenerator : MonoBehaviour
     public GameObject openedTreasurePrefab; // 开启宝箱Prefab
     public GameObject nextLevelPrefab;      // 前往下一层的通道Prefab
 
+    [Header("敌人Prefab")]
+    public GameObject slimePrefab;
+    public GameObject goblinPrefab;
+    public GameObject batPrefab;
+
     public bool canMove = true;        // 是否允许移动
     public bool canOpenInventory = true;
 
@@ -21,6 +26,8 @@ public class CaveGenerator : MonoBehaviour
     public int numberOfWalkers = 20;
     // 矩阵说明：0=通路, 1=墙体, 2=宝箱, 3=敌人, 4=玩家, 5=已开启宝箱, 6=通往下一层通道
     private int[,] map;
+
+    
 
     // 玩家位置与移动控制
     Vector2Int playerPosition;
@@ -374,7 +381,17 @@ public class CaveGenerator : MonoBehaviour
                 }
                 else if (map[x, y] == 3)
                 {
-                    Instantiate(enemyPrefab, pos, Quaternion.identity);
+                    // 根据坐标和种子确定敌人类型
+                    EnemyType type = EnemyFactory.GetEnemyTypeAtPosition(new Vector2Int(x, y), globalSeed);
+
+                    GameObject prefabToUse = slimePrefab;
+                    switch (type)
+                    {
+                        case EnemyType.Goblin: prefabToUse = goblinPrefab; break;
+                        case EnemyType.Bat: prefabToUse = batPrefab; break;
+                    }
+
+                    Instantiate(prefabToUse, pos, Quaternion.identity);
                 }
                 else if (map[x, y] == 5)
                 {

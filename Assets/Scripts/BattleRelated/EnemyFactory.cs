@@ -10,14 +10,42 @@ public static class EnemyFactory
         System.Random rng = new System.Random(hash);
         EnemyType type = (EnemyType)(rng.Next(0, System.Enum.GetNames(typeof(EnemyType)).Length));
 
+        // 读取当前层数
+        int level = GameObject.FindObjectOfType<CaveGenerator>().currentLevel;
+
+        // 强度加成
+        int hpBoost = (level - 1) * 15;
+        int atkBoost = (level - 1);
+
         switch (type)
         {
             case EnemyType.Slime:
-                return new EnemyStats { type = type, maxHP = 50, attack = 5, attackInterval = 1.5f };
+                return new EnemyStats
+                {
+                    type = type,
+                    maxHP = 50 + hpBoost,
+                    attack = 5 + atkBoost,
+                    attackInterval = 1.5f,
+                    defense = 1
+                };
             case EnemyType.Goblin:
-                return new EnemyStats { type = type, maxHP = 80, attack = 10, attackInterval = 1f };
+                return new EnemyStats
+                {
+                    type = type,
+                    maxHP = 80 + hpBoost,
+                    attack = 10 + atkBoost,
+                    attackInterval = 1f,
+                    defense = 3
+                };
             case EnemyType.Bat:
-                return new EnemyStats { type = type, maxHP = 30, attack = 7, attackInterval = 0.7f };
+                return new EnemyStats
+                {
+                    type = type,
+                    maxHP = 30 + hpBoost,
+                    attack = 7 + atkBoost,
+                    attackInterval = 0.7f,
+                    defense = 2
+                };
             default:
                 return null;
         }

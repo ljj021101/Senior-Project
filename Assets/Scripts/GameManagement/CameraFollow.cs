@@ -7,6 +7,12 @@ public class CameraFollow : MonoBehaviour
 
     Vector3 offset;  // 相机与玩家之间的偏移量
     
+    void Start()
+    {
+        Camera.main.clearFlags = CameraClearFlags.SolidColor;
+        Camera.main.backgroundColor = Color.black;
+    }
+
     void Update()
     {
         MoveCamera();

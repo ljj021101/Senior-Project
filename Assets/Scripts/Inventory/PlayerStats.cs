@@ -13,6 +13,9 @@ public class PlayerStats : MonoBehaviour
     public float baseLuck = 0f;              // 初始运气
     public float baseLightRadius = 100f;     // 初始光照范围（百分比）
 
+    [Header("光照控制")]
+    public UnityEngine.Rendering.Universal.Light2D playerLight;
+
     [Header("当前状态")]
     public float currentHP;  // 当前血量
 
@@ -127,6 +130,9 @@ public class PlayerStats : MonoBehaviour
         finalCritDamage = baseCritDamage + totalCritDamage;
         finalLuck = baseLuck + totalLuck;
         finalLightRadius = baseLightRadius + totalLightRadius;
+
+        playerLight.pointLightOuterRadius = finalLightRadius / 100f;
+
         // 攻击间隔 = 武器主攻速 / (1 + 非武器攻速加成)
         finalAttackInterval = weaponAttackSpeed / (1f + nonWeaponAttackSpeedBonus);
 

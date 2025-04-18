@@ -11,5 +11,6 @@ public class EnemyStats
     public int maxHP;
     public int attack;
     public float attackInterval;
+    public int defense;
     public Sprite portrait;
 }

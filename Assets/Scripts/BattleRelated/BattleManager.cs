@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Rendering.Universal;
 
 public class BattleManager : MonoBehaviour
 {
@@ -11,26 +12,30 @@ public class BattleManager : MonoBehaviour
     public GameObject enemyModelInstance;
 
     [Header("音效")]
-    public AudioSource audioSource;             // 用于播放音效（挂在 BattleManager 或 UI 上）
-    public AudioClip playerAttackClip;          // 玩家攻击音效
-    public AudioClip slimeAttackClip;           // Slime 攻击音效
-    public AudioClip goblinAttackClip;          // Goblin 攻击音效
-    public AudioClip batAttackClip;             // Bat 攻击音效
+    public AudioSource audioSource;
+    public AudioClip playerAttackClip;
+    public AudioClip slimeAttackClip;
+    public AudioClip goblinAttackClip;
+    public AudioClip batAttackClip;
     public AudioClip slimeDeathClip;
     public AudioClip goblinDeathClip;
     public AudioClip batDeathClip;
 
     [Header("UI Components")]
-    public CanvasGroup fadePanel;
     public GameObject battleUI;
     public Slider playerHPBar;
     public Slider enemyHPBar;
     public TMP_Text enemyNameText;
     public Animator playerAnimator;
 
-    public float slideSpeed = 50f;
-    private Vector2Int enemyTilePosition;
+    [Header("光照替代 Fade")]
+    public Light2D playerLight;
+    public float battleLightRadius = 0f;
+    public float lightAdjustSpeed = 3f;
 
+    private float normalLightRadius;
+
+    private Vector2Int enemyTilePosition;
     private Vector3 playerInitialPos;
     private Vector3 enemyInitialPos;
 
@@ -53,7 +58,10 @@ public class BattleManager : MonoBehaviour
             return;
         }
 
-        // 禁止移动与背包操作
+        // 获取当前光照半径
+        normalLightRadius = playerStats.finalLightRadius / 100f;
+        playerLight.pointLightOuterRadius = normalLightRadius;
+
         CaveGenerator cave = FindObjectOfType<CaveGenerator>();
         if (cave != null)
         {
@@ -68,7 +76,7 @@ public class BattleManager : MonoBehaviour
     IEnumerator BattleSequence()
     {
         battleInProgress = true;
-        // 初始化血条
+
         playerHPBar.maxValue = playerStats.finalHP;
         playerHPBar.value = playerStats.currentHP;
         enemyHPBar.maxValue = currentEnemy.maxHP;
@@ -80,7 +88,8 @@ public class BattleManager : MonoBehaviour
         enemyInitialPos = camCenter + new Vector3(3f, 0f, 0f);
         playerModelInstance.transform.position = playerInitialPos;
         enemyModelInstance.transform.position = enemyInitialPos;
-        yield return StartCoroutine(FadeToBlack());
+
+        yield return StartCoroutine(ShrinkLight());
         yield return StartCoroutine(ShowCharacters());
 
         float enemyHP = currentEnemy.maxHP;
@@ -93,17 +102,42 @@ public class BattleManager : MonoBehaviour
             if (playerTimer >= playerStats.finalAttackInterval)
             {
                 playerTimer = 0f;
-                enemyHP -= playerStats.finalAttack;
+
+                // 判断是否暴击
+                bool isCrit = Random.value < (playerStats.finalCritRate / 100f);
+                
+                // 基础伤害
+                float baseDamage = playerStats.finalAttack;
+
+                if (isCrit)
+                {
+                    baseDamage *= (playerStats.finalCritDamage / 100f);
+                }
+
+                // 计算敌人最终受到的伤害（线性减伤，最少为1）
+                float damageDealt = Mathf.Max(1f, baseDamage);  // 默认无防御
+                if (currentEnemy.defense > 0)
+                {
+                    damageDealt = Mathf.Max(1f, baseDamage - currentEnemy.defense);  // 线性减伤
+                }
+
+                enemyHP -= damageDealt;
                 enemyHPBar.value = enemyHP;
 
-                // 播放玩家攻击动画
+                // 播放玩家攻击动画与音效
                 playerAnimator.SetTrigger("Slash");
                 audioSource?.PlayOneShot(playerAttackClip);
 
                 // 闪白
                 var enemyHit = enemyModelInstance.GetComponentInChildren<HitEffect>();
                 if (enemyHit != null) enemyHit.Flash();
+
+                // 调试输出
+                Debug.Log(isCrit
+                    ? $"暴击！对敌人造成了 {damageDealt:F1} 点伤害！"
+                    : $"对敌人造成了 {damageDealt:F1} 点伤害");
             }
+
 
             if (enemyTimer >= currentEnemy.attackInterval)
             {
@@ -111,21 +145,14 @@ public class BattleManager : MonoBehaviour
                 playerStats.currentHP -= currentEnemy.attack;
                 playerHPBar.value = playerStats.currentHP;
 
+                enemyBattleController.animator.SetTrigger("Attack");
                 switch (currentEnemy.type)
                 {
-                    case EnemyType.Slime:
-                        audioSource?.PlayOneShot(slimeAttackClip);
-                        break;
-                    case EnemyType.Goblin:
-                        audioSource?.PlayOneShot(goblinAttackClip);
-                        break;
-                    case EnemyType.Bat:
-                        audioSource?.PlayOneShot(batAttackClip);
-                        break;
+                    case EnemyType.Slime: audioSource?.PlayOneShot(slimeAttackClip); break;
+                    case EnemyType.Goblin: audioSource?.PlayOneShot(goblinAttackClip); break;
+                    case EnemyType.Bat: audioSource?.PlayOneShot(batAttackClip); break;
                 }
-                // 玩家受击 → 闪白
-                var playerHit = playerModelInstance.GetComponentInChildren<HitEffect>();
-                if (playerHit != null) playerHit.Flash();
+                playerModelInstance.GetComponentInChildren<HitEffect>()?.Flash();
             }
 
             yield return null;
@@ -141,43 +168,51 @@ public class BattleManager : MonoBehaviour
         battleInProgress = false;
     }
 
-    IEnumerator FadeToBlack()
+    IEnumerator ShrinkLight()
     {
-        fadePanel.gameObject.SetActive(true);
-        fadePanel.alpha = 0;
-        while (fadePanel.alpha < 0.8f)
+        while (playerLight.pointLightOuterRadius > 0)
         {
-            fadePanel.alpha += Time.deltaTime * 1.5f;
+            playerLight.pointLightOuterRadius -= Time.deltaTime * lightAdjustSpeed;
             yield return null;
         }
+        playerLight.pointLightOuterRadius = battleLightRadius;
+    }
+
+    IEnumerator RestoreLight()
+    {
+        while (playerLight.pointLightOuterRadius < normalLightRadius)
+        {
+            playerLight.pointLightOuterRadius += Time.deltaTime * lightAdjustSpeed;
+            yield return null;
+        }
+        playerLight.pointLightOuterRadius = normalLightRadius;
     }
 
     IEnumerator ShowCharacters()
     {
         Vector3 camCenter = Camera.main.transform.position;
-        camCenter.z = 0f; // 保证在 2D 平面
+        camCenter.z = 0f;
 
         enemyBattleController.Setup(currentEnemy.type);
 
-        // 设置初始位置（远离战斗区域）
-        playerInitialPos = camCenter + new Vector3(-3f, 0f, 0f);
+        playerInitialPos = camCenter + new Vector3(-3f, -0.3f, 0f);
         enemyInitialPos = camCenter + new Vector3(3f, 0f, 0f);
-
-        // 设置目标位置（战斗区偏中心）
-        Vector3 playerTarget = camCenter + new Vector3(-0.5f, 0f, 0f);
-        Vector3 enemyTarget = camCenter + new Vector3(0.5f, 0f, 0f);
+        Vector3 playerTarget = camCenter + new Vector3(-0.2f, -0.3f, 0f);
+        Vector3 enemyTarget = camCenter + new Vector3(0.2f, 0f, 0f);
 
         if (playerModelInstance == null || enemyModelInstance == null)
         {
-            Debug.LogError("角色实例未找到，请确认 Tag 设置正确！");
+            Debug.LogError("角色实例未找到，请确认绑定！");
             yield break;
         }
 
-        // 将角色移动到初始位置
         playerModelInstance.transform.position = playerInitialPos;
         enemyModelInstance.transform.position = enemyInitialPos;
 
-        // 角色朝目标位置滑动
+        Vector3 scale = enemyModelInstance.transform.localScale;
+        scale.x = -Mathf.Abs(scale.x);
+        enemyModelInstance.transform.localScale = scale;
+
         float duration = 0.2f;
         float elapsed = 0f;
 
@@ -191,33 +226,23 @@ public class BattleManager : MonoBehaviour
 
             yield return null;
         }
-        // 最终对齐
+
         playerModelInstance.transform.position = playerTarget;
         enemyModelInstance.transform.position = enemyTarget;
-
-        // yield return new WaitForSeconds(0.2f); // 等一下再进入战斗
     }
 
     void HandleWin()
     {
         Debug.Log("玩家胜利！");
-        CaveGenerator cave = FindObjectOfType<CaveGenerator>();
-        if (cave != null)
-        {
-            cave.ClearEnemyTile(enemyTilePosition);
-        }
+        FindObjectOfType<CaveGenerator>()?.ClearEnemyTile(enemyTilePosition);
+
         switch (currentEnemy.type)
         {
-            case EnemyType.Slime:
-                audioSource?.PlayOneShot(slimeDeathClip);
-                break;
-            case EnemyType.Goblin:
-                audioSource?.PlayOneShot(goblinDeathClip);
-                break;
-            case EnemyType.Bat:
-                audioSource?.PlayOneShot(batDeathClip);
-                break;
+            case EnemyType.Slime: audioSource?.PlayOneShot(slimeDeathClip); break;
+            case EnemyType.Goblin: audioSource?.PlayOneShot(goblinDeathClip); break;
+            case EnemyType.Bat: audioSource?.PlayOneShot(batDeathClip); break;
         }
+
         EndBattle();
     }
 
@@ -229,18 +254,15 @@ public class BattleManager : MonoBehaviour
 
     void EndBattle()
     {
-        // 回到原位
         if (playerModelInstance != null)
             playerModelInstance.transform.position = playerInitialPos;
 
         if (enemyModelInstance != null)
             enemyModelInstance.transform.position = enemyInitialPos;
 
-        fadePanel.alpha = 0;
-        fadePanel.gameObject.SetActive(false);
         battleUI.SetActive(false);
+        StartCoroutine(RestoreLight());
 
-        // 重新允许操作
         CaveGenerator cave = FindObjectOfType<CaveGenerator>();
         if (cave != null)
         {

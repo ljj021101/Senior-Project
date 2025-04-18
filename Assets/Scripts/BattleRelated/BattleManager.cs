@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Rendering.Universal;
+using System;
 
 public class BattleManager : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class BattleManager : MonoBehaviour
     public EnemyBattleController enemyBattleController;
     public GameObject playerModelInstance;
     public GameObject enemyModelInstance;
+    public InventoryManager inventoryManager;
+    public CaveGenerator cave;
+    public CanvasGroup gameOverPanel;
 
     [Header("音效")]
     public AudioSource audioSource;
@@ -20,6 +24,7 @@ public class BattleManager : MonoBehaviour
     public AudioClip slimeDeathClip;
     public AudioClip goblinDeathClip;
     public AudioClip batDeathClip;
+    public AudioClip playerDeathClip;
 
     [Header("UI Components")]
     public GameObject battleUI;
@@ -27,11 +32,12 @@ public class BattleManager : MonoBehaviour
     public Slider enemyHPBar;
     public TMP_Text enemyNameText;
     public Animator playerAnimator;
+    public Animator mapPlayerAnimator;
 
     [Header("光照替代 Fade")]
     public Light2D playerLight;
     public float battleLightRadius = 0f;
-    public float lightAdjustSpeed = 3f;
+    public float lightAdjustSpeed = 10f;
 
     private float normalLightRadius;
 
@@ -46,6 +52,8 @@ public class BattleManager : MonoBehaviour
     private float enemyTimer = 0f;
 
     private bool battleInProgress = false;
+    private bool isGameOver = false;
+    private bool isDeath = false;
 
     public void StartBattle(EnemyStats enemy, Vector2Int enemyPos)
     {
@@ -93,6 +101,8 @@ public class BattleManager : MonoBehaviour
         yield return StartCoroutine(ShowCharacters());
 
         float enemyHP = currentEnemy.maxHP;
+        playerTimer = 100000f;
+        enemyTimer = 0f;
 
         while (playerStats.currentHP > 0 && enemyHP > 0)
         {
@@ -104,7 +114,7 @@ public class BattleManager : MonoBehaviour
                 playerTimer = 0f;
 
                 // 判断是否暴击
-                bool isCrit = Random.value < (playerStats.finalCritRate / 100f);
+                bool isCrit = UnityEngine.Random.value < (playerStats.finalCritRate / 100f);
                 
                 // 基础伤害
                 float baseDamage = playerStats.finalAttack;
@@ -178,14 +188,24 @@ public class BattleManager : MonoBehaviour
         playerLight.pointLightOuterRadius = battleLightRadius;
     }
 
-    IEnumerator RestoreLight()
+    IEnumerator RestoreLight(Action onComplete = null)
     {
         while (playerLight.pointLightOuterRadius < normalLightRadius)
         {
             playerLight.pointLightOuterRadius += Time.deltaTime * lightAdjustSpeed;
             yield return null;
         }
+
         playerLight.pointLightOuterRadius = normalLightRadius;
+    }
+
+    void ResetHitColor(GameObject model)
+    {
+        var hitEffect = model.GetComponentInChildren<HitEffect>();
+        if (hitEffect != null && hitEffect.spriteRenderer != null)
+        {
+            hitEffect.spriteRenderer.color = hitEffect.spriteRenderer.color = Color.white;
+        }
     }
 
     IEnumerator ShowCharacters()
@@ -194,6 +214,8 @@ public class BattleManager : MonoBehaviour
         camCenter.z = 0f;
 
         enemyBattleController.Setup(currentEnemy.type);
+        ResetHitColor(playerModelInstance);
+        ResetHitColor(enemyModelInstance);
 
         playerInitialPos = camCenter + new Vector3(-3f, -0.3f, 0f);
         enemyInitialPos = camCenter + new Vector3(3f, 0f, 0f);
@@ -249,30 +271,89 @@ public class BattleManager : MonoBehaviour
     void HandleLose()
     {
         Debug.Log("玩家失败！");
+        isDeath = true;
+        playerAnimator.SetTrigger("Death");
+        audioSource?.PlayOneShot(playerDeathClip);
+        StartCoroutine(HandleDeathThenShowGameOver());
+    }
+
+    IEnumerator HandleDeathSequence()
+    {
+        yield return new WaitForSeconds(2f);
         EndBattle();
     }
 
-    void EndBattle()
+    IEnumerator WaitAndEnableMove(float delay = 0.4f)
     {
-        if (playerModelInstance != null)
-            playerModelInstance.transform.position = playerInitialPos;
-
-        if (enemyModelInstance != null)
-            enemyModelInstance.transform.position = enemyInitialPos;
-
-        battleUI.SetActive(false);
-        StartCoroutine(RestoreLight());
-
-        CaveGenerator cave = FindObjectOfType<CaveGenerator>();
-        if (cave != null)
+        yield return new WaitForSeconds(delay);
+        if (cave != null && !isGameOver)
         {
             cave.canMove = true;
             cave.canOpenInventory = true;
         }
     }
 
-    public bool IsBattleInProgress()
+    void EndBattle()
     {
-        return battleInProgress;
+        if (playerModelInstance != null)
+            playerModelInstance.transform.position = playerInitialPos;
+        if (enemyModelInstance != null)
+            enemyModelInstance.transform.position = enemyInitialPos;
+
+        battleUI.SetActive(false);
+        
+        if (!isDeath)
+        {
+            StartCoroutine(RestoreLight()); // 光照恢复不管它
+            StartCoroutine(WaitAndEnableMove()); // 但移动延迟恢复
+        }
+
+        var cave = FindObjectOfType<CaveGenerator>();
+
+        inventoryManager.SaveAll();
+        Debug.Log("战斗结束存档");
+    }
+
+    IEnumerator HandleDeathThenShowGameOver()
+    {
+        yield return new WaitForSeconds(2f);
+        battleUI.SetActive(false);
+        gameOverPanel.gameObject.SetActive(true);
+        gameOverPanel.alpha = 1;
+        isGameOver = true;
+    }
+
+    void Update()
+    {
+        if (isGameOver && Input.GetKeyDown(KeyCode.Space))
+        {
+            RestartFromLevelOne();
+        }
+    }
+
+    void RestartFromLevelOne()
+    {
+        isGameOver = false;
+        isDeath = false;
+
+        gameOverPanel.alpha = 0;
+        gameOverPanel.gameObject.SetActive(false);
+
+        playerStats.currentHP = playerStats.finalHP;
+        playerAnimator.SetTrigger("Idle");
+
+        var cave = FindObjectOfType<CaveGenerator>();
+        if (cave != null)
+        {
+            cave.currentLevel = 1;
+            cave.GenerateMap();
+            cave.canMove = true;
+            cave.canOpenInventory = true;
+        }
+
+        StartCoroutine(RestoreLight());
+        battleUI.SetActive(false);
+
+        Debug.Log("玩家重生并回到第一层！");
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class CaveGenerator : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class CaveGenerator : MonoBehaviour
     public GameObject groundPrefab;         // 地面Prefab
     public GameObject openedTreasurePrefab; // 开启宝箱Prefab
     public GameObject nextLevelPrefab;      // 前往下一层的通道Prefab
+
+    [Header("UI 显示")]
+    public TMP_Text levelText;
 
     [Header("敌人Prefab")]
     public GameObject slimePrefab;
@@ -160,7 +164,7 @@ public class CaveGenerator : MonoBehaviour
         }
     }
 
-    void GenerateMap()
+    public void GenerateMap()
     {
         // 重置地图
         InitializeMap();
@@ -176,6 +180,7 @@ public class CaveGenerator : MonoBehaviour
         // 放置前往下一层的通道
         PlaceNextLevelPassage();
 
+        UpdateLevelText();
         DrawMap();
     }
 
@@ -258,7 +263,7 @@ public class CaveGenerator : MonoBehaviour
         {
             for (int y = 1; y < height - 1; y++)
             {
-                if (map[x, y] == 0 && IsDeadEnd(x, y) && Random.Range(0, 100) > 70)
+                if (map[x, y] == 0 && IsDeadEnd(x, y) && Random.Range(0, 100) > 50)
                 {
                     map[x, y] = 2; // 宝箱
                     PlaceEnemyNearTreasureInMap(x, y);
@@ -490,6 +495,14 @@ public class CaveGenerator : MonoBehaviour
             }
             int index = Random.Range(0, weightedSteps.Count);
             return weightedSteps[index];
+        }
+    }
+
+    void UpdateLevelText()
+    {
+        if (levelText != null)
+        {
+            levelText.text = $"Floor {currentLevel}";
         }
     }
 }

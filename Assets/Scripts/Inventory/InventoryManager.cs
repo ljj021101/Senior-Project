@@ -6,6 +6,7 @@ using System.IO;
 public class EquipmentAndInventorySaveData
 {
     public int[] allSeeds;
+    public float currentHP;
 }
 
 public class InventoryManager : MonoBehaviour
@@ -23,13 +24,12 @@ public class InventoryManager : MonoBehaviour
     public GameObject equipmentPrefab;  // 装备预制体（需挂有 EquipmentItem 脚本）
 
     private List<GameObject> backpackSlots = new List<GameObject>(); // 背包槽引用
-
+    public PlayerStats playerStats;
     private string saveFilePath;
 
     void Start()
     {
         saveFilePath = Path.Combine(Application.persistentDataPath, "player_inventory.json");
-
         CreateBackpackSlots();
 
         // 如果有存档，就加载；没有则测试添加一件随机物品
@@ -121,6 +121,10 @@ public class InventoryManager : MonoBehaviour
     /// </summary>
     public void SaveAll()
     {
+        if (string.IsNullOrEmpty(saveFilePath))
+        {
+            return;
+        }
         // 我们需要存储 10 个装备槽 + 背包槽数量
         int totalSlots = EQUIPMENT_SLOTS_COUNT + backpackSlots.Count;
         int[] allSeeds = new int[totalSlots];
@@ -165,6 +169,8 @@ public class InventoryManager : MonoBehaviour
         // 打包到数据结构
         EquipmentAndInventorySaveData saveData = new EquipmentAndInventorySaveData();
         saveData.allSeeds = allSeeds;
+        saveData.currentHP = playerStats.currentHP;
+        Debug.Log("存档角色HP: " + playerStats.currentHP);
 
         // 序列化为 JSON
         string json = JsonUtility.ToJson(saveData);
@@ -191,6 +197,8 @@ public class InventoryManager : MonoBehaviour
             Debug.LogWarning("存档文件无效或空");
             return;
         }
+
+        playerStats.currentHP = loadData.currentHP;
 
         int[] allSeeds = loadData.allSeeds;
 

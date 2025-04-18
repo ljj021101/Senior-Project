@@ -1,11 +1,12 @@
 using UnityEngine;
+using System.Collections;
 
 public class PlayerStats : MonoBehaviour
 {
     [Header("基础属性")]
     public float baseHP = 200f;              // 初始生命
-    public float baseDefense = 0f;           // 初始防御（不直接使用，只作为基准）
-    public float baseAttack = 5f;            // 初始攻击（不直接使用，只作为基准）
+    public float baseDefense = 0f;           // 初始防御
+    public float baseAttack = 10f;            // 初始攻击
     public float baseMoveSpeed = 2f;         // 初始移动速度
     public float baseMagicResist = 0f;       // 初始魔抗
     public float baseCritRate = 0f;          // 初始暴击率
@@ -123,7 +124,7 @@ public class PlayerStats : MonoBehaviour
         // 防御：以所有盔甲主防御为基数，加上次要 Defense 百分比加成
         finalDefense = armorMainDefense * (1f + totalDefenseBonusPercent / 100f);
         // 攻击：以武器主攻击为基数，加上次要 Attack 百分比加成
-        finalAttack = weaponMainAttack * (1f + totalAttackBonusPercent / 100f);
+        finalAttack = baseAttack + weaponMainAttack * (1f + totalAttackBonusPercent / 100f);
         finalMoveSpeed = baseMoveSpeed + totalMoveSpeed;
         finalMagicResist = baseMagicResist + totalMagicResist;
         finalCritRate = baseCritRate + totalCritRate;
@@ -141,6 +142,11 @@ public class PlayerStats : MonoBehaviour
             currentHP = finalHP;
         }
 
+        InventoryManager manager = FindObjectOfType<InventoryManager>();
+        if (manager != null)
+        {
+            manager.SaveAll();
+        }
         Debug.Log($"[PlayerStats] Recalculated: HP={finalHP}, DEF={finalDefense}, ATK={finalAttack}, MoveSpeed={finalMoveSpeed}, MagicRes={finalMagicResist}, CritRate={finalCritRate}, CritDamage={finalCritDamage}, Luck={finalLuck}, LightRadius={finalLightRadius}, AttackInterval={finalAttackInterval}");
     }
 
@@ -194,6 +200,5 @@ public class PlayerStats : MonoBehaviour
     void Start()
     {
         RecalculateStats();           // 先计算 finalHP 等属性
-        currentHP = finalHP;          // 然后再设置 currentHP
     }
 }

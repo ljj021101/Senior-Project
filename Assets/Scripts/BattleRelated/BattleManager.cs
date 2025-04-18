@@ -331,7 +331,7 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    void RestartFromLevelOne()
+    public void RestartFromLevelOne()
     {
         isGameOver = false;
         isDeath = false;

@@ -122,8 +122,8 @@ public class EquipmentItem : MonoBehaviour
                     float atk = Random.Range(2, 8 + level);
                     switch (weaponClass)
                     {
-                        case WeaponClass.Medium: atk = atk * 1.5f + level; break;
-                        case WeaponClass.Heavy: atk = atk * 3f + level; break;
+                        case WeaponClass.Medium: atk = atk * 2f + level; break;
+                        case WeaponClass.Heavy: atk = atk * 4f + level; break;
                     }
 
                     if (rarity == EquipmentRarity.Rare) atk += 2;

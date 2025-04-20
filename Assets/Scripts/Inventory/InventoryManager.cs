@@ -48,7 +48,7 @@ public class InventoryManager : MonoBehaviour
     {   
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            AddNewItemWithSeed(-1);
+            //AddNewItemWithSeed(-1);
         }
     }
 
@@ -75,7 +75,7 @@ public class InventoryManager : MonoBehaviour
     /// 由 EquipmentItem 根据种子决定全部特性
     /// 先尝试放入背包
     /// </summary>
-    public void AddNewItemWithSeed(int seed)
+    public EquipmentItem AddNewItemWithSeed(int seed)
     {
         GameObject newItem = Instantiate(equipmentPrefab);
         EquipmentItem eqItem = newItem.GetComponent<EquipmentItem>();
@@ -88,11 +88,14 @@ public class InventoryManager : MonoBehaviour
 
             // 将装备放到背包的第一个空槽
             AddItemToBackpack(eqItem);
+
+            return eqItem;  //返回新生成的装备
         }
         else
         {
             Debug.LogError("装备预制体缺少 EquipmentItem 组件！");
             Destroy(newItem);
+            return null;
         }
     }
 

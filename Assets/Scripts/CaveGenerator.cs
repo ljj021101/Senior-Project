@@ -14,6 +14,9 @@ public class CaveGenerator : MonoBehaviour
     public GameObject openedTreasurePrefab; // 开启宝箱Prefab
     public GameObject nextLevelPrefab;      // 前往下一层的通道Prefab
 
+    public GameObject floatingIconPrefab;     // 原有的icon
+    public GameObject rarityParticlePrefab;
+
     [Header("UI 显示")]
     public TMP_Text levelText;
 
@@ -141,7 +144,14 @@ public class CaveGenerator : MonoBehaviour
                     {
                         map[newPosition.x, newPosition.y] = 5; // 标记宝箱已开启
                         Debug.Log("宝箱打开，位置：" + newPosition);
-                        inventoryManager.AddNewItemWithSeed(-1);
+
+                        // 生成装备并添加至背包
+                        EquipmentItem newItem = inventoryManager.AddNewItemWithSeed(-1);
+
+                        ShowFloatingIconAboveChest(newPosition, newItem);
+                        ShowRarityParticleEffect(newPosition, newItem);
+
+                        // 存档与音效
                         inventoryManager.SaveAll();
                         audioPlayer.PlayChestOpenSound();
                         DrawMap();
@@ -151,6 +161,55 @@ public class CaveGenerator : MonoBehaviour
         }
     }
 
+    void ShowFloatingIconAboveChest(Vector2Int chestPos, EquipmentItem item)
+    {
+        if (floatingIconPrefab == null || item == null) return;
+
+        Vector3 worldPos = new Vector3(chestPos.x * gridSpacing, chestPos.y * gridSpacing + 0.05f, 0f);
+        GameObject iconObj = Instantiate(floatingIconPrefab, worldPos, Quaternion.identity);
+
+        var floatingIcon = iconObj.GetComponent<FloatingIcon>();
+        if (floatingIcon != null)
+        {
+            Color tint = Color.white;
+            switch (item.rarity)
+            {
+                case EquipmentRarity.Rare: tint = Color.cyan; break;
+                case EquipmentRarity.Legendary: tint = new Color(1f, 0.84f, 0f); break;
+            }
+            floatingIcon.SetIcon(item.iconImage.sprite, tint);
+        }
+    }
+
+    private void ShowRarityParticleEffect(Vector2Int chestPos, EquipmentItem item)
+    {
+        if (rarityParticlePrefab == null || item == null) return;
+
+        // 位置
+        Vector3 worldPos = new Vector3(chestPos.x * gridSpacing - 0.03f, chestPos.y * gridSpacing, 0f);
+
+        // 实例化粒子
+        GameObject fx = Instantiate(rarityParticlePrefab, worldPos, Quaternion.identity);
+
+        // 设置颜色
+        var ps = fx.GetComponent<ParticleSystem>();
+        if (ps != null)
+        {
+            var main = ps.main;
+            switch (item.rarity)
+            {
+                case EquipmentRarity.Normal:
+                    main.startColor = Color.white;
+                    break;
+                case EquipmentRarity.Rare:
+                    main.startColor = Color.cyan;
+                    break;
+                case EquipmentRarity.Legendary:
+                    main.startColor = new Color(1f, 0.84f, 0f); // 金色
+                    break;
+            }
+        }
+    }
 
     void SmoothMovePlayer()
     {

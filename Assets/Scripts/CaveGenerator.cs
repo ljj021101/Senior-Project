@@ -43,6 +43,7 @@ public class CaveGenerator : MonoBehaviour
     public InventoryManager inventoryManager;
     public AudioPlayer audioPlayer;
     public Transform playerTransform; // 玩家Transform
+    public PlayerStats playerStats;
 
     // 当前层数计数
     public int currentLevel = 1;

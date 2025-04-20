@@ -90,7 +90,7 @@ public class PlayerStats : MonoBehaviour
                         // 武器主攻击只从 Weapon 类型装备的 主词条 Attack 中获取
                         if (eqItem.itemType == EquipmentType.Weapon)
                         {
-                            weaponMainAttack = GetMainStatValue(eqItem, ItemStat.Attack) + baseAttack;
+                            weaponMainAttack = GetMainStatValue(eqItem, ItemStat.Attack);
                             // 武器的主攻速（AttackSpeed）作为基础攻击间隔
                             float temp = GetMainStatValue(eqItem, ItemStat.AttackSpeed);
                             if (temp > 0f)
@@ -132,7 +132,8 @@ public class PlayerStats : MonoBehaviour
         finalLuck = baseLuck + totalLuck;
         finalLightRadius = baseLightRadius + totalLightRadius;
 
-        playerLight.pointLightOuterRadius = finalLightRadius / 100f;
+        float normalLightRadius = finalLightRadius / 100f;
+        playerLight.pointLightOuterRadius = normalLightRadius;
 
         // 攻击间隔 = 武器主攻速 / (1 + 非武器攻速加成)
         finalAttackInterval = weaponAttackSpeed / (1f + nonWeaponAttackSpeedBonus);

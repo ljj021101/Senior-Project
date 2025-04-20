@@ -120,11 +120,34 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     // IPointerClickHandler 实现：点击装备时显示装备信息
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("装备被点击：" + gameObject.name);
-        EquipmentItem item = GetComponent<EquipmentItem>();
-        if (item != null && infoPanel != null)
+        if (eventData.button == PointerEventData.InputButton.Right)
         {
-            infoPanel.DisplayEquipmentInfo(item);
+            // 右键丢进垃圾桶
+            TrashSlot trashSlot = FindObjectOfType<TrashSlot>();
+            if (trashSlot != null)
+            {
+                if (trashSlot.transform.childCount > 0)
+                {
+                    Transform oldItem = trashSlot.transform.GetChild(0);
+                    Destroy(oldItem.gameObject);
+                }
+
+                transform.SetParent(trashSlot.transform, false);
+                transform.localPosition = Vector3.zero;
+
+                playerStats.RecalculateStats();
+
+                Debug.Log("右键点击装备，已移入垃圾桶（并替换原有物品）");
+            }
+
+            return;
+        }
+
+        // 左键时才显示装备信息
+        EquipmentInfoPanel infoPanel = FindObjectOfType<EquipmentInfoPanel>();
+        if (infoPanel != null)
+        {
+            infoPanel.DisplayEquipmentInfo(GetComponent<EquipmentItem>());
         }
     }
 }

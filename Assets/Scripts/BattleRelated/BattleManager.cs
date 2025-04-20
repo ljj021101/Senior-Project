@@ -14,6 +14,8 @@ public class BattleManager : MonoBehaviour
     public InventoryManager inventoryManager;
     public CaveGenerator cave;
     public CanvasGroup gameOverPanel;
+    public GameObject damageTextPrefab;
+    public Transform battleCanvas;
 
     [Header("音效")]
     public AudioSource audioSource;
@@ -66,7 +68,6 @@ public class BattleManager : MonoBehaviour
             return;
         }
 
-        // 获取当前光照半径
         normalLightRadius = playerStats.finalLightRadius / 100f;
         playerLight.pointLightOuterRadius = normalLightRadius;
 
@@ -115,46 +116,51 @@ public class BattleManager : MonoBehaviour
 
                 // 判断是否暴击
                 bool isCrit = UnityEngine.Random.value < (playerStats.finalCritRate / 100f);
-                
+
                 // 基础伤害
                 float baseDamage = playerStats.finalAttack;
-
                 if (isCrit)
-                {
                     baseDamage *= (playerStats.finalCritDamage / 100f);
-                }
 
-                // 计算敌人最终受到的伤害（线性减伤，最少为1）
-                float damageDealt = Mathf.Max(1f, baseDamage);  // 默认无防御
-                if (currentEnemy.defense > 0)
-                {
-                    damageDealt = Mathf.Max(1f, baseDamage - currentEnemy.defense);  // 线性减伤
-                }
+                // 减去敌人防御
+                float reducedDamage = Mathf.Max(1f, baseDamage - currentEnemy.defense);
 
-                enemyHP -= damageDealt;
+                // 添加伤害浮动（80%-120%）
+                float finalDamage = reducedDamage * UnityEngine.Random.Range(0.8f, 1.2f);
+                finalDamage = Mathf.Max(1f, finalDamage); // 最低为1
+
+                enemyHP -= finalDamage;
                 enemyHPBar.value = enemyHP;
 
-                // 播放玩家攻击动画与音效
+                // 播放动画和音效
                 playerAnimator.SetTrigger("Slash");
                 audioSource?.PlayOneShot(playerAttackClip);
+                enemyModelInstance.GetComponentInChildren<HitEffect>()?.Flash();
 
-                // 闪白
-                var enemyHit = enemyModelInstance.GetComponentInChildren<HitEffect>();
-                if (enemyHit != null) enemyHit.Flash();
+                // 显示敌人受到伤害的飘字
+                ShowDamageText(finalDamage, enemyHPBar.GetComponent<RectTransform>(), isCrit);
 
-                // 调试输出
+                // Debug log
                 Debug.Log(isCrit
-                    ? $"暴击！对敌人造成了 {damageDealt:F1} 点伤害！"
-                    : $"对敌人造成了 {damageDealt:F1} 点伤害");
+                    ? $"暴击！对敌人造成了 {finalDamage:F1} 点伤害！"
+                    : $"对敌人造成了 {finalDamage:F1} 点伤害");
             }
 
 
             if (enemyTimer >= currentEnemy.attackInterval)
             {
                 enemyTimer = 0f;
-                playerStats.currentHP -= currentEnemy.attack;
+
+                float baseDamage = currentEnemy.attack;
+                float reducedDamage = Mathf.Max(1f, baseDamage - playerStats.finalDefense);
+
+                float finalDamage = reducedDamage * UnityEngine.Random.Range(0.8f, 1.2f);
+                finalDamage = Mathf.Max(1f, finalDamage);
+
+                playerStats.currentHP -= finalDamage;
                 playerHPBar.value = playerStats.currentHP;
 
+                // 动画和音效
                 enemyBattleController.animator.SetTrigger("Attack");
                 switch (currentEnemy.type)
                 {
@@ -163,6 +169,9 @@ public class BattleManager : MonoBehaviour
                     case EnemyType.Bat: audioSource?.PlayOneShot(batAttackClip); break;
                 }
                 playerModelInstance.GetComponentInChildren<HitEffect>()?.Flash();
+
+                // 显示玩家受到伤害的飘字
+                ShowDamageText(finalDamage, playerHPBar.GetComponent<RectTransform>(), false);
             }
 
             yield return null;
@@ -251,6 +260,49 @@ public class BattleManager : MonoBehaviour
 
         playerModelInstance.transform.position = playerTarget;
         enemyModelInstance.transform.position = enemyTarget;
+    }
+
+    public void ShowDamageText(float amount, RectTransform anchor, bool isCrit = false)
+    {
+        if (damageTextPrefab == null || anchor == null || battleCanvas == null) return;
+
+        GameObject popup = Instantiate(damageTextPrefab, battleCanvas);
+        RectTransform popupRect = popup.GetComponent<RectTransform>();
+
+        popupRect.position = anchor.position + new Vector3(0, 40f, 0);
+        popupRect.localScale = Vector3.one;
+
+        TMP_Text text = popup.GetComponent<TMP_Text>();
+        if (text != null)
+        {
+            text.text = isCrit ? $"<color=red>{Mathf.RoundToInt(amount)}!</color>" : Mathf.RoundToInt(amount).ToString();
+            StartCoroutine(AnimateDamageText(popupRect, text));
+        }
+    }
+
+    IEnumerator AnimateDamageText(RectTransform rect, TMP_Text text)
+    {
+        float duration = 1f;
+        float elapsed = 0f;
+
+        Vector3 startPos = rect.position;
+        Vector3 endPos = startPos + new Vector3(0, 100f, 0);
+
+        Color startColor = text.color;
+        Color endColor = new Color(startColor.r, startColor.g, startColor.b, 0f); // 透明
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / duration;
+
+            rect.position = Vector3.Lerp(startPos, endPos, t);
+            text.color = Color.Lerp(startColor, endColor, t);
+
+            yield return null;
+        }
+
+        Destroy(rect.gameObject);
     }
 
     void HandleWin()
@@ -350,10 +402,10 @@ public class BattleManager : MonoBehaviour
             cave.canMove = true;
             cave.canOpenInventory = true;
         }
-
         StartCoroutine(RestoreLight());
         battleUI.SetActive(false);
 
         Debug.Log("玩家重生并回到第一层！");
+        
     }
 }

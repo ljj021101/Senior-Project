@@ -82,8 +82,8 @@ public class EquipmentItem : MonoBehaviour
 
         // 稀有度分配
         float rarityRoll = Random.Range(0f, 1f);
-        if (rarityRoll < 0.05f) rarity = EquipmentRarity.Legendary;
-        else if (rarityRoll < 0.2f) rarity = EquipmentRarity.Rare;
+        if (rarityRoll < 0.1f) rarity = EquipmentRarity.Legendary;
+        else if (rarityRoll < 0.4f) rarity = EquipmentRarity.Rare;
         else rarity = EquipmentRarity.Normal;
 
         itemName = $"{itemType} {rarity} (LV.{level})";

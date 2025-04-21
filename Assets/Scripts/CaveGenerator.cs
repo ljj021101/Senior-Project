@@ -384,8 +384,8 @@ public class CaveGenerator : MonoBehaviour
         switch (pathCount)
         {
             case 2: return 6f;
-            case 3: return 40f;
-            case 4: return 70f;
+            case 3: return 15f;
+            case 4: return 30f;
             default: return 6f;
         }
     }

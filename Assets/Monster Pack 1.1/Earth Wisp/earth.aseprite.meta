@@ -1,0 +1,923 @@
+fileFormatVersion: 2
+guid: f16d079c73d356b4f937f36a475a6dbc
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: earth_Frame_0
+    originalName: 
+    pivot: {x: 0.43103448, y: -0.15384616}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 202
+      y: 81
+      width: 29
+      height: 26
+    spriteID: 5a7d47de76419774eb45c051c0eeabe6
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 202, y: 81}
+  - name: earth_Frame_1
+    originalName: 
+    pivot: {x: 0.43103448, y: -0.28}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 114
+      y: 115
+      width: 29
+      height: 25
+    spriteID: 54ed1da54c87b7d41a34e56a3b536584
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 114, y: 115}
+  - name: earth_Frame_2
+    originalName: 
+    pivot: {x: 0.4107143, y: -0.23076925}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 78
+      y: 115
+      width: 28
+      height: 26
+    spriteID: 7d891719abd31334e9559f73c729392e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 78, y: 115}
+  - name: earth_Frame_3
+    originalName: 
+    pivot: {x: 0.43103448, y: -0.28}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 151
+      y: 115
+      width: 29
+      height: 25
+    spriteID: cc94e709250154447bbfacda90df021d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 151, y: 115}
+  - name: earth_Frame_4
+    originalName: 
+    pivot: {x: 0.45000002, y: -0.1923077}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 81
+      width: 30
+      height: 26
+    spriteID: 6f93d0820ddb2cd44ab2138974ae750e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 81}
+  - name: earth_Frame_5
+    originalName: 
+    pivot: {x: 0.4166667, y: -0.1923077}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 42
+      y: 81
+      width: 30
+      height: 26
+    spriteID: 590369c5505462d4aa399b4b4e6f6fa7
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 42, y: 81}
+  - name: earth_Frame_6
+    originalName: 
+    pivot: {x: 0.45000002, y: -0.1923077}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 80
+      y: 81
+      width: 30
+      height: 26
+    spriteID: b138076d97d334f43a5187e2fe4cb167
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 80, y: 81}
+  - name: earth_Frame_7
+    originalName: 
+    pivot: {x: 0.4166667, y: -0.1923077}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 118
+      y: 81
+      width: 30
+      height: 26
+    spriteID: 57f9ba7e10b16e34cbdf374ad98548bf
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 118, y: 81}
+  - name: earth_Frame_8
+    originalName: 
+    pivot: {x: 0.43103448, y: -0.15384616}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 115
+      width: 29
+      height: 26
+    spriteID: 5aacac764d598084380ad5bd280f8726
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 115}
+  - name: earth_Frame_9
+    originalName: 
+    pivot: {x: 0.42647058, y: -0.06060606}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 194
+      y: 4
+      width: 34
+      height: 33
+    spriteID: 944c23f7a22cc8649877dbc7da4560c5
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 194, y: 4}
+  - name: earth_Frame_10
+    originalName: 
+    pivot: {x: 0.4027778, y: -0.114285715}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 150
+      y: 4
+      width: 36
+      height: 35
+    spriteID: a2437be19e539c34ba09f35855d040ea
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 150, y: 4}
+  - name: earth_Frame_11
+    originalName: 
+    pivot: {x: 0.4375, y: -0.1388889}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 102
+      y: 4
+      width: 40
+      height: 36
+    spriteID: 5d7d074e8279d0e4ca0231949dff980a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 102, y: 4}
+  - name: earth_Frame_12
+    originalName: 
+    pivot: {x: 0.45121953, y: -0.16666667}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 41
+      height: 36
+    spriteID: 23ea316b217681641b03fad99d6a77b6
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  - name: earth_Frame_13
+    originalName: 
+    pivot: {x: 0.45121953, y: -0.16666667}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 53
+      y: 4
+      width: 41
+      height: 36
+    spriteID: dedfc479ee5040743b43084515a8d13c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 53, y: 4}
+  - name: earth_Frame_14
+    originalName: 
+    pivot: {x: 0.59210527, y: -0.1}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 156
+      y: 81
+      width: 38
+      height: 20
+    spriteID: 2dee2aa7be8ec1341a9c0029fb1e7b32
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 156, y: 81}
+  - name: earth_Frame_15
+    originalName: 
+    pivot: {x: 0.5857143, y: -0.1}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 72
+      y: 149
+      width: 35
+      height: 20
+    spriteID: ab774c29f348dac4a84891c98b39731f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 72, y: 149}
+  - name: earth_Frame_16
+    originalName: 
+    pivot: {x: 0.59090906, y: -0.15000002}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 189
+      y: 149
+      width: 33
+      height: 20
+    spriteID: fe4ca733309f49d43b1f577335ce384c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 189, y: 149}
+  - name: earth_Frame_17
+    originalName: 
+    pivot: {x: 0.6029412, y: -0.08}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 48
+      width: 34
+      height: 25
+    spriteID: 44eeeaf9414a56242bdfb9d89c7a9c50
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 48}
+  - name: earth_Frame_18
+    originalName: 
+    pivot: {x: 0.40384614, y: -0.14814815}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 149
+      width: 26
+      height: 27
+    spriteID: cd68ab8bb9e51844b8e1306a2da02d34
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 149}
+  - name: earth_Frame_19
+    originalName: 
+    pivot: {x: 0.39655173, y: -0.21739131}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 115
+      y: 149
+      width: 29
+      height: 23
+    spriteID: 2179efae086d0204a8e945875e75a25d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 115, y: 149}
+  - name: earth_Frame_20
+    originalName: 
+    pivot: {x: 0.43103448, y: -0.15384616}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 41
+      y: 115
+      width: 29
+      height: 26
+    spriteID: 7bdb2cea06f44f047bf47be9b2dd1343
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 41, y: 115}
+  - name: earth_Frame_21
+    originalName: 
+    pivot: {x: 0.40384614, y: -0.14814815}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 38
+      y: 149
+      width: 26
+      height: 27
+    spriteID: d25aabfd80f706847ad893bfe6440c68
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 38, y: 149}
+  - name: earth_Frame_22
+    originalName: 
+    pivot: {x: 0.39655173, y: -0.21739131}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 152
+      y: 149
+      width: 29
+      height: 23
+    spriteID: ebd793496f1a9c0468483338920df3ba
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 152, y: 149}
+  - name: earth_Frame_23
+    originalName: 
+    pivot: {x: 0.35000002, y: -0.125}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 188
+      y: 115
+      width: 30
+      height: 24
+    spriteID: 541936afb2ca37642a323523a31e3592
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 188, y: 115}
+  - name: earth_Frame_24
+    originalName: 
+    pivot: {x: 0.3166667, y: -0.0952381}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 46
+      y: 48
+      width: 30
+      height: 21
+    spriteID: fc09031e77f449840ab438b4163ed407
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 46, y: 48}
+  - name: earth_Frame_25
+    originalName: 
+    pivot: {x: 0.33870968, y: -0.055555556}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 84
+      y: 48
+      width: 31
+      height: 18
+    spriteID: 5b401c0f3dec6cb4894486b4c46b1470
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 84, y: 48}
+  - name: earth_Frame_26
+    originalName: 
+    pivot: {x: 0.22413795, y: -0.05882353}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 159
+      y: 48
+      width: 29
+      height: 17
+    spriteID: 51d2d55146900fb4b9036b74dea7ddcc
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 159, y: 48}
+  - name: earth_Frame_27
+    originalName: 
+    pivot: {x: 0.23214288, y: -0.055555556}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 123
+      y: 48
+      width: 28
+      height: 18
+    spriteID: dd3ad79fc7e371c428ee73e168d17d7e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 123, y: 48}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: -313355774
+    name: earth
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: earth_Frame_0
+      frameIndex: 0
+      cellRect:
+        x: 11
+        y: 4
+        width: 29
+        height: 26
+      spriteId: 5a7d47de76419774eb45c051c0eeabe6
+    - name: earth_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 11
+        y: 7
+        width: 29
+        height: 25
+      spriteId: 54ed1da54c87b7d41a34e56a3b536584
+    - name: earth_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 12
+        y: 6
+        width: 28
+        height: 26
+      spriteId: 7d891719abd31334e9559f73c729392e
+    - name: earth_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 11
+        y: 7
+        width: 29
+        height: 25
+      spriteId: cc94e709250154447bbfacda90df021d
+    - name: earth_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 10
+        y: 5
+        width: 30
+        height: 26
+      spriteId: 6f93d0820ddb2cd44ab2138974ae750e
+    - name: earth_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 11
+        y: 5
+        width: 30
+        height: 26
+      spriteId: 590369c5505462d4aa399b4b4e6f6fa7
+    - name: earth_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 10
+        y: 5
+        width: 30
+        height: 26
+      spriteId: b138076d97d334f43a5187e2fe4cb167
+    - name: earth_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 11
+        y: 5
+        width: 30
+        height: 26
+      spriteId: 57f9ba7e10b16e34cbdf374ad98548bf
+    - name: earth_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: 11
+        y: 4
+        width: 29
+        height: 26
+      spriteId: 5aacac764d598084380ad5bd280f8726
+    - name: earth_Frame_9
+      frameIndex: 9
+      cellRect:
+        x: 9
+        y: 2
+        width: 34
+        height: 33
+      spriteId: 944c23f7a22cc8649877dbc7da4560c5
+    - name: earth_Frame_10
+      frameIndex: 10
+      cellRect:
+        x: 9
+        y: 4
+        width: 36
+        height: 35
+      spriteId: a2437be19e539c34ba09f35855d040ea
+    - name: earth_Frame_11
+      frameIndex: 11
+      cellRect:
+        x: 6
+        y: 5
+        width: 40
+        height: 36
+      spriteId: 5d7d074e8279d0e4ca0231949dff980a
+    - name: earth_Frame_12
+      frameIndex: 12
+      cellRect:
+        x: 5
+        y: 6
+        width: 41
+        height: 36
+      spriteId: 23ea316b217681641b03fad99d6a77b6
+    - name: earth_Frame_13
+      frameIndex: 13
+      cellRect:
+        x: 5
+        y: 6
+        width: 41
+        height: 36
+      spriteId: dedfc479ee5040743b43084515a8d13c
+    - name: earth_Frame_14
+      frameIndex: 14
+      cellRect:
+        x: 1
+        y: 2
+        width: 38
+        height: 20
+      spriteId: 2dee2aa7be8ec1341a9c0029fb1e7b32
+    - name: earth_Frame_15
+      frameIndex: 15
+      cellRect:
+        x: 3
+        y: 2
+        width: 35
+        height: 20
+      spriteId: ab774c29f348dac4a84891c98b39731f
+    - name: earth_Frame_16
+      frameIndex: 16
+      cellRect:
+        x: 4
+        y: 3
+        width: 33
+        height: 20
+      spriteId: fe4ca733309f49d43b1f577335ce384c
+    - name: earth_Frame_17
+      frameIndex: 17
+      cellRect:
+        x: 3
+        y: 2
+        width: 34
+        height: 25
+      spriteId: 44eeeaf9414a56242bdfb9d89c7a9c50
+    - name: earth_Frame_18
+      frameIndex: 18
+      cellRect:
+        x: 13
+        y: 4
+        width: 26
+        height: 27
+      spriteId: cd68ab8bb9e51844b8e1306a2da02d34
+    - name: earth_Frame_19
+      frameIndex: 19
+      cellRect:
+        x: 12
+        y: 5
+        width: 29
+        height: 23
+      spriteId: 2179efae086d0204a8e945875e75a25d
+    - name: earth_Frame_20
+      frameIndex: 20
+      cellRect:
+        x: 11
+        y: 4
+        width: 29
+        height: 26
+      spriteId: 7bdb2cea06f44f047bf47be9b2dd1343
+    - name: earth_Frame_21
+      frameIndex: 21
+      cellRect:
+        x: 13
+        y: 4
+        width: 26
+        height: 27
+      spriteId: d25aabfd80f706847ad893bfe6440c68
+    - name: earth_Frame_22
+      frameIndex: 22
+      cellRect:
+        x: 12
+        y: 5
+        width: 29
+        height: 23
+      spriteId: ebd793496f1a9c0468483338920df3ba
+    - name: earth_Frame_23
+      frameIndex: 23
+      cellRect:
+        x: 13
+        y: 3
+        width: 30
+        height: 24
+      spriteId: 541936afb2ca37642a323523a31e3592
+    - name: earth_Frame_24
+      frameIndex: 24
+      cellRect:
+        x: 14
+        y: 2
+        width: 30
+        height: 21
+      spriteId: fc09031e77f449840ab438b4163ed407
+    - name: earth_Frame_25
+      frameIndex: 25
+      cellRect:
+        x: 13
+        y: 1
+        width: 31
+        height: 18
+      spriteId: 5b401c0f3dec6cb4894486b4c46b1470
+    - name: earth_Frame_26
+      frameIndex: 26
+      cellRect:
+        x: 17
+        y: 1
+        width: 29
+        height: 17
+      spriteId: 51d2d55146900fb4b9036b74dea7ddcc
+    - name: earth_Frame_27
+      frameIndex: 27
+      cellRect:
+        x: 17
+        y: 1
+        width: 28
+        height: 18
+      spriteId: dd3ad79fc7e371c428ee73e168d17d7e
+    linkedCells: []
+    parentIndex: -1
+  platformSettings: []
+  generatePhysicsShape: 0
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 47, y: 43}

@@ -6,11 +6,28 @@ public static class EnemyFactory
 {
     public static EnemyStats CreateEnemyAtPosition(Vector2Int pos, int seed)
     {
+        CaveGenerator cave = GameObject.FindObjectOfType<CaveGenerator>();
+        int level = cave != null ? cave.currentLevel : 1;
+
         int hash = seed ^ (pos.x * 73856093) ^ (pos.y * 19349663);
         System.Random rng = new System.Random(hash);
-        EnemyType type = (EnemyType)(rng.Next(0, System.Enum.GetNames(typeof(EnemyType)).Length));
 
-        int level = GameObject.FindObjectOfType<CaveGenerator>().currentLevel;
+        // 如果是死胡同，就生成 Mimic
+        if (cave != null && cave.IsDeadEnd(pos.x, pos.y))
+        {
+            return new EnemyStats
+            {
+                type = EnemyType.Mimic,
+                maxHP = 120 + (level - 1) * 100,
+                attack = 20 + (level - 1) * 10,
+                attackInterval = 3f,
+                defense = 0
+            };
+        }
+
+        // 普通敌人类型（不包含 Mimic）
+        EnemyType[] allowedTypes = new EnemyType[] { EnemyType.Slime, EnemyType.Goblin, EnemyType.Bat };
+        EnemyType type = allowedTypes[rng.Next(allowedTypes.Length)];
 
         switch (type)
         {
@@ -50,6 +67,12 @@ public static class EnemyFactory
     {
         int hash = seed ^ (pos.x * 73856093) ^ (pos.y * 19349663);
         System.Random rng = new System.Random(hash);
-        return (EnemyType)(rng.Next(0, System.Enum.GetNames(typeof(EnemyType)).Length));
+
+        CaveGenerator cave = GameObject.FindObjectOfType<CaveGenerator>();
+        if (cave != null && cave.IsDeadEnd(pos.x, pos.y))
+            return EnemyType.Mimic;
+
+        EnemyType[] allowedTypes = new EnemyType[] { EnemyType.Slime, EnemyType.Goblin, EnemyType.Bat };
+        return allowedTypes[rng.Next(allowedTypes.Length)];
     }
 }

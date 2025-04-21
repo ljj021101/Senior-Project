@@ -60,7 +60,6 @@ public class PlayerStats : MonoBehaviour
         float weaponMainAttack = 0f;
         float totalAttackBonusPercent = 0f;
 
-        float totalHP = 0f;
         float totalMoveSpeed = 0f;
         float totalMagicResist = 0f;
         float totalCritRate = 0f;

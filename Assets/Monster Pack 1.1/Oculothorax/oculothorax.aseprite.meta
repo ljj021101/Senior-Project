@@ -1,0 +1,951 @@
+fileFormatVersion: 2
+guid: 84f64d75f06a5a44c81a21e6a5600d34
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: oculothorax_Frame_0
+    originalName: 
+    pivot: {x: 0.37037036, y: -0.35}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 98
+      width: 27
+      height: 20
+    spriteID: 1c6c31d1b60ad4c48b79081bf6e17535
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 98}
+  - name: oculothorax_Frame_1
+    originalName: 
+    pivot: {x: 0.37037036, y: -0.47368422}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 182
+      width: 27
+      height: 19
+    spriteID: 5129fca4225308e4f93234b02a854869
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 182}
+  - name: oculothorax_Frame_2
+    originalName: 
+    pivot: {x: 0.3846154, y: -0.5263158}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 41
+      y: 4
+      width: 26
+      height: 19
+    spriteID: 04d3d1d19b5ea3d4f8be93e5d8db534e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 41, y: 4}
+  - name: oculothorax_Frame_3
+    originalName: 
+    pivot: {x: 0.37037036, y: -0.4}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 126
+      width: 27
+      height: 20
+    spriteID: e228b9cb1a236b84284fa16de7aa2ff5
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 126}
+  - name: oculothorax_Frame_4
+    originalName: 
+    pivot: {x: 0.3448276, y: -0.5882353}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 75
+      y: 4
+      width: 29
+      height: 17
+    spriteID: a43d178c09f4a664e8ad98e4b6857c39
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 75, y: 4}
+  - name: oculothorax_Frame_5
+    originalName: 
+    pivot: {x: 0.37037036, y: -0.5882353}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 75
+      y: 137
+      width: 27
+      height: 17
+    spriteID: 7bfc5ddc3ad05ee42838b73e74a1c29b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 75, y: 137}
+  - name: oculothorax_Frame_6
+    originalName: 
+    pivot: {x: 0.35714287, y: -0.5882353}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 75
+      y: 54
+      width: 28
+      height: 17
+    spriteID: b5ed3ee4a689af74cb0574a01890599a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 75, y: 54}
+  - name: oculothorax_Frame_7
+    originalName: 
+    pivot: {x: 0.3448276, y: -0.5882353}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 75
+      y: 29
+      width: 29
+      height: 17
+    spriteID: 63037e0bda3997647a9845bc3285550e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 75, y: 29}
+  - name: oculothorax_Frame_8
+    originalName: 
+    pivot: {x: 0.26923078, y: -0.7}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 154
+      width: 26
+      height: 20
+    spriteID: eb989985a9a9e7d47aa4dc91462c5391
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 154}
+  - name: oculothorax_Frame_9
+    originalName: 
+    pivot: {x: 0.24000001, y: -0.5416666}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 34
+      width: 25
+      height: 24
+    spriteID: eb2e7f8b67bac1a40bcc5fbbccbfcb75
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 34}
+  - name: oculothorax_Frame_10
+    originalName: 
+    pivot: {x: 0.24000001, y: -0.5416666}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 66
+      width: 25
+      height: 24
+    spriteID: 9637f2d32d79baa468a1c10010e4f910
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 66}
+  - name: oculothorax_Frame_11
+    originalName: 
+    pivot: {x: 0.6551724, y: -0.36363637}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 29
+      height: 22
+    spriteID: f3bcd1bbf0d6d7e45a0b00080bdf8901
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  - name: oculothorax_Frame_12
+    originalName: 
+    pivot: {x: 1.0526316, y: -0.93333334}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 41
+      y: 100
+      width: 19
+      height: 15
+    spriteID: de8ca43b570f28d4ea5418c3cf09b06d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 41, y: 100}
+  - name: oculothorax_Frame_13
+    originalName: 
+    pivot: {x: 1.125, y: -1.0666667}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 75
+      y: 218
+      width: 16
+      height: 15
+    spriteID: de0580c834df1bc41b937eaa59937872
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 75, y: 218}
+  - name: oculothorax_Frame_14
+    originalName: 
+    pivot: {x: 0.71428573, y: -1.0625}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 75
+      y: 162
+      width: 28
+      height: 16
+    spriteID: be016a049aac19449b32c2e0c8170d9a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 75, y: 162}
+  - name: oculothorax_Frame_15
+    originalName: 
+    pivot: {x: 0.36842108, y: -1.1428572}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 41
+      y: 123
+      width: 19
+      height: 14
+    spriteID: 89e6383abac1e49448d9f77c54bcdf52
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 41, y: 123}
+  - name: oculothorax_Frame_16
+    originalName: 
+    pivot: {x: 0.29411766, y: -1.1428572}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 41
+      y: 145
+      width: 17
+      height: 14
+    spriteID: 4c675e0b995d8a8459bae17a53923df9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 41, y: 145}
+  - name: oculothorax_Frame_17
+    originalName: 
+    pivot: {x: 0, y: -0.33333334}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 105
+      y: 79
+      width: 19
+      height: 21
+    spriteID: 79fbba824737cb44db8008d7ec0e991f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 105, y: 79}
+  - name: oculothorax_Frame_18
+    originalName: 
+    pivot: {x: 0.050000012, y: -0.4}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 100
+      y: 186
+      width: 20
+      height: 20
+    spriteID: f0b7d05daec20d94c93cbefa67ced237
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 100, y: 186}
+  - name: oculothorax_Frame_19
+    originalName: 
+    pivot: {x: 0.13636363, y: -0.3809524}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 75
+      y: 79
+      width: 22
+      height: 21
+    spriteID: e16bec2f842155f4097c59ab7ea0a1e4
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 75, y: 79}
+  - name: oculothorax_Frame_20
+    originalName: 
+    pivot: {x: 0.18181817, y: -0.3809524}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 75
+      y: 108
+      width: 22
+      height: 21
+    spriteID: 28d831c3e325987408a0790de923670a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 75, y: 108}
+  - name: oculothorax_Frame_21
+    originalName: 
+    pivot: {x: 0, y: -0.33333334}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 105
+      y: 108
+      width: 19
+      height: 21
+    spriteID: 3f3fd41ee4316b740a74b902fafe511e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 105, y: 108}
+  - name: oculothorax_Frame_22
+    originalName: 
+    pivot: {x: 0.050000012, y: -0.4}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 100
+      y: 214
+      width: 20
+      height: 20
+    spriteID: 82a7ccc93abbe6c46a63ef41726b52a8
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 100, y: 214}
+  - name: oculothorax_Frame_23
+    originalName: 
+    pivot: {x: 0.17391303, y: -0.36363637}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 209
+      width: 23
+      height: 22
+    spriteID: 208a89c2594dea1439494041e5503adb
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 209}
+  - name: oculothorax_Frame_24
+    originalName: 
+    pivot: {x: 0.17647056, y: -0.20833333}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 75
+      y: 186
+      width: 17
+      height: 24
+    spriteID: 4dcf7a83f936ffa48be57ce76949628a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 75, y: 186}
+  - name: oculothorax_Frame_25
+    originalName: 
+    pivot: {x: 0.16666664, y: -0.1}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 41
+      y: 31
+      width: 18
+      height: 20
+    spriteID: b1023a04c36ee0145952527ffc711055
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 41, y: 31}
+  - name: oculothorax_Frame_26
+    originalName: 
+    pivot: {x: 0.42307693, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 41
+      y: 59
+      width: 26
+      height: 13
+    spriteID: 995e3a3a549f8cd419d24335553e9e75
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 41, y: 59}
+  - name: oculothorax_Frame_27
+    originalName: 
+    pivot: {x: 0.42307693, y: -0.16666667}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 41
+      y: 80
+      width: 26
+      height: 12
+    spriteID: f6d31a04796d6f74aa3a21075c87998c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 41, y: 80}
+  - name: oculothorax_Frame_28
+    originalName: 
+    pivot: {x: 0.44444445, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 239
+      width: 27
+      height: 13
+    spriteID: e712090e5f47d6e48a349cca34c13be1
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 239}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: -431515174
+    name: oculothorax
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: oculothorax_Frame_0
+      frameIndex: 0
+      cellRect:
+        x: 10
+        y: 7
+        width: 27
+        height: 20
+      spriteId: 1c6c31d1b60ad4c48b79081bf6e17535
+    - name: oculothorax_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 10
+        y: 9
+        width: 27
+        height: 19
+      spriteId: 5129fca4225308e4f93234b02a854869
+    - name: oculothorax_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 10
+        y: 10
+        width: 26
+        height: 19
+      spriteId: 04d3d1d19b5ea3d4f8be93e5d8db534e
+    - name: oculothorax_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 10
+        y: 8
+        width: 27
+        height: 20
+      spriteId: e228b9cb1a236b84284fa16de7aa2ff5
+    - name: oculothorax_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 10
+        y: 10
+        width: 29
+        height: 17
+      spriteId: a43d178c09f4a664e8ad98e4b6857c39
+    - name: oculothorax_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 10
+        y: 10
+        width: 27
+        height: 17
+      spriteId: 7bfc5ddc3ad05ee42838b73e74a1c29b
+    - name: oculothorax_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 10
+        y: 10
+        width: 28
+        height: 17
+      spriteId: b5ed3ee4a689af74cb0574a01890599a
+    - name: oculothorax_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 10
+        y: 10
+        width: 29
+        height: 17
+      spriteId: 63037e0bda3997647a9845bc3285550e
+    - name: oculothorax_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: 13
+        y: 14
+        width: 26
+        height: 20
+      spriteId: eb989985a9a9e7d47aa4dc91462c5391
+    - name: oculothorax_Frame_9
+      frameIndex: 9
+      cellRect:
+        x: 14
+        y: 13
+        width: 25
+        height: 24
+      spriteId: eb2e7f8b67bac1a40bcc5fbbccbfcb75
+    - name: oculothorax_Frame_10
+      frameIndex: 10
+      cellRect:
+        x: 14
+        y: 13
+        width: 25
+        height: 24
+      spriteId: 9637f2d32d79baa468a1c10010e4f910
+    - name: oculothorax_Frame_11
+      frameIndex: 11
+      cellRect:
+        x: 1
+        y: 8
+        width: 29
+        height: 22
+      spriteId: f3bcd1bbf0d6d7e45a0b00080bdf8901
+    - name: oculothorax_Frame_12
+      frameIndex: 12
+      cellRect:
+        x: 0
+        y: 14
+        width: 19
+        height: 15
+      spriteId: de8ca43b570f28d4ea5418c3cf09b06d
+    - name: oculothorax_Frame_13
+      frameIndex: 13
+      cellRect:
+        x: 2
+        y: 16
+        width: 16
+        height: 15
+      spriteId: de0580c834df1bc41b937eaa59937872
+    - name: oculothorax_Frame_14
+      frameIndex: 14
+      cellRect:
+        x: 0
+        y: 17
+        width: 28
+        height: 16
+      spriteId: be016a049aac19449b32c2e0c8170d9a
+    - name: oculothorax_Frame_15
+      frameIndex: 15
+      cellRect:
+        x: 13
+        y: 16
+        width: 19
+        height: 14
+      spriteId: 89e6383abac1e49448d9f77c54bcdf52
+    - name: oculothorax_Frame_16
+      frameIndex: 16
+      cellRect:
+        x: 15
+        y: 16
+        width: 17
+        height: 14
+      spriteId: 4c675e0b995d8a8459bae17a53923df9
+    - name: oculothorax_Frame_17
+      frameIndex: 17
+      cellRect:
+        x: 20
+        y: 7
+        width: 19
+        height: 21
+      spriteId: 79fbba824737cb44db8008d7ec0e991f
+    - name: oculothorax_Frame_18
+      frameIndex: 18
+      cellRect:
+        x: 19
+        y: 8
+        width: 20
+        height: 20
+      spriteId: f0b7d05daec20d94c93cbefa67ced237
+    - name: oculothorax_Frame_19
+      frameIndex: 19
+      cellRect:
+        x: 17
+        y: 8
+        width: 22
+        height: 21
+      spriteId: e16bec2f842155f4097c59ab7ea0a1e4
+    - name: oculothorax_Frame_20
+      frameIndex: 20
+      cellRect:
+        x: 16
+        y: 8
+        width: 22
+        height: 21
+      spriteId: 28d831c3e325987408a0790de923670a
+    - name: oculothorax_Frame_21
+      frameIndex: 21
+      cellRect:
+        x: 20
+        y: 7
+        width: 19
+        height: 21
+      spriteId: 3f3fd41ee4316b740a74b902fafe511e
+    - name: oculothorax_Frame_22
+      frameIndex: 22
+      cellRect:
+        x: 19
+        y: 8
+        width: 20
+        height: 20
+      spriteId: 82a7ccc93abbe6c46a63ef41726b52a8
+    - name: oculothorax_Frame_23
+      frameIndex: 23
+      cellRect:
+        x: 16
+        y: 8
+        width: 23
+        height: 22
+      spriteId: 208a89c2594dea1439494041e5503adb
+    - name: oculothorax_Frame_24
+      frameIndex: 24
+      cellRect:
+        x: 17
+        y: 5
+        width: 17
+        height: 24
+      spriteId: 4dcf7a83f936ffa48be57ce76949628a
+    - name: oculothorax_Frame_25
+      frameIndex: 25
+      cellRect:
+        x: 17
+        y: 2
+        width: 18
+        height: 20
+      spriteId: b1023a04c36ee0145952527ffc711055
+    - name: oculothorax_Frame_26
+      frameIndex: 26
+      cellRect:
+        x: 9
+        y: 0
+        width: 26
+        height: 13
+      spriteId: 995e3a3a549f8cd419d24335553e9e75
+    - name: oculothorax_Frame_27
+      frameIndex: 27
+      cellRect:
+        x: 9
+        y: 2
+        width: 26
+        height: 12
+      spriteId: f6d31a04796d6f74aa3a21075c87998c
+    - name: oculothorax_Frame_28
+      frameIndex: 28
+      cellRect:
+        x: 8
+        y: 0
+        width: 27
+        height: 13
+      spriteId: e712090e5f47d6e48a349cca34c13be1
+    linkedCells: []
+    parentIndex: -1
+  platformSettings: []
+  generatePhysicsShape: 0
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 40, y: 40}

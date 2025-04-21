@@ -53,9 +53,13 @@ public class BattleManager : MonoBehaviour
     private float playerTimer = 0f;
     private float enemyTimer = 0f;
 
-    private bool battleInProgress = false;
+    //private bool battleInProgress = false;
     private bool isGameOver = false;
     private bool isDeath = false;
+
+    public Vector3 camCenter;
+    public Vector3 playerTarget;
+    public Vector3 enemyTarget;
 
     public void StartBattle(EnemyStats enemy, Vector2Int enemyPos)
     {
@@ -78,13 +82,12 @@ public class BattleManager : MonoBehaviour
             cave.canOpenInventory = false;
         }
 
-        battleUI.SetActive(true);
         StartCoroutine(BattleSequence());
     }
 
     IEnumerator BattleSequence()
     {
-        battleInProgress = true;
+        //battleInProgress = true;
 
         playerHPBar.maxValue = playerStats.finalHP;
         playerHPBar.value = playerStats.currentHP;
@@ -92,9 +95,6 @@ public class BattleManager : MonoBehaviour
         enemyHPBar.value = currentEnemy.maxHP;
         enemyNameText.text = currentEnemy.type.ToString();
 
-        Vector3 camCenter = Camera.main.transform.position;
-        playerInitialPos = camCenter + new Vector3(-3f, 0f, 0f);
-        enemyInitialPos = camCenter + new Vector3(3f, 0f, 0f);
         playerModelInstance.transform.position = playerInitialPos;
         enemyModelInstance.transform.position = enemyInitialPos;
 
@@ -184,7 +184,7 @@ public class BattleManager : MonoBehaviour
         else
             HandleWin();
 
-        battleInProgress = false;
+        //battleInProgress = false;
     }
 
     IEnumerator ShrinkLight()
@@ -219,17 +219,11 @@ public class BattleManager : MonoBehaviour
 
     IEnumerator ShowCharacters()
     {
-        Vector3 camCenter = Camera.main.transform.position;
-        camCenter.z = 0f;
+        AdjustEnemyModelTransform(currentEnemy.type);
 
         enemyBattleController.Setup(currentEnemy.type);
         ResetHitColor(playerModelInstance);
         ResetHitColor(enemyModelInstance);
-
-        playerInitialPos = camCenter + new Vector3(-3f, -0.3f, 0f);
-        enemyInitialPos = camCenter + new Vector3(3f, 0f, 0f);
-        Vector3 playerTarget = camCenter + new Vector3(-0.2f, -0.3f, 0f);
-        Vector3 enemyTarget = camCenter + new Vector3(0.2f, 0f, 0f);
 
         if (playerModelInstance == null || enemyModelInstance == null)
         {
@@ -239,9 +233,10 @@ public class BattleManager : MonoBehaviour
 
         playerModelInstance.transform.position = playerInitialPos;
         enemyModelInstance.transform.position = enemyInitialPos;
+        
+        battleUI.SetActive(true);
 
         Vector3 scale = enemyModelInstance.transform.localScale;
-        scale.x = -Mathf.Abs(scale.x);
         enemyModelInstance.transform.localScale = scale;
 
         float duration = 0.2f;
@@ -408,4 +403,31 @@ public class BattleManager : MonoBehaviour
         Debug.Log("玩家重生并回到第一层！");
         
     }
+
+    void AdjustEnemyModelTransform(EnemyType type)
+    {
+        Transform model = enemyModelInstance.transform;
+        camCenter = Camera.main.transform.position;
+        camCenter.z = 0f;
+
+        switch (type)
+        {
+            case EnemyType.Mimic:
+                model.localScale = new Vector3(2f, 2f, 1f);
+                playerInitialPos = camCenter + new Vector3(-3f, -0.3f, 0f);
+                enemyInitialPos = camCenter + new Vector3(3f, -0.5f, 0f);
+                playerTarget = camCenter + new Vector3(-0.2f, -0.3f, 0f);
+                enemyTarget = camCenter + new Vector3(0.2f, -0.5f, 0f);
+                break;
+
+            default:
+                model.localScale = new Vector3(-3f, 3f, 1f);
+                playerInitialPos = camCenter + new Vector3(-3f, -0.3f, 0f);
+                enemyInitialPos = camCenter + new Vector3(3f, 0f, 0f);
+                playerTarget = camCenter + new Vector3(-0.2f, -0.3f, 0f);
+                enemyTarget = camCenter + new Vector3(0.2f, 0f, 0f);
+                break;
+        }
+    }
+
 }

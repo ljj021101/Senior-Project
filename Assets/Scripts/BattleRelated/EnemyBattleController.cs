@@ -16,6 +16,9 @@ public class EnemyBattleController : MonoBehaviour
     public Sprite batSprite;
     public RuntimeAnimatorController batAnimator;
 
+    public Sprite mimicSprite;
+    public RuntimeAnimatorController mimicAnimator;
+
     public void Setup(EnemyType type)
     {
         switch (type)
@@ -31,6 +34,10 @@ public class EnemyBattleController : MonoBehaviour
             case EnemyType.Bat:
                 spriteRenderer.sprite = batSprite;
                 animator.runtimeAnimatorController = batAnimator;
+                break;
+            case EnemyType.Mimic:
+                spriteRenderer.sprite = mimicSprite;
+                animator.runtimeAnimatorController = mimicAnimator;
                 break;
         }
     }

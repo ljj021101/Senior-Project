@@ -190,7 +190,7 @@ public class EquipmentItem : MonoBehaviour
     {
         switch (stat)
         {
-            case ItemStat.MoveSpeed: return 0.2f + 0.1f * Random.Range(0, 4);
+            case ItemStat.MoveSpeed: return 0.1f * Random.Range(0, 3) + 0.1f;
             case ItemStat.Defense: return Random.Range(2, 6);
             case ItemStat.HP: return Random.Range(2, 11);
             case ItemStat.MagicResist: return Random.Range(2, 6);

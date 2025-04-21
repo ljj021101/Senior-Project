@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum EnemyType { Slime, Goblin, Bat }
+public enum EnemyType { Slime, Goblin, Bat, Mimic }
 
 [System.Serializable]
 public class EnemyStats

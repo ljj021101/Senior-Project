@@ -24,6 +24,7 @@ public class CaveGenerator : MonoBehaviour
     public GameObject slimePrefab;
     public GameObject goblinPrefab;
     public GameObject batPrefab;
+    public GameObject mimicPrefab;
 
     public bool canMove = true;        // 是否允许移动
     public bool canOpenInventory = true;
@@ -50,6 +51,7 @@ public class CaveGenerator : MonoBehaviour
 
     // 当前层数计数
     public int currentLevel = 1;
+    public Dictionary<Vector2Int, EnemyStats> enemyMap = new Dictionary<Vector2Int, EnemyStats>();
 
     void Start()
     {
@@ -138,6 +140,7 @@ public class CaveGenerator : MonoBehaviour
                         DrawMap();
 
                         EnemyStats enemy = EnemyFactory.CreateEnemyAtPosition(newPosition, globalSeed);
+                        enemyMap[newPosition] = enemy;
                         FindObjectOfType<BattleManager>().StartBattle(enemy, newPosition);
                     }
                     // 如果目标为宝箱，则执行开宝箱逻辑
@@ -324,10 +327,22 @@ public class CaveGenerator : MonoBehaviour
         {
             for (int y = 1; y < height - 1; y++)
             {
-                if (map[x, y] == 0 && IsDeadEnd(x, y) && Random.Range(0, 100) > 50)
+                if (map[x, y] == 0 && IsDeadEnd(x, y))
                 {
-                    map[x, y] = 2; // 宝箱
-                    PlaceEnemyNearTreasureInMap(x, y);
+                    // 如果随机数小于 mimic 概率，则生成 mimic（例如 20%）
+                    if (Random.Range(0f, 1f) < 0.2f)
+                    {
+                        map[x, y] = 3;
+                        if (Random.Range(0f, 1f) < 0.3f)
+                        {
+                            PlaceEnemyNearTreasureInMap(x, y);
+                        }
+                    }
+                    else if (Random.Range(0f, 1f) < 0.6f)
+                    {
+                        map[x, y] = 2; // 正常宝箱
+                        PlaceEnemyNearTreasureInMap(x, y);
+                    }
                 }
             }
         }
@@ -341,7 +356,7 @@ public class CaveGenerator : MonoBehaviour
         else if (map[tx, ty + 1] == 0) map[tx, ty + 1] = 3;
     }
 
-    bool IsDeadEnd(int x, int y)
+    public bool IsDeadEnd(int x, int y)
     {
         int wallCount = 0;
         if (map[x - 1, y] == 1) wallCount++;
@@ -387,7 +402,7 @@ public class CaveGenerator : MonoBehaviour
             case 2: return 6f;
             case 3: return 15f;
             case 4: return 30f;
-            default: return 6f;
+            default: return 20f;
         }
     }
 
@@ -447,17 +462,35 @@ public class CaveGenerator : MonoBehaviour
                 }
                 else if (map[x, y] == 3)
                 {
-                    // 根据坐标和种子确定敌人类型
-                    EnemyType type = EnemyFactory.GetEnemyTypeAtPosition(new Vector2Int(x, y), globalSeed);
-
-                    GameObject prefabToUse = slimePrefab;
-                    switch (type)
+                    Vector2Int posKey = new Vector2Int(x, y);
+                    enemyMap[posKey] = EnemyFactory.CreateEnemyAtPosition(posKey, globalSeed);
+                    if (enemyMap.ContainsKey(posKey))
                     {
-                        case EnemyType.Goblin: prefabToUse = goblinPrefab; break;
-                        case EnemyType.Bat: prefabToUse = batPrefab; break;
-                    }
+                        EnemyType type = enemyMap[posKey].type;
+                        GameObject prefabToUse = null;
 
-                    Instantiate(prefabToUse, pos, Quaternion.identity);
+                        switch (type)
+                        {
+                            case EnemyType.Slime:
+                                prefabToUse = slimePrefab;
+                                break;
+                            case EnemyType.Goblin:
+                                prefabToUse = goblinPrefab;
+                                break;
+                            case EnemyType.Bat:
+                                prefabToUse = batPrefab;
+                                break;
+                            case EnemyType.Mimic:
+                                prefabToUse = mimicPrefab;
+                                break;
+                            default:
+                                prefabToUse = enemyPrefab;
+                                break;
+                        }
+
+                        if (prefabToUse != null)
+                            Instantiate(prefabToUse, pos, Quaternion.identity, transform);
+                    }
                 }
                 else if (map[x, y] == 5)
                 {

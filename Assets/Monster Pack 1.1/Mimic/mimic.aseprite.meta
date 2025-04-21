@@ -1,0 +1,1259 @@
+fileFormatVersion: 2
+guid: f8f7e3f1c82cc9642a658a2a5c1b4074
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: mimic_Frame_0
+    originalName: 
+    pivot: {x: 0.54761904, y: -0.05}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 82
+      y: 382
+      width: 21
+      height: 20
+    spriteID: 135506e0a16422340966d68fd9784014
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 82, y: 382}
+  - name: mimic_Frame_1
+    originalName: 
+    pivot: {x: 0.46, y: -0.045454547}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 82
+      y: 292
+      width: 25
+      height: 22
+    spriteID: 7a8ba06eeec1b00469a79fe7af01519f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 82, y: 292}
+  - name: mimic_Frame_2
+    originalName: 
+    pivot: {x: 0.46, y: -0.041666668}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 82
+      y: 199
+      width: 25
+      height: 24
+    spriteID: a7a9d6e99caf6584f9c9e9610c9bb40a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 82, y: 199}
+  - name: mimic_Frame_3
+    originalName: 
+    pivot: {x: 0.44230768, y: -0.035714287}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 45
+      y: 344
+      width: 26
+      height: 28
+    spriteID: 5b3b1d981844c1a47bbce0053f377ce1
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 45, y: 344}
+  - name: mimic_Frame_4
+    originalName: 
+    pivot: {x: 0.4166667, y: -0.03333333}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 354
+      width: 30
+      height: 30
+    spriteID: 686b10107e8834d419dabe0aa1610884
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 354}
+  - name: mimic_Frame_5
+    originalName: 
+    pivot: {x: 0.49999997, y: -0.03333333}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 472
+      width: 29
+      height: 30
+    spriteID: 856000b25d09b2c4f817fd3e811348ab
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 472}
+  - name: mimic_Frame_6
+    originalName: 
+    pivot: {x: 0.49999997, y: -0.03333333}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 45
+      y: 4
+      width: 29
+      height: 30
+    spriteID: 632ea6a7b0f6838418c21900733d6047
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 45, y: 4}
+  - name: mimic_Frame_7
+    originalName: 
+    pivot: {x: 0.48214287, y: -0.03125}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 392
+      width: 28
+      height: 32
+    spriteID: 1274115053c9ca244bad455d298db3f4
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 392}
+  - name: mimic_Frame_8
+    originalName: 
+    pivot: {x: 0.49999997, y: -0.03125}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 314
+      width: 29
+      height: 32
+    spriteID: 5377b905c617be1409a2c429f66f6684
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 314}
+  - name: mimic_Frame_9
+    originalName: 
+    pivot: {x: 0.5166667, y: -0.032258064}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 199
+      width: 30
+      height: 31
+    spriteID: 6862e19cc3134d24db97aca2b2253f2e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 199}
+  - name: mimic_Frame_10
+    originalName: 
+    pivot: {x: 0.58928573, y: -0.03125}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 432
+      width: 28
+      height: 32
+    spriteID: 1b22003b2b034a84e99f304e9c231d9f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 432}
+  - name: mimic_Frame_11
+    originalName: 
+    pivot: {x: 0.6607143, y: -0.03333333}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 45
+      y: 232
+      width: 28
+      height: 30
+    spriteID: d1631d3f387e6cd409260f3d7e64d9c3
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 45, y: 232}
+  - name: mimic_Frame_12
+    originalName: 
+    pivot: {x: 0.67391306, y: -0.035714287}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 45
+      y: 417
+      width: 23
+      height: 28
+    spriteID: 969481a669cc47f4391d2c5b455b9e9e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 45, y: 417}
+  - name: mimic_Frame_13
+    originalName: 
+    pivot: {x: 0.64285713, y: -0.03333333}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 82
+      y: 133
+      width: 21
+      height: 30
+    spriteID: a79d953761ed1324caa6c158fc4d6734
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 82, y: 133}
+  - name: mimic_Frame_14
+    originalName: 
+    pivot: {x: 0.65909094, y: -0.03448276}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 82
+      y: 96
+      width: 22
+      height: 29
+    spriteID: 6f7dbc748c39dcb4a9ae2860ff148d7f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 82, y: 96}
+  - name: mimic_Frame_15
+    originalName: 
+    pivot: {x: 0.62000006, y: -0.03448276}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 45
+      y: 380
+      width: 25
+      height: 29
+    spriteID: 01c2d163694a4f140b1980cf1a300457
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 45, y: 380}
+  - name: mimic_Frame_16
+    originalName: 
+    pivot: {x: 0.49999997, y: -0.03333333}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 45
+      y: 42
+      width: 29
+      height: 30
+    spriteID: 545bfe11463c34e44a3c1dc986da7edd
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 45, y: 42}
+  - name: mimic_Frame_17
+    originalName: 
+    pivot: {x: 0.39655173, y: -0.03333333}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 45
+      y: 80
+      width: 29
+      height: 30
+    spriteID: 8c5e57743e272f44bbcf5b8c873abc3f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 45, y: 80}
+  - name: mimic_Frame_18
+    originalName: 
+    pivot: {x: 0.36206895, y: -0.03333333}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 45
+      y: 118
+      width: 29
+      height: 30
+    spriteID: 9bb4cd3f2e679d64fb47cf30bb715587
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 45, y: 118}
+  - name: mimic_Frame_19
+    originalName: 
+    pivot: {x: 0.328125, y: -0.032258064}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 84
+      width: 32
+      height: 31
+    spriteID: e46dfb757d391c044be615cf909f30bf
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 84}
+  - name: mimic_Frame_20
+    originalName: 
+    pivot: {x: 0.3181818, y: -0.03125}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 33
+      height: 32
+    spriteID: 27fe6bd98d61a9b4caae63168fd72946
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  - name: mimic_Frame_21
+    originalName: 
+    pivot: {x: 0.3181818, y: -0.03125}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 44
+      width: 33
+      height: 32
+    spriteID: e78ea401c854c4d4aafa288fa2539305
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 44}
+  - name: mimic_Frame_22
+    originalName: 
+    pivot: {x: 0.7258065, y: -0.04}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 82
+      y: 4
+      width: 31
+      height: 25
+    spriteID: 5bb2252e397f08f4690dc456ee206193
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 82, y: 4}
+  - name: mimic_Frame_23
+    originalName: 
+    pivot: {x: 0.7258065, y: -0.05}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 82
+      y: 171
+      width: 31
+      height: 20
+    spriteID: a2e0271cf62b00c4e8562675bcb19dba
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 82, y: 171}
+  - name: mimic_Frame_24
+    originalName: 
+    pivot: {x: 0.7258065, y: -0.04761905}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 82
+      y: 67
+      width: 31
+      height: 21
+    spriteID: e8baf2f8cbd8be34f9bc521810b6c43d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 82, y: 67}
+  - name: mimic_Frame_25
+    originalName: 
+    pivot: {x: 0.7166667, y: -0.045454547}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 82
+      y: 37
+      width: 30
+      height: 22
+    spriteID: 403aaec49d3d0114b97b6d125a82531c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 82, y: 37}
+  - name: mimic_Frame_26
+    originalName: 
+    pivot: {x: 0.6607143, y: -0.04347826}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 45
+      y: 453
+      width: 28
+      height: 23
+    spriteID: 84726b0e348346c41ad9dbef9de27f03
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 45, y: 453}
+  - name: mimic_Frame_27
+    originalName: 
+    pivot: {x: 0.4032258, y: -0.03333333}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 238
+      width: 31
+      height: 30
+    spriteID: e0d1494b3965abd4bbef14e6956c7fcb
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 238}
+  - name: mimic_Frame_28
+    originalName: 
+    pivot: {x: 0.328125, y: -0.03333333}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 123
+      width: 32
+      height: 30
+    spriteID: ac2b936a25d32394eba80c922d7547b5
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 123}
+  - name: mimic_Frame_29
+    originalName: 
+    pivot: {x: 0.39655173, y: -0.03333333}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 45
+      y: 156
+      width: 29
+      height: 30
+    spriteID: 421ffe48c962ef4409d411ada321411f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 45, y: 156}
+  - name: mimic_Frame_30
+    originalName: 
+    pivot: {x: 0.4032258, y: -0.03333333}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 276
+      width: 31
+      height: 30
+    spriteID: 4b959405d9bc0d14c881f95627b694ec
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 276}
+  - name: mimic_Frame_31
+    originalName: 
+    pivot: {x: 0.328125, y: -0.03333333}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 161
+      width: 32
+      height: 30
+    spriteID: d2bf95300eb854c4d9b0d61d0bad1208
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 161}
+  - name: mimic_Frame_32
+    originalName: 
+    pivot: {x: 0.39655173, y: -0.03333333}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 45
+      y: 194
+      width: 29
+      height: 30
+    spriteID: 58888df04ff4ecf4b9aadb27700aca36
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 45, y: 194}
+  - name: mimic_Frame_33
+    originalName: 
+    pivot: {x: 0.48214287, y: -0.03333333}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 45
+      y: 270
+      width: 28
+      height: 30
+    spriteID: 0c6e55b173a456c47a279f9d3029baba
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 45, y: 270}
+  - name: mimic_Frame_34
+    originalName: 
+    pivot: {x: 0.49999997, y: -0.035714287}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 45
+      y: 308
+      width: 29
+      height: 28
+    spriteID: b250f964916f32048ac72f7400bc1eea
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 45, y: 308}
+  - name: mimic_Frame_35
+    originalName: 
+    pivot: {x: 0.51785713, y: -0.04347826}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 45
+      y: 484
+      width: 28
+      height: 23
+    spriteID: 9118868d1a51f81488832b02a8370a0e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 45, y: 484}
+  - name: mimic_Frame_36
+    originalName: 
+    pivot: {x: 0.48076922, y: -0.045454547}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 82
+      y: 262
+      width: 26
+      height: 22
+    spriteID: 63af18aff215e734d91e5705180661a0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 82, y: 262}
+  - name: mimic_Frame_37
+    originalName: 
+    pivot: {x: 0.46, y: -0.04347826}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 82
+      y: 231
+      width: 25
+      height: 23
+    spriteID: cbdddeef43cf4a741b05d26c0bc3e2b7
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 82, y: 231}
+  - name: mimic_Frame_38
+    originalName: 
+    pivot: {x: 0.46, y: -0.045454547}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 82
+      y: 322
+      width: 25
+      height: 22
+    spriteID: 9a5dc5686df691d48af3551eb8380c74
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 82, y: 322}
+  - name: mimic_Frame_39
+    originalName: 
+    pivot: {x: 0.46, y: -0.045454547}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 82
+      y: 352
+      width: 25
+      height: 22
+    spriteID: 0400ab4fa9b00ed42bf294f111c3b9ba
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 82, y: 352}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: -465748173
+    name: mimic
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: mimic_Frame_0
+      frameIndex: 0
+      cellRect:
+        x: 12
+        y: 1
+        width: 21
+        height: 20
+      spriteId: 135506e0a16422340966d68fd9784014
+    - name: mimic_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 12
+        y: 1
+        width: 25
+        height: 22
+      spriteId: 7a8ba06eeec1b00469a79fe7af01519f
+    - name: mimic_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 12
+        y: 1
+        width: 25
+        height: 24
+      spriteId: a7a9d6e99caf6584f9c9e9610c9bb40a
+    - name: mimic_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 12
+        y: 1
+        width: 26
+        height: 28
+      spriteId: 5b3b1d981844c1a47bbce0053f377ce1
+    - name: mimic_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 11
+        y: 1
+        width: 30
+        height: 30
+      spriteId: 686b10107e8834d419dabe0aa1610884
+    - name: mimic_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 9
+        y: 1
+        width: 29
+        height: 30
+      spriteId: 856000b25d09b2c4f817fd3e811348ab
+    - name: mimic_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 9
+        y: 1
+        width: 29
+        height: 30
+      spriteId: 632ea6a7b0f6838418c21900733d6047
+    - name: mimic_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 10
+        y: 1
+        width: 28
+        height: 32
+      spriteId: 1274115053c9ca244bad455d298db3f4
+    - name: mimic_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: 9
+        y: 1
+        width: 29
+        height: 32
+      spriteId: 5377b905c617be1409a2c429f66f6684
+    - name: mimic_Frame_9
+      frameIndex: 9
+      cellRect:
+        x: 8
+        y: 1
+        width: 30
+        height: 31
+      spriteId: 6862e19cc3134d24db97aca2b2253f2e
+    - name: mimic_Frame_10
+      frameIndex: 10
+      cellRect:
+        x: 7
+        y: 1
+        width: 28
+        height: 32
+      spriteId: 1b22003b2b034a84e99f304e9c231d9f
+    - name: mimic_Frame_11
+      frameIndex: 11
+      cellRect:
+        x: 5
+        y: 1
+        width: 28
+        height: 30
+      spriteId: d1631d3f387e6cd409260f3d7e64d9c3
+    - name: mimic_Frame_12
+      frameIndex: 12
+      cellRect:
+        x: 8
+        y: 1
+        width: 23
+        height: 28
+      spriteId: 969481a669cc47f4391d2c5b455b9e9e
+    - name: mimic_Frame_13
+      frameIndex: 13
+      cellRect:
+        x: 10
+        y: 1
+        width: 21
+        height: 30
+      spriteId: a79d953761ed1324caa6c158fc4d6734
+    - name: mimic_Frame_14
+      frameIndex: 14
+      cellRect:
+        x: 9
+        y: 1
+        width: 22
+        height: 29
+      spriteId: 6f7dbc748c39dcb4a9ae2860ff148d7f
+    - name: mimic_Frame_15
+      frameIndex: 15
+      cellRect:
+        x: 8
+        y: 1
+        width: 25
+        height: 29
+      spriteId: 01c2d163694a4f140b1980cf1a300457
+    - name: mimic_Frame_16
+      frameIndex: 16
+      cellRect:
+        x: 9
+        y: 1
+        width: 29
+        height: 30
+      spriteId: 545bfe11463c34e44a3c1dc986da7edd
+    - name: mimic_Frame_17
+      frameIndex: 17
+      cellRect:
+        x: 12
+        y: 1
+        width: 29
+        height: 30
+      spriteId: 8c5e57743e272f44bbcf5b8c873abc3f
+    - name: mimic_Frame_18
+      frameIndex: 18
+      cellRect:
+        x: 13
+        y: 1
+        width: 29
+        height: 30
+      spriteId: 9bb4cd3f2e679d64fb47cf30bb715587
+    - name: mimic_Frame_19
+      frameIndex: 19
+      cellRect:
+        x: 13
+        y: 1
+        width: 32
+        height: 31
+      spriteId: e46dfb757d391c044be615cf909f30bf
+    - name: mimic_Frame_20
+      frameIndex: 20
+      cellRect:
+        x: 13
+        y: 1
+        width: 33
+        height: 32
+      spriteId: 27fe6bd98d61a9b4caae63168fd72946
+    - name: mimic_Frame_21
+      frameIndex: 21
+      cellRect:
+        x: 13
+        y: 1
+        width: 33
+        height: 32
+      spriteId: e78ea401c854c4d4aafa288fa2539305
+    - name: mimic_Frame_22
+      frameIndex: 22
+      cellRect:
+        x: 1
+        y: 1
+        width: 31
+        height: 25
+      spriteId: 5bb2252e397f08f4690dc456ee206193
+    - name: mimic_Frame_23
+      frameIndex: 23
+      cellRect:
+        x: 1
+        y: 1
+        width: 31
+        height: 20
+      spriteId: a2e0271cf62b00c4e8562675bcb19dba
+    - name: mimic_Frame_24
+      frameIndex: 24
+      cellRect:
+        x: 1
+        y: 1
+        width: 31
+        height: 21
+      spriteId: e8baf2f8cbd8be34f9bc521810b6c43d
+    - name: mimic_Frame_25
+      frameIndex: 25
+      cellRect:
+        x: 2
+        y: 1
+        width: 30
+        height: 22
+      spriteId: 403aaec49d3d0114b97b6d125a82531c
+    - name: mimic_Frame_26
+      frameIndex: 26
+      cellRect:
+        x: 5
+        y: 1
+        width: 28
+        height: 23
+      spriteId: 84726b0e348346c41ad9dbef9de27f03
+    - name: mimic_Frame_27
+      frameIndex: 27
+      cellRect:
+        x: 11
+        y: 1
+        width: 31
+        height: 30
+      spriteId: e0d1494b3965abd4bbef14e6956c7fcb
+    - name: mimic_Frame_28
+      frameIndex: 28
+      cellRect:
+        x: 13
+        y: 1
+        width: 32
+        height: 30
+      spriteId: ac2b936a25d32394eba80c922d7547b5
+    - name: mimic_Frame_29
+      frameIndex: 29
+      cellRect:
+        x: 12
+        y: 1
+        width: 29
+        height: 30
+      spriteId: 421ffe48c962ef4409d411ada321411f
+    - name: mimic_Frame_30
+      frameIndex: 30
+      cellRect:
+        x: 11
+        y: 1
+        width: 31
+        height: 30
+      spriteId: 4b959405d9bc0d14c881f95627b694ec
+    - name: mimic_Frame_31
+      frameIndex: 31
+      cellRect:
+        x: 13
+        y: 1
+        width: 32
+        height: 30
+      spriteId: d2bf95300eb854c4d9b0d61d0bad1208
+    - name: mimic_Frame_32
+      frameIndex: 32
+      cellRect:
+        x: 12
+        y: 1
+        width: 29
+        height: 30
+      spriteId: 58888df04ff4ecf4b9aadb27700aca36
+    - name: mimic_Frame_33
+      frameIndex: 33
+      cellRect:
+        x: 10
+        y: 1
+        width: 28
+        height: 30
+      spriteId: 0c6e55b173a456c47a279f9d3029baba
+    - name: mimic_Frame_34
+      frameIndex: 34
+      cellRect:
+        x: 9
+        y: 1
+        width: 29
+        height: 28
+      spriteId: b250f964916f32048ac72f7400bc1eea
+    - name: mimic_Frame_35
+      frameIndex: 35
+      cellRect:
+        x: 9
+        y: 1
+        width: 28
+        height: 23
+      spriteId: 9118868d1a51f81488832b02a8370a0e
+    - name: mimic_Frame_36
+      frameIndex: 36
+      cellRect:
+        x: 11
+        y: 1
+        width: 26
+        height: 22
+      spriteId: 63af18aff215e734d91e5705180661a0
+    - name: mimic_Frame_37
+      frameIndex: 37
+      cellRect:
+        x: 12
+        y: 1
+        width: 25
+        height: 23
+      spriteId: cbdddeef43cf4a741b05d26c0bc3e2b7
+    - name: mimic_Frame_38
+      frameIndex: 38
+      cellRect:
+        x: 12
+        y: 1
+        width: 25
+        height: 22
+      spriteId: 9a5dc5686df691d48af3551eb8380c74
+    - name: mimic_Frame_39
+      frameIndex: 39
+      cellRect:
+        x: 12
+        y: 1
+        width: 25
+        height: 22
+      spriteId: 0400ab4fa9b00ed42bf294f111c3b9ba
+    linkedCells: []
+    parentIndex: -1
+  platformSettings: []
+  generatePhysicsShape: 0
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 47, y: 35}

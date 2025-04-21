@@ -54,6 +54,8 @@ public class PlayerStats : MonoBehaviour
 
         float armorMainDefense = 0f;
         float totalDefenseBonusPercent = 0f;
+        float baseHpFromArmor = 0f;
+        float totalHPBonusPercent = 0f;
 
         float weaponMainAttack = 0f;
         float totalAttackBonusPercent = 0f;
@@ -86,6 +88,7 @@ public class PlayerStats : MonoBehaviour
                             eqItem.itemType == EquipmentType.Shoes)
                         {
                             armorMainDefense += GetMainStatValue(eqItem, ItemStat.Defense);
+                            baseHpFromArmor += GetMainStatValue(eqItem, ItemStat.HP);
                         }
                         // 武器主攻击只从 Weapon 类型装备的 主词条 Attack 中获取
                         if (eqItem.itemType == EquipmentType.Weapon)
@@ -98,10 +101,10 @@ public class PlayerStats : MonoBehaviour
                         }
                         // 累加所有装备的次要 Defense 加成
                         totalDefenseBonusPercent += GetSubStatValue(eqItem, ItemStat.Defense);
+                        totalHPBonusPercent += GetSubStatValue(eqItem, ItemStat.HP);
                         // 累加所有装备的次要 Attack 加成
                         totalAttackBonusPercent += GetSubStatValue(eqItem, ItemStat.Attack);
                         // 累加其他属性，均为主+次
-                        totalHP += GetStatValue(eqItem, ItemStat.HP);
                         totalMoveSpeed += GetStatValue(eqItem, ItemStat.MoveSpeed);
                         totalMagicResist += GetStatValue(eqItem, ItemStat.MagicResist);
                         totalCritRate += GetStatValue(eqItem, ItemStat.CritRate);
@@ -120,7 +123,7 @@ public class PlayerStats : MonoBehaviour
         }
 
         // 计算最终属性
-        finalHP = baseHP + totalHP;
+        finalHP = (baseHP + baseHpFromArmor) * (1f + totalHPBonusPercent / 100f);
         // 防御：以所有盔甲主防御为基数，加上次要 Defense 百分比加成
         finalDefense = armorMainDefense * (1f + totalDefenseBonusPercent / 100f);
         // 攻击：以武器主攻击为基数，加上次要 Attack 百分比加成
@@ -176,6 +179,10 @@ public class PlayerStats : MonoBehaviour
     private float GetMainStatValue(EquipmentItem eqItem, ItemStat statType)
     {
         float sum = 0f;
+
+        if (eqItem.itemType == EquipmentType.Accessory)
+            return 0f;
+
         foreach (var statEntry in eqItem.MainStats)
         {
             if (statEntry.stat == statType)
@@ -184,17 +191,27 @@ public class PlayerStats : MonoBehaviour
         return sum;
     }
 
-    /// <summary>
-    /// 获取装备中仅次要词条的某个属性
-    /// </summary>
     private float GetSubStatValue(EquipmentItem eqItem, ItemStat statType)
     {
         float sum = 0f;
+
+        // 添加饰品的主词条作为“副词条”
+        if (eqItem.itemType == EquipmentType.Accessory)
+        {
+            foreach (var statEntry in eqItem.MainStats)
+            {
+                if (statEntry.stat == statType)
+                    sum += statEntry.value;
+            }
+        }
+
+        // 正常的副词条统计
         foreach (var statEntry in eqItem.SubStats)
         {
             if (statEntry.stat == statType)
                 sum += statEntry.value;
         }
+
         return sum;
     }
 

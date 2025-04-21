@@ -18,28 +18,28 @@ public static class EnemyFactory
                 return new EnemyStats
                 {
                     type = type,
-                    maxHP = 100 + (level - 1) * 60,
-                    attack = 5 + (level - 1) * 2,
+                    maxHP = 100 + (level - 1) * 100,
+                    attack = 5 + (level - 1) * 3,
                     attackInterval = 1.5f,
-                    defense = 0 + (level - 1) * 2
+                    defense = 0 + (level - 1) * 4
                 };
             case EnemyType.Goblin:
                 return new EnemyStats
                 {
                     type = type,
-                    maxHP = 70 + (level - 1) * 30,
-                    attack = 10 + (level - 1) * 3,
+                    maxHP = 70 + (level - 1) * 50,
+                    attack = 10 + (level - 1) * 5,
                     attackInterval = 1f,
-                    defense = 3 + (level - 1) * 2
+                    defense = 3 + (level - 1) * 3
                 };
             case EnemyType.Bat:
                 return new EnemyStats
                 {
                     type = type,
-                    maxHP = 50 + (level - 1) * 20,
-                    attack = 7 + (level - 1) * 2,
+                    maxHP = 50 + (level - 1) * 40,
+                    attack = 7 + (level - 1) * 3,
                     attackInterval = 0.7f,
-                    defense = 2 + (level - 1)
+                    defense = 2 + (level - 1) * 2
                 };
             default:
                 return null;

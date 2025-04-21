@@ -30,6 +30,7 @@ public class EquipmentItem : MonoBehaviour
 {
     [Header("装备基础数据")]
     public int equipmentSeed = 0;
+    public int equipmentLevel = 0;
     public EquipmentType itemType;
     public EquipmentRarity rarity;
     public string itemName;
@@ -54,6 +55,12 @@ public class EquipmentItem : MonoBehaviour
     public IReadOnlyList<StatEntry> MainStats => mainStats;
     public IReadOnlyList<StatEntry> SubStats => subStats;
 
+    public void GenerateStats(int specifiedLevel)
+    {
+        equipmentLevel = specifiedLevel;
+        GenerateStats();
+    }
+
     public void GenerateStats()
     {
         var originalState = Random.state;
@@ -62,7 +69,10 @@ public class EquipmentItem : MonoBehaviour
         Random.InitState(equipmentSeed);
 
         // 获取当前层数
-        int level = GameObject.FindObjectOfType<CaveGenerator>()?.currentLevel ?? 1;
+        int level = (equipmentLevel > 0) 
+                    ? equipmentLevel 
+                    : (GameObject.FindObjectOfType<CaveGenerator>()?.currentLevel ?? 1);
+        equipmentLevel = level;
 
         // 类型分配
         float randType = Random.Range(0f, 1f);

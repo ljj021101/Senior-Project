@@ -28,7 +28,7 @@ public static class EnemyFactory
                 {
                     type = type,
                     maxHP = 70 + (level - 1) * 50,
-                    attack = 10 + (level - 1) * 5,
+                    attack = 7 + (level - 1) * 5,
                     attackInterval = 1f,
                     defense = 3 + (level - 1) * 3
                 };
@@ -37,7 +37,7 @@ public static class EnemyFactory
                 {
                     type = type,
                     maxHP = 50 + (level - 1) * 40,
-                    attack = 7 + (level - 1) * 3,
+                    attack = 6 + (level - 1) * 3,
                     attackInterval = 0.7f,
                     defense = 2 + (level - 1) * 2
                 };

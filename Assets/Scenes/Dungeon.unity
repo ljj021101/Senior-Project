@@ -2586,7 +2586,7 @@ MonoBehaviour:
   baseLightRadius: 100
   playerLight: {fileID: 752532669}
   currentHP: 0
-  baseAttackInterval: 1
+  baseAttackInterval: 2
   equipmentParent: {fileID: 278927250}
   finalHP: 0
   finalDefense: 0

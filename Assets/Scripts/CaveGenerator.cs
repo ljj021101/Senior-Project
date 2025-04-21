@@ -38,7 +38,7 @@ public class CaveGenerator : MonoBehaviour
 
     // 玩家位置与移动控制
     Vector2Int playerPosition;
-    float moveSpeed = 2f;
+    float moveSpeed;
     private bool isMoving = false;
     public float gridSpacing = 0.32f;
 
@@ -60,6 +60,7 @@ public class CaveGenerator : MonoBehaviour
 
     void Update()
     {
+        moveSpeed = playerStats.finalMoveSpeed;
         MovePlayer();
         if (isMoving)
         {

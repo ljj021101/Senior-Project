@@ -115,8 +115,8 @@ public class EquipmentItem : MonoBehaviour
             case EquipmentType.Leg:
             case EquipmentType.Shoes:
                 {
-                    int baseDef = Random.Range(0, 3); // 0~2
-                    int defBonus = (rarity == EquipmentRarity.Rare || rarity == EquipmentRarity.Legendary) ? 1 : 0;
+                    int baseDef = Random.Range(0, 3) + level / 3;
+                    float defBonus = (rarity == EquipmentRarity.Rare || rarity == EquipmentRarity.Legendary) ? level / 2f : 0;
                     float defense = baseDef + defBonus + Mathf.FloorToInt(level / 3f);
                     float hp = Random.Range(10, 26) + (rarity == EquipmentRarity.Rare || rarity == EquipmentRarity.Legendary ? 15 : 0) + level * 10;
                     mainStats.Add(new StatEntry(ItemStat.Defense, defense));
@@ -129,15 +129,15 @@ public class EquipmentItem : MonoBehaviour
                     WeaponClass[] classes = { WeaponClass.Light, WeaponClass.Medium, WeaponClass.Heavy };
                     weaponClass = classes[Random.Range(0, classes.Length)];
 
-                    float atk = Random.Range(2, 8 + level);
+                    float atk = Random.Range(2, 8) + level;
                     switch (weaponClass)
                     {
-                        case WeaponClass.Medium: atk = atk * 2f + level; break;
-                        case WeaponClass.Heavy: atk = atk * 4f + level; break;
+                        case WeaponClass.Medium: atk = (atk + 2) * 2; break;
+                        case WeaponClass.Heavy: atk = (atk + 5) * 4; break;
                     }
 
-                    if (rarity == EquipmentRarity.Rare) atk += 2;
-                    else if (rarity == EquipmentRarity.Legendary) atk += 3;
+                    if (rarity == EquipmentRarity.Rare) atk += 2 * level;
+                    else if (rarity == EquipmentRarity.Legendary) atk += 3 * level;
 
                     int atkSpeed = weaponClass == WeaponClass.Light ? 1 : weaponClass == WeaponClass.Medium ? 2 : 3;
 

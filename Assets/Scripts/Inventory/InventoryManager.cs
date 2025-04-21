@@ -49,7 +49,7 @@ public class InventoryManager : MonoBehaviour
     {   
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            AddNewItemWithSeed(-1);
+            //AddNewItemWithSeed(-1);
         }
     }
 

@@ -402,7 +402,7 @@ public class CaveGenerator : MonoBehaviour
             case 2: return 6f;
             case 3: return 15f;
             case 4: return 30f;
-            default: return 20f;
+            default: return 10f;
         }
     }
 

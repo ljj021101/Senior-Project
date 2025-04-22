@@ -85,6 +85,18 @@ public class BattleManager : MonoBehaviour
         StartCoroutine(BattleSequence());
     }
 
+    float GetAttackDelay(EnemyType type)
+    {
+        switch (type)
+        {
+            case EnemyType.Slime: return 0.5f;
+            case EnemyType.Goblin: return 0.2f;
+            case EnemyType.Bat: return 0.2f;
+            case EnemyType.Mimic: return 0.6f;
+            default: return 0.3f;
+        }
+    }
+
     IEnumerator BattleSequence()
     {
         //battleInProgress = true;
@@ -146,32 +158,10 @@ public class BattleManager : MonoBehaviour
                     : $"对敌人造成了 {finalDamage:F1} 点伤害");
             }
 
-
             if (enemyTimer >= currentEnemy.attackInterval)
             {
                 enemyTimer = 0f;
-
-                float baseDamage = currentEnemy.attack;
-                float reducedDamage = Mathf.Max(1f, baseDamage - playerStats.finalDefense);
-
-                float finalDamage = reducedDamage * UnityEngine.Random.Range(0.8f, 1.2f);
-                finalDamage = Mathf.Max(1f, finalDamage);
-
-                playerStats.currentHP -= finalDamage;
-                playerHPBar.value = playerStats.currentHP;
-
-                // 动画和音效
-                enemyBattleController.animator.SetTrigger("Attack");
-                switch (currentEnemy.type)
-                {
-                    case EnemyType.Slime: audioSource?.PlayOneShot(slimeAttackClip); break;
-                    case EnemyType.Goblin: audioSource?.PlayOneShot(goblinAttackClip); break;
-                    case EnemyType.Bat: audioSource?.PlayOneShot(batAttackClip); break;
-                }
-                playerModelInstance.GetComponentInChildren<HitEffect>()?.Flash();
-
-                // 显示玩家受到伤害的飘字
-                ShowDamageText(finalDamage, playerHPBar.GetComponent<RectTransform>(), false);
+                StartCoroutine(EnemyAttack());
             }
 
             yield return null;
@@ -185,6 +175,35 @@ public class BattleManager : MonoBehaviour
             HandleWin();
 
         //battleInProgress = false;
+    }
+
+    IEnumerator EnemyAttack()
+    {
+        enemyBattleController.animator.SetTrigger("Attack");
+
+        float delay = GetAttackDelay(currentEnemy.type);
+        yield return new WaitForSeconds(delay);
+
+        float baseDamage = currentEnemy.attack;
+        float reducedDamage = Mathf.Max(1f, baseDamage - playerStats.finalDefense);
+        float finalDamage = reducedDamage * UnityEngine.Random.Range(0.8f, 1.2f);
+        finalDamage = Mathf.Max(1f, finalDamage);
+
+        playerStats.currentHP -= finalDamage;
+        playerHPBar.value = playerStats.currentHP;
+
+        // 播放音效
+        switch (currentEnemy.type)
+        {
+            case EnemyType.Slime: audioSource?.PlayOneShot(slimeAttackClip); break;
+            case EnemyType.Goblin: audioSource?.PlayOneShot(goblinAttackClip); break;
+            case EnemyType.Bat: audioSource?.PlayOneShot(batAttackClip); break;
+        }
+
+        playerModelInstance.GetComponentInChildren<HitEffect>()?.Flash();
+
+        // 飘字显示
+        ShowDamageText(finalDamage, playerHPBar.GetComponent<RectTransform>(), false);
     }
 
     IEnumerator ShrinkLight()
@@ -303,6 +322,8 @@ public class BattleManager : MonoBehaviour
     void HandleWin()
     {
         Debug.Log("玩家胜利！");
+        int gainedExp = GetExpFromEnemy(currentEnemy.type);
+        playerStats.GainExp(gainedExp);
         FindObjectOfType<CaveGenerator>()?.ClearEnemyTile(enemyTilePosition);
 
         switch (currentEnemy.type)
@@ -430,4 +451,16 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    public int GetExpFromEnemy(EnemyType type)
+    {
+        var cave = FindObjectOfType<CaveGenerator>();
+        switch (type)
+        {
+            case EnemyType.Slime: return 10 + cave.currentLevel * 10;
+            case EnemyType.Goblin: return 30 + cave.currentLevel * 20;
+            case EnemyType.Bat: return 15 + cave.currentLevel * 20;
+            case EnemyType.Mimic: return 50 + cave.currentLevel * 100;
+            default: return 0;
+        }
+    }
 }

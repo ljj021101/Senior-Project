@@ -18,6 +18,7 @@ public class PlayerStatsUI : MonoBehaviour
     public TMP_Text magicResistText;
     public TMP_Text lightText;
     public TMP_Text attackSpeedText;
+    
 
     private void Start()
     {

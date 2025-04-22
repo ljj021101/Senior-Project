@@ -8,6 +8,9 @@ public class EquipmentAndInventorySaveData
     public int[] allSeeds;
     public int[] allLevels; 
     public float currentHP;
+    public int playerLevel;
+    public int currentExp;
+    public int expToNextLevel;
 }
 
 public class InventoryManager : MonoBehaviour
@@ -89,6 +92,12 @@ public class InventoryManager : MonoBehaviour
 
             // 将装备放到背包的第一个空槽
             AddItemToBackpack(eqItem);
+
+            InventoryManager manager = FindObjectOfType<InventoryManager>();
+            if (manager != null)
+            {
+                manager.SaveAll();
+            }
 
             return eqItem;  //返回新生成的装备
         }
@@ -189,6 +198,9 @@ public class InventoryManager : MonoBehaviour
         saveData.allLevels = allLevels;
         saveData.currentHP = playerStats.currentHP;
         Debug.Log("存档角色HP: " + playerStats.currentHP);
+        saveData.playerLevel = playerStats.playerLevel;
+        saveData.currentExp = playerStats.currentExp;
+        saveData.expToNextLevel = playerStats.expToNextLevel;
 
         // 写入 JSON 文件
         string json = JsonUtility.ToJson(saveData);
@@ -219,6 +231,9 @@ public class InventoryManager : MonoBehaviour
         playerStats.currentHP = loadData.currentHP;
         int[] allSeeds = loadData.allSeeds;
         int[] allLevels = loadData.allLevels;
+        playerStats.playerLevel = loadData.playerLevel;
+        playerStats.currentExp = loadData.currentExp;
+        playerStats.expToNextLevel = loadData.expToNextLevel;
 
         // 清空现有装备栏和背包物品
         for (int i = 0; i < EQUIPMENT_SLOTS_COUNT; i++)

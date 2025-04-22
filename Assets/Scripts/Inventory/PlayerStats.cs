@@ -14,6 +14,11 @@ public class PlayerStats : MonoBehaviour
     public float baseLuck = 0f;              // 初始运气
     public float baseLightRadius = 100f;     // 初始光照范围（百分比）
 
+    [Header("等级与经验")]
+    public int playerLevel = 1;
+    public int currentExp = 1;
+    public int expToNextLevel = 100;
+
     [Header("光照控制")]
     public UnityEngine.Rendering.Universal.Light2D playerLight;
 
@@ -122,11 +127,11 @@ public class PlayerStats : MonoBehaviour
         }
 
         // 计算最终属性
-        finalHP = (baseHP + baseHpFromArmor) * (1f + totalHPBonusPercent / 100f);
+        finalHP = (baseHP + baseHpFromArmor + playerLevel * 10f) * (1f + totalHPBonusPercent / 100f);
         // 防御：以所有盔甲主防御为基数，加上次要 Defense 百分比加成
-        finalDefense = armorMainDefense * (1f + totalDefenseBonusPercent / 100f);
+        finalDefense = (armorMainDefense + 0.5f * playerLevel)* (1f + totalDefenseBonusPercent / 100f);
         // 攻击：以武器主攻击为基数，加上次要 Attack 百分比加成
-        finalAttack = baseAttack + weaponMainAttack * (1f + totalAttackBonusPercent / 100f);
+        finalAttack = (baseAttack + weaponMainAttack + playerLevel) * (1f + totalAttackBonusPercent / 100f);
         finalMoveSpeed = baseMoveSpeed + totalMoveSpeed;
         finalMagicResist = baseMagicResist + totalMagicResist;
         finalCritRate = baseCritRate + totalCritRate;
@@ -145,11 +150,6 @@ public class PlayerStats : MonoBehaviour
             currentHP = finalHP;
         }
 
-        InventoryManager manager = FindObjectOfType<InventoryManager>();
-        if (manager != null)
-        {
-            manager.SaveAll();
-        }
         Debug.Log($"[PlayerStats] Recalculated: HP={finalHP}, DEF={finalDefense}, ATK={finalAttack}, MoveSpeed={finalMoveSpeed}, MagicRes={finalMagicResist}, CritRate={finalCritRate}, CritDamage={finalCritDamage}, Luck={finalLuck}, LightRadius={finalLightRadius}, AttackInterval={finalAttackInterval}");
     }
 
@@ -217,5 +217,21 @@ public class PlayerStats : MonoBehaviour
     void Start()
     {
         RecalculateStats();           // 先计算 finalHP 等属性
+    }
+
+    public void GainExp(int amount)
+    {
+        currentExp += amount;
+        while (currentExp >= expToNextLevel)
+        {
+            currentExp -= expToNextLevel;
+            playerLevel++;
+            expToNextLevel = Mathf.FloorToInt(expToNextLevel * 1.5f); // 每次升级需求更高
+            currentHP = finalHP;
+        }
+
+        InventoryManager manager = FindObjectOfType<InventoryManager>();
+        if (manager != null)
+            manager.SaveAll(); // 升级后立刻保存
     }
 }

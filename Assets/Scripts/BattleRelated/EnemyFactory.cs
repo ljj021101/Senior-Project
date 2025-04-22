@@ -18,8 +18,8 @@ public static class EnemyFactory
             return new EnemyStats
             {
                 type = EnemyType.Mimic,
-                maxHP = 120 + (level - 1) * 100,
-                attack = 20 + (level - 1) * 10,
+                maxHP = 120 + (level - 1) * 120,
+                attack = 20 + (level - 1) * 8,
                 attackInterval = 3f,
                 defense = 0
             };
@@ -38,7 +38,7 @@ public static class EnemyFactory
                     maxHP = 100 + (level - 1) * 100,
                     attack = 5 + (level - 1) * 3,
                     attackInterval = 1.5f,
-                    defense = 0 + (level - 1) * 4
+                    defense = 0 + (level - 1) * 5
                 };
             case EnemyType.Goblin:
                 return new EnemyStats
@@ -47,7 +47,7 @@ public static class EnemyFactory
                     maxHP = 70 + (level - 1) * 50,
                     attack = 7 + (level - 1) * 5,
                     attackInterval = 1f,
-                    defense = 3 + (level - 1) * 3
+                    defense = 3 + (level - 1) * 4
                 };
             case EnemyType.Bat:
                 return new EnemyStats
@@ -56,7 +56,7 @@ public static class EnemyFactory
                     maxHP = 50 + (level - 1) * 40,
                     attack = 6 + (level - 1) * 3,
                     attackInterval = 0.7f,
-                    defense = 2 + (level - 1) * 2
+                    defense = 2 + (level - 1) * 3
                 };
             default:
                 return null;

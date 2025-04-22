@@ -61,6 +61,7 @@ public class BattleManager : MonoBehaviour
     public Vector3 playerTarget;
     public Vector3 enemyTarget;
 
+
     public void StartBattle(EnemyStats enemy, Vector2Int enemyPos)
     {
         currentEnemy = enemy;
@@ -397,6 +398,17 @@ public class BattleManager : MonoBehaviour
         {
             RestartFromLevelOne();
         }
+        if (!isGameOver && Input.GetKeyDown(KeyCode.H))
+        {
+            playerStats = FindObjectOfType<PlayerStats>();
+            if (playerStats.UseConsumable("HealingPotion"))
+            {
+                Debug.Log("成功使用回血药");
+                playerStats.RecalculateStats();
+            }
+            else
+                Debug.Log("没有回血药可用");
+        }
     }
 
     public void RestartFromLevelOne()
@@ -459,7 +471,7 @@ public class BattleManager : MonoBehaviour
             case EnemyType.Slime: return 10 + cave.currentLevel * 10;
             case EnemyType.Goblin: return 30 + cave.currentLevel * 20;
             case EnemyType.Bat: return 15 + cave.currentLevel * 20;
-            case EnemyType.Mimic: return 50 + cave.currentLevel * 100;
+            case EnemyType.Mimic: return 50 + Mathf.FloorToInt(100 * Mathf.Pow(cave.currentLevel, 1.15f));
             default: return 0;
         }
     }

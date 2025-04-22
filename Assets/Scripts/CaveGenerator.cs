@@ -13,6 +13,7 @@ public class CaveGenerator : MonoBehaviour
     public GameObject groundPrefab;         // 地面Prefab
     public GameObject openedTreasurePrefab; // 开启宝箱Prefab
     public GameObject nextLevelPrefab;      // 前往下一层的通道Prefab
+    public GameObject healingItemPrefab;
 
     public GameObject floatingIconPrefab;     // 原有的icon
     public GameObject rarityParticlePrefab;
@@ -160,6 +161,13 @@ public class CaveGenerator : MonoBehaviour
                         audioPlayer.PlayChestOpenSound();
                         DrawMap();
                     }
+                    else if (target == 7)
+                    {
+                        Debug.Log("拾取回血药！");
+                        playerStats.AddConsumable("HealingPotion", 1);
+                        map[newPosition.x, newPosition.y] = 0;
+                        DrawMap();
+                    }
                 }
             }
         }
@@ -237,6 +245,8 @@ public class CaveGenerator : MonoBehaviour
         // 添加宝箱、敌人
         GenerateTreasuresAndEnemies();
         RandomlyPlaceEnemies();
+
+        PlaceConsumableItems();
 
         // 设置玩家起点
         SetPlayerStartPosition();
@@ -503,6 +513,10 @@ public class CaveGenerator : MonoBehaviour
                     Instantiate(nextLevelPrefab, pos, Quaternion.identity);
                 }
                 // 4(玩家) 不在这里绘制，由其他脚本控制玩家对象位置
+                else if (map[x, y] == 7)
+                {
+                    Instantiate(healingItemPrefab, pos, Quaternion.identity);
+                }
             }
         }
     }
@@ -597,6 +611,17 @@ public class CaveGenerator : MonoBehaviour
         if (levelText != null)
         {
             levelText.text = $"Floor {currentLevel}";
+        }
+    }
+
+    void PlaceConsumableItems()
+    {
+        int count = Random.Range(3, 11); 
+        for (int i = 0; i < count; i++)
+        {
+            Vector2Int pos = GetRandomPathPosition();
+            if (pos.x == -1) continue;
+            map[pos.x, pos.y] = 7; // 设定为药品标识
         }
     }
 }

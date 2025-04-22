@@ -19,7 +19,7 @@ public static class EnemyFactory
             {
                 type = EnemyType.Mimic,
                 maxHP = 120 + (level - 1) * 120,
-                attack = 20 + (level - 1) * 8,
+                attack = 20 + (level - 1) * 10,
                 attackInterval = 3f,
                 defense = 0
             };
@@ -36,7 +36,7 @@ public static class EnemyFactory
                 {
                     type = type,
                     maxHP = 100 + (level - 1) * 100,
-                    attack = 5 + (level - 1) * 3,
+                    attack = 4 + (level - 1) * 7,
                     attackInterval = 1.5f,
                     defense = 0 + (level - 1) * 5
                 };
@@ -45,7 +45,7 @@ public static class EnemyFactory
                 {
                     type = type,
                     maxHP = 70 + (level - 1) * 50,
-                    attack = 7 + (level - 1) * 5,
+                    attack = 10 + (level - 1) * 7,
                     attackInterval = 1f,
                     defense = 3 + (level - 1) * 4
                 };
@@ -54,7 +54,7 @@ public static class EnemyFactory
                 {
                     type = type,
                     maxHP = 50 + (level - 1) * 40,
-                    attack = 6 + (level - 1) * 3,
+                    attack = 2 + (level - 1) * 7,
                     attackInterval = 0.7f,
                     defense = 2 + (level - 1) * 3
                 };

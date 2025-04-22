@@ -18,7 +18,7 @@ public class PlayerStatsUI : MonoBehaviour
     public TMP_Text magicResistText;
     public TMP_Text lightText;
     public TMP_Text attackSpeedText;
-    
+    public TMP_Text healingPotionText;
 
     private void Start()
     {
@@ -48,5 +48,13 @@ public class PlayerStatsUI : MonoBehaviour
         magicResistText.text = $"MagicResist: {playerStats.finalMagicResist}";
         lightText.text = $"Light: {playerStats.finalLightRadius:F2}%";
         attackSpeedText.text = $"AttackSpeed: {playerStats.finalAttackInterval:F2}";
+    }
+
+    public void UpdateConsumableUI(string name, int count)
+    {
+        if (name == "HealingPotion")
+        {
+            healingPotionText.text = $"X{count} (H)";
+        }
     }
 }

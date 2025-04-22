@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+
 
 public class PlayerStats : MonoBehaviour
 {
@@ -42,6 +44,9 @@ public class PlayerStats : MonoBehaviour
     public float finalLuck;
     public float finalLightRadius;
     public float finalAttackInterval; // 攻击间隔 = 武器主攻速 / (1 + 非武器攻速加成)
+
+    [Header("消耗品数量")]
+    public Dictionary<string, int> consumableInventory = new Dictionary<string, int>();
 
     /// <summary>
     /// 重新计算玩家属性
@@ -140,7 +145,10 @@ public class PlayerStats : MonoBehaviour
         finalLightRadius = baseLightRadius + totalLightRadius;
 
         float normalLightRadius = finalLightRadius / 100f;
-        playerLight.pointLightOuterRadius = normalLightRadius;
+        if (!IsInBattle())
+        {
+            playerLight.pointLightOuterRadius = normalLightRadius;
+        }
 
         // 攻击间隔 = 武器主攻速 / (1 + 非武器攻速加成)
         finalAttackInterval = weaponAttackSpeed / (1f + nonWeaponAttackSpeedBonus);
@@ -228,10 +236,45 @@ public class PlayerStats : MonoBehaviour
             playerLevel++;
             expToNextLevel = Mathf.FloorToInt(expToNextLevel * 1.5f); // 每次升级需求更高
             currentHP = finalHP;
+            RecalculateStats();
         }
 
         InventoryManager manager = FindObjectOfType<InventoryManager>();
         if (manager != null)
             manager.SaveAll(); // 升级后立刻保存
+    }
+
+    public void AddConsumable(string name, int amount)
+    {
+        if (!consumableInventory.ContainsKey(name))
+            consumableInventory[name] = 0;
+        consumableInventory[name] += amount;
+        Debug.Log($"获得 {name} ×{amount}，当前数量：{consumableInventory[name]}");
+
+        FindObjectOfType<PlayerStatsUI>()?.UpdateConsumableUI(name, consumableInventory[name]);
+    }
+
+    public bool UseConsumable(string name)
+    {
+        if (consumableInventory.ContainsKey(name) && consumableInventory[name] > 0)
+        {
+            consumableInventory[name]--;
+            currentHP = Mathf.Min(finalHP, currentHP + finalHP * 0.1f);
+            Debug.Log($"使用{name}，恢复生命，目前血量：{currentHP}");
+            FindObjectOfType<PlayerStatsUI>()?.UpdateConsumableUI(name, consumableInventory[name]);
+            if(IsInBattle())
+            {
+                var battle = FindObjectOfType<BattleManager>();
+                battle.playerHPBar.value = currentHP;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private bool IsInBattle()
+    {
+        var battle = FindObjectOfType<BattleManager>();
+        return battle != null && battle.gameObject.activeInHierarchy;
     }
 }

@@ -60,7 +60,9 @@
     <Analyzer Include="F:\2022.3.17f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Inventory\ConsumableItem.cs" />
     <Compile Include="Assets\Scripts\Inventory\EquipmentSlot.cs" />
+    <Compile Include="Assets\Enemy Galore 1 - Pixel Art\Script\EnemyTest.cs" />
     <Compile Include="Assets\Scripts\GameManagement\AudioPlayer.cs" />
     <Compile Include="Assets\Scripts\GameManagement\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\BattleRelated\EnemyStats.cs" />
@@ -69,9 +71,13 @@
     <Compile Include="Assets\Scripts\Inventory\EquipmentItem.cs" />
     <Compile Include="Assets\Viking Warrior\Scripts\HelpButtonScript.cs" />
     <Compile Include="Assets\Scripts\Inventory\InventoryToggle.cs" />
+    <Compile Include="Assets\Enemy Galore 1 - Pixel Art\Script\EnemySelector.cs" />
+    <Compile Include="Assets\Scripts\Inventory\FloatingIcon.cs" />
     <Compile Include="Assets\Scripts\Inventory\PlayerStats.cs" />
     <Compile Include="Assets\Scripts\GameManagement\GameManager.cs" />
+    <Compile Include="Assets\Scripts\PlayerExpUI.cs" />
     <Compile Include="Assets\Scripts\Inventory\InventoryManager.cs" />
+    <Compile Include="Assets\Scripts\BattleRelated\HitEffect.cs" />
     <Compile Include="Assets\Scripts\BattleRelated\EnemyFactory.cs" />
     <Compile Include="Assets\Scripts\Inventory\EquipmentInfoPanel.cs" />
     <Compile Include="Assets\Scripts\BattleRelated\BattleManager.cs" />
@@ -79,6 +85,7 @@
     <Compile Include="Assets\Scripts\Inventory\TrashSlot.cs" />
     <Compile Include="Assets\Scripts\PauseMenu.cs" />
     <Compile Include="Assets\Scripts\Inventory\PlayerStatsUI.cs" />
+    <Compile Include="Assets\Scripts\BattleRelated\EnemyBattleController.cs" />
     <Compile Include="Assets\Scripts\CaveGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -90,6 +97,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
     <None Include="Assets\Viking Warrior\_README.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\Enemy Galore 1 - Pixel Art\Read Me.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />

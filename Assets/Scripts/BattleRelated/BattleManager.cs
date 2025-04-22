@@ -26,6 +26,8 @@ public class BattleManager : MonoBehaviour
     public AudioClip slimeDeathClip;
     public AudioClip goblinDeathClip;
     public AudioClip batDeathClip;
+    public AudioClip mimicAttackClip;
+    public AudioClip mimicDeathClip;
     public AudioClip playerDeathClip;
 
     [Header("UI Components")]
@@ -183,7 +185,23 @@ public class BattleManager : MonoBehaviour
         enemyBattleController.animator.SetTrigger("Attack");
 
         float delay = GetAttackDelay(currentEnemy.type);
-        yield return new WaitForSeconds(delay);
+
+        if (currentEnemy.type == EnemyType.Mimic)
+        {
+            audioSource?.PlayOneShot(mimicAttackClip);
+        }
+
+        float elapsed = 0f;
+        while (elapsed < delay)
+        {
+            if (enemyModelInstance == null || !enemyModelInstance.activeInHierarchy)
+            {
+                yield break; // 如果敌人失效则立即终止攻击
+            }
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
 
         float baseDamage = currentEnemy.attack;
         float reducedDamage = Mathf.Max(1f, baseDamage - playerStats.finalDefense);
@@ -193,17 +211,24 @@ public class BattleManager : MonoBehaviour
         playerStats.currentHP -= finalDamage;
         playerHPBar.value = playerStats.currentHP;
 
-        // 播放音效
-        switch (currentEnemy.type)
+        if (enemyModelInstance == null || !enemyModelInstance.activeInHierarchy)
         {
-            case EnemyType.Slime: audioSource?.PlayOneShot(slimeAttackClip); break;
-            case EnemyType.Goblin: audioSource?.PlayOneShot(goblinAttackClip); break;
-            case EnemyType.Bat: audioSource?.PlayOneShot(batAttackClip); break;
+            yield break;
+        }
+
+        // 播放音效（Mimic 已提前播放）
+        if (currentEnemy.type != EnemyType.Mimic)
+        {
+            switch (currentEnemy.type)
+            {
+                case EnemyType.Slime: audioSource?.PlayOneShot(slimeAttackClip); break;
+                case EnemyType.Goblin: audioSource?.PlayOneShot(goblinAttackClip); break;
+                case EnemyType.Bat: audioSource?.PlayOneShot(batAttackClip); break;
+            }
         }
 
         playerModelInstance.GetComponentInChildren<HitEffect>()?.Flash();
 
-        // 飘字显示
         ShowDamageText(finalDamage, playerHPBar.GetComponent<RectTransform>(), false);
     }
 
@@ -332,6 +357,7 @@ public class BattleManager : MonoBehaviour
             case EnemyType.Slime: audioSource?.PlayOneShot(slimeDeathClip); break;
             case EnemyType.Goblin: audioSource?.PlayOneShot(goblinDeathClip); break;
             case EnemyType.Bat: audioSource?.PlayOneShot(batDeathClip); break;
+            case EnemyType.Mimic: audioSource?.PlayOneShot(mimicDeathClip); break;
         }
 
         EndBattle();

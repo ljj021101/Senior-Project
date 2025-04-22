@@ -36,8 +36,6 @@ public class CaveGenerator : MonoBehaviour
     // 矩阵说明：0=通路, 1=墙体, 2=宝箱, 3=敌人, 4=玩家, 5=已开启宝箱, 6=通往下一层通道
     private int[,] map;
 
-    
-
     // 玩家位置与移动控制
     Vector2Int playerPosition;
     float moveSpeed;

@@ -233,8 +233,14 @@ public class InventoryManager : MonoBehaviour
         int[] allLevels = loadData.allLevels;
         playerStats.playerLevel = loadData.playerLevel;
         playerStats.currentExp = loadData.currentExp;
-        playerStats.expToNextLevel = loadData.expToNextLevel;
-
+        if (loadData.expToNextLevel != 0)
+        {
+            playerStats.expToNextLevel = loadData.expToNextLevel;
+        }
+        else
+        {
+            playerStats.expToNextLevel = 100;
+        }
         // 清空现有装备栏和背包物品
         for (int i = 0; i < EQUIPMENT_SLOTS_COUNT; i++)
         {

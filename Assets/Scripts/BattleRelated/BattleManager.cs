@@ -431,6 +431,18 @@ public class BattleManager : MonoBehaviour
         playerStats.currentHP = playerStats.finalHP;
         playerAnimator.SetTrigger("Idle");
 
+        // 清空回血药和钥匙数量
+        playerStats.consumableInventory["HealingPotion"] = 0;
+        playerStats.consumableInventory["Key"] = 0;
+
+        // 更新 UI 显示
+        var ui = FindObjectOfType<PlayerStatsUI>();
+        if (ui != null)
+        {
+            ui.UpdateConsumableUI("HealingPotion", 0);
+            ui.UpdateConsumableUI("Key", 0);
+        }
+
         var cave = FindObjectOfType<CaveGenerator>();
         if (cave != null)
         {
@@ -439,12 +451,13 @@ public class BattleManager : MonoBehaviour
             cave.canMove = true;
             cave.canOpenInventory = true;
         }
+
         StartCoroutine(RestoreLight());
         battleUI.SetActive(false);
 
         Debug.Log("玩家重生并回到第一层！");
-        
     }
+
 
     void AdjustEnemyModelTransform(EnemyType type)
     {

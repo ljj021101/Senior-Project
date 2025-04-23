@@ -19,6 +19,7 @@ public class PlayerStatsUI : MonoBehaviour
     public TMP_Text lightText;
     public TMP_Text attackSpeedText;
     public TMP_Text healingPotionText;
+    public TMP_Text keyText;
 
     private void Start()
     {
@@ -55,6 +56,10 @@ public class PlayerStatsUI : MonoBehaviour
         if (name == "HealingPotion")
         {
             healingPotionText.text = $"X{count} (H)";
+        }
+        if (name == "Key")
+        {
+            keyText.text = $"X{count}";
         }
     }
 }

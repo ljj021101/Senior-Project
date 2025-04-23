@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class CaveGenerator : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class CaveGenerator : MonoBehaviour
     public GameObject openedTreasurePrefab; // 开启宝箱Prefab
     public GameObject nextLevelPrefab;      // 前往下一层的通道Prefab
     public GameObject healingItemPrefab;
+    public GameObject keyPrefab;
+    public GameObject goldChestPrefab;
+    public GameObject openedGoldChestPrefab;
 
     public GameObject floatingIconPrefab;     // 原有的icon
     public GameObject rarityParticlePrefab;
@@ -166,10 +170,51 @@ public class CaveGenerator : MonoBehaviour
                         map[newPosition.x, newPosition.y] = 0;
                         DrawMap();
                     }
+                    else if (target == 8) // 钥匙
+                    {
+                        Debug.Log("拾取钥匙！");
+                        playerStats.AddConsumable("Key", 1);
+                        map[newPosition.x, newPosition.y] = 0;
+                        DrawMap();
+                    }
+                    else if (target == 9) // 上锁宝箱
+                    {
+                        if (playerStats.UseConsumable("Key"))
+                        {
+                            Debug.Log("使用钥匙开启宝箱！");
+                            map[newPosition.x, newPosition.y] = 10;
+
+                            StartCoroutine(OpenLockedChestWithDelay(newPosition));
+
+                            inventoryManager.SaveAll();
+                            audioPlayer.PlayChestOpenSound();
+                            DrawMap();
+                        }
+                        else
+                        {
+                            Debug.Log("宝箱上锁，需要钥匙！");
+                        }
+                    }
                 }
             }
         }
     }
+
+    private IEnumerator OpenLockedChestWithDelay(Vector2Int chestPos)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            EquipmentItem item = inventoryManager.AddNewItemWithSeed(-1);
+            ShowFloatingIconAboveChest(chestPos, item);
+            ShowRarityParticleEffect(chestPos, item);
+            yield return new WaitForSeconds(0.6f);
+        }
+
+        inventoryManager.SaveAll();
+        audioPlayer.PlayChestOpenSound();
+        DrawMap();
+    }
+
 
     void ShowFloatingIconAboveChest(Vector2Int chestPos, EquipmentItem item)
     {
@@ -196,7 +241,7 @@ public class CaveGenerator : MonoBehaviour
         if (rarityParticlePrefab == null || item == null) return;
 
         // 位置
-        Vector3 worldPos = new Vector3(chestPos.x * gridSpacing - 0.03f, chestPos.y * gridSpacing, 0f);
+        Vector3 worldPos = new Vector3(chestPos.x * gridSpacing, chestPos.y * gridSpacing, 0f);
 
         // 实例化粒子
         GameObject fx = Instantiate(rarityParticlePrefab, worldPos, Quaternion.identity);
@@ -245,6 +290,7 @@ public class CaveGenerator : MonoBehaviour
         RandomlyPlaceEnemies();
 
         PlaceConsumableItems();
+        PlaceKeyItems();    
 
         // 设置玩家起点
         SetPlayerStartPosition();
@@ -348,7 +394,15 @@ public class CaveGenerator : MonoBehaviour
                     }
                     else if (Random.Range(0f, 1f) < 0.6f)
                     {
-                        map[x, y] = 2; // 正常宝箱
+                        bool isLocked = Random.value < 0.1f; // 10% 上锁概率
+                        if (isLocked)
+                        {
+                            map[x, y] = 9; // 9 代表上锁宝箱
+                        }
+                        else
+                        {
+                            map[x, y] = 2;
+                        }
                         PlaceEnemyNearTreasureInMap(x, y);
                     }
                 }
@@ -515,6 +569,18 @@ public class CaveGenerator : MonoBehaviour
                 {
                     Instantiate(healingItemPrefab, pos, Quaternion.identity);
                 }
+                else if (map[x, y] == 8)
+                {
+                    Instantiate(keyPrefab, pos, Quaternion.identity);
+                }
+                else if (map[x, y] == 9)
+                {
+                    Instantiate(goldChestPrefab, pos, Quaternion.identity);
+                }
+                else if (map[x, y] == 10)
+                {
+                    Instantiate(openedGoldChestPrefab, pos, Quaternion.identity);
+                }
             }
         }
     }
@@ -620,6 +686,17 @@ public class CaveGenerator : MonoBehaviour
             Vector2Int pos = GetRandomPathPosition();
             if (pos.x == -1) continue;
             map[pos.x, pos.y] = 7; // 设定为药品标识
+        }
+    }
+
+    void PlaceKeyItems()
+    {
+        int keyCount = Random.Range(0, 4); // 每层随机生成0~3把钥匙
+        for (int i = 0; i < keyCount; i++)
+        {
+            Vector2Int pos = GetRandomPathPosition();
+            if (pos.x == -1) continue;
+            map[pos.x, pos.y] = 8; // 用 8 表示钥匙
         }
     }
 }

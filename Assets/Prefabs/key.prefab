@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8411686982438572552}
   - component: {fileID: 2285330196998869884}
   m_Layer: 0
-  m_Name: chest
+  m_Name: key
   m_TagString: map
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: -1934854639
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: -51488239, guid: 03c26ef7983c598428fb823c8e337118, type: 3}
+  m_Sprite: {fileID: -1080422002, guid: 7e66da8875febee40bddaaeb8a0864ae, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

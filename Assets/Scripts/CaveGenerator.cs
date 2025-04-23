@@ -136,6 +136,7 @@ public class CaveGenerator : MonoBehaviour
                     {
                         playerPosition = newPosition;
                         isMoving = true;
+                        ClearEnemyTile(newPosition);
                         DrawMap();
 
                         EnemyStats enemy = EnemyFactory.CreateEnemyAtPosition(newPosition, globalSeed);
@@ -147,6 +148,20 @@ public class CaveGenerator : MonoBehaviour
                     {
                         map[newPosition.x, newPosition.y] = 5; // 标记宝箱已开启
                         Debug.Log("宝箱打开，位置：" + newPosition);
+
+                        Vector2Int chestPos = newPosition;
+
+                        // 删除旧的宝箱贴图
+                        if (tileObjects.ContainsKey(chestPos))
+                        {
+                            Destroy(tileObjects[chestPos]);
+                            tileObjects.Remove(chestPos);
+                        }
+
+                        // 重新绘制为已开启的宝箱
+                        GameObject newChest = InstantiateTileAt(chestPos);
+                        if (newChest != null)
+                            tileObjects[chestPos] = newChest;
 
                         // 生成装备并添加至背包
                         EquipmentItem newItem = inventoryManager.AddNewItemWithSeed(-1);
@@ -162,6 +177,19 @@ public class CaveGenerator : MonoBehaviour
                     else if (target == 7)
                     {
                         Debug.Log("拾取回血药！");
+                        map[newPosition.x, newPosition.y] = 0; // 移除血药
+
+                        Vector2Int itemPos = newPosition;
+
+                        if (tileObjects.ContainsKey(itemPos))
+                        {
+                            Destroy(tileObjects[itemPos]);
+                            tileObjects.Remove(itemPos);
+                        }
+
+                        GameObject newTile = InstantiateTileAt(itemPos);
+                        if (newTile != null)
+                            tileObjects[itemPos] = newTile;
                         playerStats.AddConsumable("HealingPotion", 1);
                         map[newPosition.x, newPosition.y] = 0;
                         DrawMap();
@@ -437,87 +465,121 @@ public class CaveGenerator : MonoBehaviour
         }
     }
 
+    private Dictionary<Vector2Int, GameObject> tileObjects = new(); // 存储当前已绘制的 tile
+    private int visionRadius = 20; // 可视范围
+
     void DrawMap()
     {
-        ClearMap();
-        int radius = 10;
-        int startX = Mathf.Max(0, playerPosition.x - radius);
-        int endX = Mathf.Min(width, playerPosition.x + radius + 1);
-        int startY = Mathf.Max(0, playerPosition.y - radius);
-        int endY = Mathf.Min(height, playerPosition.y + radius + 1);
+        HashSet<Vector2Int> newVisibleTiles = new();
+        int startX = Mathf.Max(0, playerPosition.x - visionRadius);
+        int endX = Mathf.Min(width, playerPosition.x + visionRadius + 1);
+        int startY = Mathf.Max(0, playerPosition.y - visionRadius);
+        int endY = Mathf.Min(height, playerPosition.y + visionRadius + 1);
 
         for (int x = startX; x < endX; x++)
         {
             for (int y = startY; y < endY; y++)
             {
-                Vector3 pos = new Vector3(x * gridSpacing, y * gridSpacing, 0);
+                Vector2Int pos = new(x, y);
+                newVisibleTiles.Add(pos);
 
-                // 如果不是墙，则先生成地面
-                if (map[x, y] != 1)
+                if (!tileObjects.ContainsKey(pos))
                 {
-                    Instantiate(groundPrefab, pos, Quaternion.identity);
-                }
-
-                // 根据地图值生成对应物体
-                if (map[x, y] == 1)
-                {
-                    int index = GetTileIndex(x, y);
-                    Instantiate(wallTiles[index], pos, Quaternion.identity);
-                }
-                else if (map[x, y] == 2)
-                {
-                    Instantiate(treasurePrefab, pos, Quaternion.identity);
-                }
-                else if (map[x, y] == 3)
-                {
-                    Vector2Int posKey = new Vector2Int(x, y);
-                    enemyMap[posKey] = EnemyFactory.CreateEnemyAtPosition(posKey, globalSeed);
-                    if (enemyMap.ContainsKey(posKey))
-                    {
-                        EnemyType type = enemyMap[posKey].type;
-                        GameObject prefabToUse = null;
-
-                        switch (type)
-                        {
-                            case EnemyType.Slime:
-                                prefabToUse = slimePrefab;
-                                break;
-                            case EnemyType.Goblin:
-                                prefabToUse = goblinPrefab;
-                                break;
-                            case EnemyType.Bat:
-                                prefabToUse = batPrefab;
-                                break;
-                            case EnemyType.Mimic:
-                                prefabToUse = mimicPrefab;
-                                break;
-                            default:
-                                prefabToUse = enemyPrefab;
-                                break;
-                        }
-
-                        if (prefabToUse != null)
-                            Instantiate(prefabToUse, pos, Quaternion.identity, transform);
-                    }
-                }
-                else if (map[x, y] == 5)
-                {
-                    Instantiate(openedTreasurePrefab, pos, Quaternion.identity);
-                }
-                // 6 表示通道，需要一个 nextLevelPrefab
-                else if (map[x, y] == 6)
-                {
-                    // 在 Inspector 中为 nextLevelPrefab 指定一个传送门或楼梯外观
-                    Instantiate(nextLevelPrefab, pos, Quaternion.identity);
-                }
-                // 4(玩家) 不在这里绘制，由其他脚本控制玩家对象位置
-                else if (map[x, y] == 7)
-                {
-                    Instantiate(healingItemPrefab, pos, Quaternion.identity);
+                    GameObject obj = InstantiateTileAt(pos);
+                    if (obj != null)
+                        tileObjects[pos] = obj;
                 }
             }
         }
+
+        // 删除离开可视范围的 tile
+        List<Vector2Int> toRemove = new();
+        foreach (var kvp in tileObjects)
+        {
+            if (!newVisibleTiles.Contains(kvp.Key))
+            {
+                Destroy(kvp.Value);
+                toRemove.Add(kvp.Key);
+            }
+        }
+
+        foreach (var key in toRemove)
+        {
+            tileObjects.Remove(key);
+        }
     }
+
+    GameObject InstantiateTileAt(Vector2Int pos)
+    {
+        int x = pos.x;
+        int y = pos.y;
+        Vector3 worldPos = new(x * gridSpacing, y * gridSpacing, 0);
+
+        int value = map[x, y];
+        GameObject obj = null;
+
+        if (value != 1)
+            Instantiate(groundPrefab, worldPos, Quaternion.identity);
+
+        switch (value)
+        {
+            case 1:
+                int index = GetTileIndex(x, y);
+                obj = Instantiate(wallTiles[index], worldPos, Quaternion.identity);
+                break;
+            case 2:
+                obj = Instantiate(treasurePrefab, worldPos, Quaternion.identity);
+                break;
+            case 3:
+                EnemyStats enemy = EnemyFactory.CreateEnemyAtPosition(pos, globalSeed);
+                enemyMap[pos] = enemy;
+                GameObject enemyPrefab = GetEnemyPrefab(enemy.type);
+                if (enemyPrefab != null)
+                    obj = Instantiate(enemyPrefab, worldPos, Quaternion.identity, transform);
+                break;
+            case 5:
+                obj = Instantiate(openedTreasurePrefab, worldPos, Quaternion.identity);
+                break;
+            case 6:
+                obj = Instantiate(nextLevelPrefab, worldPos, Quaternion.identity);
+                break;
+            case 7:
+                obj = Instantiate(healingItemPrefab, worldPos, Quaternion.identity);
+                break;
+        }
+
+        return obj;
+    }
+
+    GameObject GetEnemyPrefab(EnemyType type)
+    {
+        return type switch
+        {
+            EnemyType.Slime => slimePrefab,
+            EnemyType.Goblin => goblinPrefab,
+            EnemyType.Bat => batPrefab,
+            EnemyType.Mimic => mimicPrefab,
+            _ => enemyPrefab,
+        };
+    }
+
+    public void ClearEnemyTile(Vector2Int pos)
+    {
+        map[pos.x, pos.y] = 0;
+
+        // 清除旧 Tile
+        if (tileObjects.ContainsKey(pos))
+        {
+            Destroy(tileObjects[pos]);
+            tileObjects.Remove(pos);
+        }
+
+        // 重新绘制新 Tile
+        GameObject newObj = InstantiateTileAt(pos);
+        if (newObj != null)
+            tileObjects[pos] = newObj;
+    }
+
 
     void ClearMap()
     {
@@ -526,12 +588,6 @@ public class CaveGenerator : MonoBehaviour
         {
             Destroy(obj);
         }
-    }
-
-    public void ClearEnemyTile(Vector2Int pos)
-    {
-        map[pos.x, pos.y] = 0;
-        DrawMap();
     }
 
     int GetTileIndex(int x, int y)

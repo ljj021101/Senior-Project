@@ -442,6 +442,9 @@ public class BattleManager : MonoBehaviour
         StartCoroutine(RestoreLight());
         battleUI.SetActive(false);
 
+        playerStats.consumableInventory.Clear();
+        FindObjectOfType<PlayerStatsUI>()?.UpdateConsumableUI("HealingPotion", 0);
+
         Debug.Log("玩家重生并回到第一层！");
         
     }

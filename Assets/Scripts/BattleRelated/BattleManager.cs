@@ -185,23 +185,7 @@ public class BattleManager : MonoBehaviour
         enemyBattleController.animator.SetTrigger("Attack");
 
         float delay = GetAttackDelay(currentEnemy.type);
-
-        if (currentEnemy.type == EnemyType.Mimic)
-        {
-            audioSource?.PlayOneShot(mimicAttackClip);
-        }
-
-        float elapsed = 0f;
-        while (elapsed < delay)
-        {
-            if (enemyModelInstance == null || !enemyModelInstance.activeInHierarchy)
-            {
-                yield break; // 如果敌人失效则立即终止攻击
-            }
-
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
+        yield return new WaitForSeconds(delay);
 
         float baseDamage = currentEnemy.attack;
         float reducedDamage = Mathf.Max(1f, baseDamage - playerStats.finalDefense);
@@ -213,22 +197,21 @@ public class BattleManager : MonoBehaviour
 
         if (enemyModelInstance == null || !enemyModelInstance.activeInHierarchy)
         {
-            yield break;
+            yield break; // 敌人已被禁用，不继续执行攻击逻辑
         }
 
-        // 播放音效（Mimic 已提前播放）
-        if (currentEnemy.type != EnemyType.Mimic)
+        // 播放音效
+        switch (currentEnemy.type)
         {
-            switch (currentEnemy.type)
-            {
-                case EnemyType.Slime: audioSource?.PlayOneShot(slimeAttackClip); break;
-                case EnemyType.Goblin: audioSource?.PlayOneShot(goblinAttackClip); break;
-                case EnemyType.Bat: audioSource?.PlayOneShot(batAttackClip); break;
-            }
+            case EnemyType.Slime: audioSource?.PlayOneShot(slimeAttackClip); break;
+            case EnemyType.Goblin: audioSource?.PlayOneShot(goblinAttackClip); break;
+            case EnemyType.Bat: audioSource?.PlayOneShot(batAttackClip); break;
+            case EnemyType.Mimic: audioSource?.PlayOneShot(mimicAttackClip); break;
         }
 
         playerModelInstance.GetComponentInChildren<HitEffect>()?.Flash();
 
+        // 飘字显示
         ShowDamageText(finalDamage, playerHPBar.GetComponent<RectTransform>(), false);
     }
 

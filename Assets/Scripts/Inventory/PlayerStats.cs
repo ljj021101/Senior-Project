@@ -48,6 +48,8 @@ public class PlayerStats : MonoBehaviour
     [Header("消耗品数量")]
     public Dictionary<string, int> consumableInventory = new Dictionary<string, int>();
 
+    public GameObject BattlePanel;
+
     /// <summary>
     /// 重新计算玩家属性
     /// </summary>
@@ -274,7 +276,6 @@ public class PlayerStats : MonoBehaviour
 
     private bool IsInBattle()
     {
-        var battle = FindObjectOfType<BattleManager>();
-        return battle != null && battle.gameObject.activeInHierarchy;
+        return BattlePanel != null && BattlePanel.gameObject.activeInHierarchy;
     }
 }

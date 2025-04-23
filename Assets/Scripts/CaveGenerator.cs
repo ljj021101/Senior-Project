@@ -441,10 +441,10 @@ public class CaveGenerator : MonoBehaviour
     {
         ClearMap();
         int radius = 10;
-        int startX = Mathf.Max(0, playerPosition.x - radius);
-        int endX = Mathf.Min(width, playerPosition.x + radius + 1);
-        int startY = Mathf.Max(0, playerPosition.y - radius);
-        int endY = Mathf.Min(height, playerPosition.y + radius + 1);
+        int startX = Mathf.Max(0, playerPosition.x - radius - 4);
+        int endX = Mathf.Min(width, playerPosition.x + radius + 1 + 4);
+        int startY = Mathf.Max(0, playerPosition.y - radius + 2);
+        int endY = Mathf.Min(height, playerPosition.y + radius + 1 - 2);
 
         for (int x = startX; x < endX; x++)
         {

@@ -916,7 +916,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: X0 (H)
+  m_text: X0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4c2d6259c19c36443b1be7810845e9b9, type: 2}
   m_sharedMaterial: {fileID: 5883418661534051357, guid: 4c2d6259c19c36443b1be7810845e9b9, type: 2}
@@ -8809,7 +8809,7 @@ MonoBehaviour:
   slimeDeathClip: {fileID: 8300000, guid: 7990241a03acc7c42ab67e5c6bedac76, type: 3}
   goblinDeathClip: {fileID: 8300000, guid: 8774ebbde33df5c48987457ca6cbc1f8, type: 3}
   batDeathClip: {fileID: 8300000, guid: 359aaa7f0dd450c459f364dcacd1272b, type: 3}
-  mimicAttackClip: {fileID: 8300000, guid: d62fd1a13b9aff14a912e82915c08237, type: 3}
+  mimicAttackClip: {fileID: 8300000, guid: ba57f0849447cd5479fa973b9ace43c5, type: 3}
   mimicDeathClip: {fileID: 8300000, guid: 8749ae76038a2d8458ba82a5b7e0f74c, type: 3}
   playerDeathClip: {fileID: 8300000, guid: f905892231245864a8176fa6c0a2bab0, type: 3}
   battleUI: {fileID: 126984986}

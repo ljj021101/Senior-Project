@@ -200,21 +200,24 @@ public class CaveGenerator : MonoBehaviour
         }
     }
 
-    private IEnumerator OpenLockedChestWithDelay(Vector2Int chestPos)
+    IEnumerator OpenLockedChestWithDelay(Vector2Int chestPos)
     {
-        for (int i = 0; i < 3; i++)
+        int[] dropChances = { 100, 90, 70, 50, 25, 0, 0, 0, -10, -30, -60, -100 };
+        for (int i = 0; i < dropChances.Length; i++)
         {
-            EquipmentItem item = inventoryManager.AddNewItemWithSeed(-1);
-            ShowFloatingIconAboveChest(chestPos, item);
-            ShowRarityParticleEffect(chestPos, item);
-            yield return new WaitForSeconds(0.6f);
+            if (i == 0 || Random.Range(0f, 100f) < dropChances[i] + playerStats.finalLuck)
+            {
+                EquipmentItem item = inventoryManager.AddNewItemWithSeed(-1);
+                ShowFloatingIconAboveChest(chestPos, item);
+                ShowRarityParticleEffect(chestPos, item);
+                yield return new WaitForSeconds(0.5f);
+            }
+            else
+            {
+                break;
+            }
         }
-
-        inventoryManager.SaveAll();
-        audioPlayer.PlayChestOpenSound();
-        DrawMap();
     }
-
 
     void ShowFloatingIconAboveChest(Vector2Int chestPos, EquipmentItem item)
     {
@@ -691,7 +694,7 @@ public class CaveGenerator : MonoBehaviour
 
     void PlaceKeyItems()
     {
-        int keyCount = Random.Range(0, 4); // 每层随机生成0~3把钥匙
+        int keyCount = Random.Range(0, 2); // 每层随机生成0~1把钥匙
         for (int i = 0; i < keyCount; i++)
         {
             Vector2Int pos = GetRandomPathPosition();

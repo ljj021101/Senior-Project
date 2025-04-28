@@ -32,8 +32,13 @@ public class EquipmentSlot : MonoBehaviour, IDropHandler
         outlineEffect.enabled = flag;
     }
 
-    public void OnDrop(PointerEventData eventData)
+public void OnDrop(PointerEventData eventData)
 {
+    // 1. 跳过丢弃区
+    if (GetComponent<TrashSlot>() != null)
+        return;
+
+    // 2. 原有的交换逻辑……（见下）
     var draggable = eventData.pointerDrag?.GetComponent<DraggableItem>();
     if (draggable == null) return;
 
@@ -41,7 +46,7 @@ public class EquipmentSlot : MonoBehaviour, IDropHandler
     if (requireMatchingType && (newItem == null || newItem.itemType != slotType))
         return;
 
-    // 1) 若槽里有旧装备，就退回原父格，并归零本地坐标
+    // 如果已有旧装备，退回原位
     if (transform.childCount > 0)
     {
         var old = transform.GetChild(0);
@@ -49,13 +54,12 @@ public class EquipmentSlot : MonoBehaviour, IDropHandler
         old.localPosition = Vector3.zero;
     }
 
-    // 2) 把新装备放进本槽，并归零本地坐标
+    // 放入新装备
     draggable.transform.SetParent(transform, false);
     draggable.transform.localPosition = Vector3.zero;
-
-    // 3) 标记放置成功
     draggable.dropSuccessful = true;
 }
+
 
 }
 

@@ -1,14 +1,20 @@
+// DraggableItem.cs (原始版本)
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
 {
-    private Vector3 originalPosition;      // 拖拽开始时记录物品的世界坐标
-    private Transform originalParent;      // 拖拽物品原来的父物体
-    public bool dropSuccessful = false;    // 成功放置时由槽设置为 true
-    private CanvasGroup canvasGroup;       // 用于控制 Raycast
-    private Canvas overrideCanvas;         // 临时 Canvas，用于提升排序
+    // 原来 private 的两个字段，改成 public 并隐藏 Inspector
+    [HideInInspector]
+    public Vector3 originalPosition;
+
+    [HideInInspector]
+    public Transform originalParent;
+
+    public bool dropSuccessful = false;
+    private CanvasGroup canvasGroup;
+    private Canvas overrideCanvas;
 
     private EquipmentSlot highlightedSlot; // 用于保存匹配的装备槽
 
